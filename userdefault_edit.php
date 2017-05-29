@@ -1,3 +1,11 @@
+﻿<?php
+include_once('connection/connect.php');
+$comando = "SELECT * FROM acessante";
+$id = $_GET['id'];
+
+$resultado = mysqli_query($conn, $comando);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,7 +32,7 @@
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-           <div class="navbar nav_title" style="border: 0;"><a href="index.html" class="site_title"><em class="fa fa-hotel"></em> <span>Sistema BuscaRep</span></a></div>
+           <div class="navbar nav_title" style="border: 0;"><a href="user_home.php" class="site_title"><em class="fa fa-hotel"></em> <span>Sistema BuscaRep</span></a></div>
 
             <div class="clearfix"></div>
 
@@ -44,28 +52,29 @@
             <br />
 
             <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Menu</h3>
                 <ul class="nav side-menu">
-                  <li><a href="plain_page.html"><em class="fa fa-home"></em> Home </a></li>
+                  <li><a href="user_home.php"><em class="fa fa-home"></em> Home </a></li>
                   <li><a><em class="fa fa-edit"></em> Cadastro </a> <ul class="nav child_menu">
-                      <li><a href="reg_user.html">Usuário</a></li>
-                      <li><a href="reg_userdefault.html">Acessante</a></li>
+                      <li><a href="user_reg.php">Usuário</a></li>
+                      <li><a href="userdefault_reg.php">Acessante</a></li>
                     </ul>
                   </li>
                   <li><a><em class="fa fa-desktop"></em> Consulta<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="view_1.html">Usuário</a></li>
-                      <li><a href="view_2.html">Acessante</a></li>
+                      <li><a href="user_view.php">Usuário</a></li>
+                      <li><a href="userdefault_view.php">Acessante</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+                  <li><a><em class="fa fa-home"></em> República <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                     <li><a href="rep_cad_page.php"> Nova República+</a></li>
+				     <li><a href="rep_page.php">Sua República</a></li>
+                     <li><a href="rep_view.php">Ver Repúblicas</a></li>
+                    
                     </ul>
-                  </li>
                   <li><a><em class="fa fa-bar-chart-o"></em> Estatísticas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
@@ -75,7 +84,7 @@
                 </ul>
               </div>
             </div>
-            
+
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
@@ -192,7 +201,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Cadastro Usuário</h3>
+                <h3>Alteração Usuário</h3>
               </div>
 
               <div class="title_right">
@@ -225,35 +234,59 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="envia.php" method="POST">
-
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="user">Usuário <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="user" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
-                        
-                      </div>
-                      <div class="form-group">
+                    
+                   <?php while($dado = mysqli_fetch_array($resultado)){ ?>
+                    <form action="userdefault_update.php?id=<?php echo $dado["user"]?>" method="POST" id="form" data-parsley-validate class="form-horizontal form-label-left">
+					   <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nome <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="name" name="name" required="required" value = "<?php echo $dado["name"] ?>" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       
-                       <div class="form-group">
-                        <label for="last-name" class="control-label col-md-3 col-sm-3 col-xs-12">Sobrenome</label>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastname">Sobrenome <span class="required">*</span>
+                        </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="last-name" class="form-control col-md-7 col-xs-12" type="text" name="last-name">
+                          <input type="text" id="lastname" name="lastname" required="required" value = "<?php echo $dado["lastname"] ?>" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       
-                       <div class="form-group">
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">Endereço <span class="required"></span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="address" name="address" value = "<?php echo $dado["address"] ?>" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
                         <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">E-mail</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="email" class="form-control col-md-7 col-xs-12" type="text" name="email">
+                          <input id="email" class="form-control col-md-7 col-xs-12" type="text" name="email" value = "<?php echo $dado["email"] ?>">
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="phone" class="control-label col-md-3 col-sm-3 col-xs-12">Telefone</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="phone" class="form-control col-md-7 col-xs-12" type="text" name="phone" value = "<?php echo $dado["phone"] ?>">
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Sexo</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                      <div id="gender" class="btn-group" data-toggle="buttons" value = "<?php echo $dado["gender"] ?>">
+                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" name="gender" value="Masculino"> &nbsp; Masculino &nbsp;
+                        </label>
+                        
+                        <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" name="gender" value="Feminino"> Feminino
+                        </label>
+                          </div>
                         </div>
                       </div>
                       
@@ -261,35 +294,19 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Data de Nascimento <span class="required"></span>
                         </label>
                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="date">
+                          <input id="birthday" name="birthday" class="date-picker form-control col-md-7 col-xs-12" value = "<?php echo $dado["birthday"] ?>" required="required" type="date">
                         </div>
                       </div>
-                      
-                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Senha <span class="required">*</span>
-                        </label>
-                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="password" class="password form-control col-md-7 col-xs-12" required="required" type="password">
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Confirmar Senha <span class="required">*</span>
-                        </label>
-                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="confirm_password" class="password form-control col-md-7 col-xs-12" required="required" type="password">
-                        </div>
-                      </div>
-                      
+                       
                        <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <button type="submit" class="btn btn-primary">Cancelar</button>
-                          <button type="submit" class="btn btn-success">Salvar</button>
+                          <button type="submit" value="Cadastrar" class="btn btn-success">Salvar</button>
                         </div>
                       </div>
-
+   					<?php } ?>
                     </form>
-                  </div>
+                  </div>	
                 </div>
                 </div>
               </div>

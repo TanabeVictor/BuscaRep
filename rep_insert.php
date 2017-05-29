@@ -1,3 +1,38 @@
+﻿<?php
+
+include_once('connection/connect.php');
+
+$id = rand(1000,10000);
+$name = $_POST['name'];
+$creation = $_POST['creation'];
+$type = $_POST['type'];
+$state = $_POST['state'];
+$city = $_POST['city'];
+$street = $_POST['street'];
+$neighboor = $_POST['neighboor'];
+$complement = $_POST['complement'];
+$email = $_POST['email'];
+$phone = $_POST['phone'];
+$cellphone = $_POST['cellphone'];
+$qtd = $_POST['qtd'];
+$services = $_POST['services'];
+$agency = $_POST['agency'];
+$img_id = rand(1000,100000);
+
+$msg = false;
+
+if(isset($_FILES['arquivo'])){
+	$extensao = strtolower(substr($_FILES['arquivo']['name'], -4));
+	$novo_nome = md5(time()).$extensao;
+	$diretorio = "upload/";
+	
+	move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome);}
+
+$comando = "INSERT INTO republica(id, name, creation, type, state, city, street, neighboor, complement, email, phone, cellphone, qtd, services, agency, img_id, img_name, img_date) VALUES ('$id', '$name', '$creation', '$type', '$state', '$city', '$street', '$neighboor', '$complement', '$email', '$phone', '$cellphone', '$qtd', '$services', '$agency','$img_id', '$novo_nome', NOW())";
+
+$resultado = mysqli_query($conn, $comando);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,7 +59,7 @@
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;"><a href="index.html" class="site_title"><em class="fa fa-hotel"></em> <span>Sistema BuscaRep</span></a></div>
+           <div class="navbar nav_title" style="border: 0;"><a href="user_home.php" class="site_title"><em class="fa fa-hotel"></em> <span>Sistema BuscaRep</span></a></div>
 
             <div class="clearfix"></div>
 
@@ -48,24 +83,25 @@
               <div class="menu_section">
                 <h3>Menu</h3>
                 <ul class="nav side-menu">
-                  <li><a href="plain_page.html"><em class="fa fa-home"></em> Home </a></li>
+                  <li><a href="user_home.php"><em class="fa fa-home"></em> Home </a></li>
                   <li><a><em class="fa fa-edit"></em> Cadastro </a> <ul class="nav child_menu">
-                      <li><a href="reg_user.html">Usuário</a></li>
-                      <li><a href="reg_userdefault.html">Acessante</a></li>
+                      <li><a href="user_reg.php">Usuário</a></li>
+                      <li><a href="userdefault_reg.php">Acessante</a></li>
                     </ul>
                   </li>
                   <li><a><em class="fa fa-desktop"></em> Consulta<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="view_1.html">Usuário</a></li>
-                      <li><a href="view_2.html">Acessante</a></li>
+                      <li><a href="user_view.php">Usuário</a></li>
+                      <li><a href="userdefault_view.php">Acessante</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+                  <li><a><em class="fa fa-home"></em> República <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                     <li><a href="rep_cad_page.php"> Nova República+</a></li>
+				     <li><a href="rep_page.php">Sua República</a></li>
+                     <li><a href="rep_view.php">Ver Repúblicas</a></li>
+                    
                     </ul>
-                  </li>
                   <li><a><em class="fa fa-bar-chart-o"></em> Estatísticas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
@@ -107,26 +143,26 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Usuário Teste
+                    <img src="images/img.jpg" alt="">John Doe
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Perfil</a></li>
+                    <li><a href="javascript:;"> Profile</a></li>
                     <li>
                       <a href="javascript:;">
                         <span class="badge bg-red pull-right">50%</span>
-                        <span>Configurações</span>
+                        <span>Settings</span>
                       </a>
                     </li>
-                    <li><a href="javascript:;">Ajuda</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
+                    <li><a href="javascript:;">Help</a></li>
+                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green"></span>
+                    <span class="badge bg-green">6</span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     <li>
@@ -198,15 +234,15 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Consulta</h3>
+                <h3>Operação</h3>
               </div>
 
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Pesquisar">
+                    <input type="text" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">></button>
+                      <button class="btn btn-default" type="button">Go!</button>
                     </span>
                   </div>
                 </div>
@@ -214,138 +250,50 @@
             </div>
 
             <div class="clearfix"></div>
-				<div class="x_panel">
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
                   <div class="x_title">
-                    <h2>Consulta Acessante</h2>
+                    <h2>República Inserido!</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown"> </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-
                   <div class="x_content">
-
-                    <p>Consulta geral de cadastros no sistema.</p>
-
-                    <div class="table-responsive">
-                      <table class="table table-striped jambo_table bulk_action">
-                        <thead>
-                          <tr class="headings">
-                            <th>
-                              <input type="checkbox" id="check-all" class="flat">
-                            </th>
-                            <th class="column-title">ID</th>
-                            <th class="column-title">Nome</th>
-                            <th class="column-title">Sobrenome</th>
-                            <th class="column-title">Endereço</th>
-                            <th class="column-title">Status </th>
-                            <th class="column-title">Telefone</th>
-                            <th class="column-title no-link last"><span class="nobr">Opção</span>
-                            </th>
-                            <th class="bulk-actions" colspan="7">
-                              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                            </th>
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">01</td>
-                            <td class=" ">Victor </td>
-                            <td class=" ">Pereira</td>
-                            <td class=" ">Rua Miguel Albano, 2071</td>
-                            <td class=" ">Ativo</td>
-                            <td class="a-right a-right ">35 984120450</td>
-                            <td class=" last"><a href="#">Ver</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">02</td>
-                            <td class=" ">Victor </td>
-                            <td class=" ">Pereira</td>
-                            <td class=" ">Rua Miguel Albano, 2071</td>
-                            <td class=" ">Ativo</td>
-                            <td class="a-right a-right ">35 984120450</td>
-                            <td class=" last"><a href="#">Ver</a>
-                            </td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">03</td>
-                            <td class=" ">Victor </td>
-                            <td class=" ">Pereira</td>
-                            <td class=" ">Rua Miguel Albano, 2071</td>
-                            <td class=" ">Ativo</td>
-                            <td class="a-right a-right ">35 984120450</td>
-                            <td class=" last"><a href="#">Ver</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">04</td>
-                            <td class=" ">Victor </td>
-                            <td class=" ">Pereira</td>
-                            <td class=" ">Rua Miguel Albano, 2071</td>
-                            <td class=" ">Inativo</td>
-                            <td class="a-right a-right ">35 984120450</td>
-                            <td class=" last"><a href="#">Ver</a>
-                            </td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">05</td>
-                            <td class=" ">Victor </td>
-                            <td class=" ">Pereira</td>
-                            <td class=" ">Rua Miguel Albano, 2071</td>
-                            <td class=" ">Inativo</td>
-                            <td class="a-right a-right ">35 984120450</td>
-                            <td class=" last"><a href="#">Ver</a></td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                            <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">06</td>
-                            <td class=" ">Victor </td>
-                            <td class=" ">Pereira</td>
-                            <td class=" ">Rua Miguel Albano, 2071</td>
-                            <td class=" ">Ativo</td>
-                            <td class="a-right a-right ">35 984120450</td>
-                            <td class=" last"><a href="#">Ver</a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <center><button type="submit" class="btn btn-danger">Remover</button></center>
-                    </div>
+                    República cadastrada com sucesso!
                   </div>
                 </div>
+              </div>
             </div>
-            <div class="row"> </div>
           </div>
         </div>
         <!-- /page content -->
 
         <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
         <!-- /footer content -->
       </div>
-   
+    </div>
+
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -359,3 +307,7 @@
     <script src="../build/js/custom.min.js"></script>
   </body>
 </html>
+
+
+	
+	

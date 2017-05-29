@@ -1,3 +1,10 @@
+﻿<?php
+include_once('connection/connect.php');
+
+$comando = "SELECT * FROM republica";
+$resultado = mysqli_query($conn, $comando);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,7 +31,7 @@
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;"><a href="index.html" class="site_title"><em class="fa fa-hotel"></em> <span>Sistema BuscaRep</span></a></div>
+            <div class="navbar nav_title" style="border: 0;"><a href="user_home.php" class="site_title"><em class="fa fa-hotel"></em> <span>Sistema BuscaRep</span></a></div>
 
             <div class="clearfix"></div>
 
@@ -44,28 +51,29 @@
             <br />
 
             <!-- sidebar menu -->
-           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+		            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Menu</h3>
                 <ul class="nav side-menu">
-                  <li><a href="plain_page.html"><em class="fa fa-home"></em> Home </a></li>
+                  <li><a href="user_home.php"><em class="fa fa-home"></em> Home </a></li>
                   <li><a><em class="fa fa-edit"></em> Cadastro </a> <ul class="nav child_menu">
-                      <li><a href="reg_user.html">Usuário</a></li>
-                      <li><a href="reg_userdefault.html">Acessante</a></li>
+                      <li><a href="user_reg.php">Usuário</a></li>
+                      <li><a href="userdefault_reg.php">Acessante</a></li>
                     </ul>
                   </li>
                   <li><a><em class="fa fa-desktop"></em> Consulta<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="view_1.html">Usuário</a></li>
-                      <li><a href="view_2.html">Acessante</a></li>
+                      <li><a href="user_view.php">Usuário</a></li>
+                      <li><a href="userdefault_view.php">Acessante</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+                  <li><a><em class="fa fa-home"></em> República <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                     <li><a href="rep_cad_page.php"> Nova República+</a></li>
+				     <li><a href="rep_page.php">Sua República</a></li>
+                     <li><a href="rep_view.php">Ver Repúblicas</a></li>
+                    
                     </ul>
-                  </li>
                   <li><a><em class="fa fa-bar-chart-o"></em> Estatísticas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
@@ -75,7 +83,7 @@
                 </ul>
               </div>
             </div>
-            <!-- /sidebar menu -->
+                <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
@@ -123,7 +131,11 @@
                   </ul>
                 </li>
 
-                <li role="presentation" class="dropdown"><a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"> <em class="fa fa-envelope-o"></em> <span class="badge bg-green"></span> </a>
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope-o"></i>
+                    <span class="badge bg-green"></span>
+                  </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     <li>
                       <a>
@@ -194,7 +206,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Plain Page</h3>
+                <h3>Consulta</h3>
               </div>
 
               <div class="title_right">
@@ -210,35 +222,68 @@
             </div>
 
             <div class="clearfix"></div>
-
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
+				<div class="x_panel">
                   <div class="x_title">
-                    <h2>Plain Page</h2>
+                    <h2>Consulta Acessante</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
+                      <li class="dropdown"> </li>
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
+
                   <div class="x_content">
-                      Add content to the page ...
+
+                    <p>Consulta geral de cadastros no sistema.</p>
+
+                    <div class="table-responsive">
+                      <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                          <tr class="headings">
+                            <th>
+                              <input type="checkbox" id="check-all" class="flat">
+                            </th>
+                            <th class="column-title">ID</th>
+                            <th class="column-title">Nome</th>
+                            <th class="column-title">Endereço</th>
+                            <th class="column-title">Telefone</th>
+                            <th class="column-title">Status </th>
+                            <th class="column-title no-link last"><span class="nobr">Opção</span>
+                            </th>
+                            <th class="bulk-actions" colspan="7">
+                              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <?php while($dado = mysqli_fetch_array($resultado)){ ?>
+                           <tr class="even pointer">
+                            <td class="a-center ">
+                            
+                            <input type="checkbox" class="flat" name="table_records">
+                            </td>
+                          	<td class=" "><?php echo $dado["id"]; ?></td>
+                            <td class=" "><?php echo $dado["name"]; ?></td>
+                            <td class=" "><?php echo $dado["street"]; ?></td>
+                            <td class=" "><?php echo $dado["phone"]; ?></td>
+                            <td><button type="button" class="btn btn-success btn-xs">Disponível</button></td>
+                           	<td>
+                            <a href="rep_page.php?id=<?php echo $dado["id"] ?>"><button type="button" class="btn btn-success btn-xs">Ver</button></a>
+                            <a href="rep_delete.php?id=<?php echo $dado["id"] ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Deletar </a>
+                          	</td>
+                          </tr>
+                          <?php } ?>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
-              </div>
             </div>
+            <div class="row"> </div>
           </div>
         </div>
         <!-- /page content -->
@@ -246,8 +291,7 @@
         <!-- footer content -->
         <!-- /footer content -->
       </div>
-    </div>
-
+   
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->

@@ -1,3 +1,18 @@
+﻿<?php
+
+include_once('connection/connect.php');
+
+$id = $_GET['id'];
+$type = $_POST['type'];
+$date = $_POST['date'];
+$value = $_POST['value'];
+$description = $_POST['description'];
+
+$comando = "UPDATE gastos SET type=('$type'), date=('$date'), value=('$value'), description=('$description') WHERE id=('$id')";
+
+$resultado = mysqli_query($conn, $comando);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,7 +39,7 @@
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-           <div class="navbar nav_title" style="border: 0;"><a href="user_home.php" class="site_title"><em class="fa fa-hotel"></em> <span>Sistema BuscaRep</span></a></div>
+           <div class="navbar nav_title" style="border: 0;"><a href="user_home.php" class="site_title"><em class="fa fa-hotel"></em> <span>Sistema   	BuscaRep</span></a></div>
 
             <div class="clearfix"></div>
 
@@ -44,7 +59,7 @@
             <br />
 
             <!-- sidebar menu -->
-             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Menu</h3>
                 <ul class="nav side-menu">
@@ -76,7 +91,9 @@
                 </ul>
               </div>
             </div>
-  
+        <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
@@ -106,33 +123,37 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Usuário Teste
+                    <img src="images/img.jpg" alt="">John Doe
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Perfil</a></li>
+                    <li><a href="javascript:;"> Profile</a></li>
                     <li>
                       <a href="javascript:;">
                         <span class="badge bg-red pull-right">50%</span>
-                        <span>Configurações</span>
+                        <span>Settings</span>
                       </a>
                     </li>
-                    <li><a href="javascript:;">Ajuda</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
+                    <li><a href="javascript:;">Help</a></li>
+                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
-                <li role="presentation" class="dropdown"><a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"> <em class="fa fa-envelope-o"></em> <span class="badge bg-green">4</span> </a>
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope-o"></i>
+                    <span class="badge bg-green">6</span>
+                  </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     <li>
                       <a>
                         <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
                         <span>
-                          <span>Usuário Teste</span>
-                          <span class="time">1 mins ago</span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
-                          Olá! Eu sou um email teste
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
                         </span>
                       </a>
                     </li>
@@ -193,15 +214,15 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Cadastro Usuário</h3>
+                <h3>Operação</h3>
               </div>
 
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Pesquisar">
+                    <input type="text" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">></button>
+                      <button class="btn btn-default" type="button">Go!</button>
                     </span>
                   </div>
                 </div>
@@ -209,81 +230,32 @@
             </div>
 
             <div class="clearfix"></div>
-			<div class="row">
+
+            <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
-                    <ul class="nav navbar-right panel_toolbox">
-                    </ul>
-            
-                  <div class="x_panel">
                   <div class="x_title">
-                    <h2>Formulário - Usuário</h2>
+                    <h2>Acessante Alterado!</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <br />
-                   
-                     <form action="user_insert.php" method="POST" id="form" data-parsley-validate class="form-horizontal form-label-left">
-					  <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nome <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label for="last-name" class="control-label col-md-3 col-sm-3 col-xs-12">Sobrenome</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="lastname" class="form-control col-md-7 col-xs-12" type="text" name="lastname">
-                        </div>
-                      </div>
-                      
-                       <div class="form-group">
-                        <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">E-mail</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="email" class="form-control col-md-7 col-xs-12" type="text" name="email">
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Data de Nascimento <span class="required"></span>
-                        </label>
-                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="birthday" name="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="date">
-                        </div>
-                      </div>
-                      
-                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Senha <span class="required">*</span>
-                        </label>
-                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="password" name="password" class="password form-control col-md-7 col-xs-12" required="required" type="password">
-                        </div>
-                      </div>
-                      
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Confirmar Senha <span class="required">*</span>
-                        </label>
-                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="confirm" name="confirm" class="password form-control col-md-7 col-xs-12" required="required" type="password">
-                        </div>
-                      </div>
-                      
-                       <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">Cancelar</button>
-                          <button type="submit" value="Cadastrar" class="btn btn-success">Salvar</button>
-                        </div>
-                      </div>
-
-                    </form>
+                    Gastos atualizados com sucesso!
                   </div>
-                </div>
                 </div>
               </div>
             </div>
@@ -292,6 +264,12 @@
         <!-- /page content -->
 
         <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
         <!-- /footer content -->
       </div>
     </div>
@@ -309,3 +287,6 @@
     <script src="../build/js/custom.min.js"></script>
   </body>
 </html>
+
+	
+	

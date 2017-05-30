@@ -360,7 +360,7 @@ $resultado = mysqli_query($conn, $comando);
                                   <h4 class="heading">Brian Michaels</h4>
                                   <blockquote class="message">Não gostei!</blockquote>
                                   <br />
-</div>
+								</div>
                               </li>
 
                             </ul>
@@ -413,8 +413,44 @@ $resultado = mysqli_query($conn, $comando);
                             <!-- end user projects -->
 
                           </div>
-                          <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                           <a class="btn btn-block"><i class="fa fa-plus"></i> Gasto</a>
+                          <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab"><a href="gasto_cad_page.php?id=<?php echo $dado["id"] ?>" class="btn btn-block"><em class="fa fa-plus"></em> Gasto</a>
+                          <table class="table table-striped projects">
+                          <?php
+						   include_once('connection/connect.php');
+                           $comando = "SELECT * FROM gastos";
+						   $resultado2 = mysqli_query($conn, $comando)?>
+
+                         <thead>
+                        <tr>
+                          <th>Tipo</th>
+                          <th>Valor</th>
+                          <th>Data</th>
+                          <th>Descrição</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                         <?php while($dado2 = mysqli_fetch_array($resultado2)){ ?>
+                         <tr>
+                          <td><?php echo $dado2['type'] ?></td>
+                          <td>
+                            <a>R$<?php echo $dado2['value'] ?></a>
+                            <br />
+                            <small>Created <?php echo $dado2['date_creation'] ?></small>
+                          </td>
+                          <td><?php echo $dado2['date'] ?></td>
+                          <td>
+                            <?php echo $dado2['description'] ?><br>
+                            <small>Corresponde a 30% Total</small>
+                          </td>
+                          
+                          <td>
+                            <a href="gasto_edit.php?id=<?php echo $dado2["id"] ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Editar </a>
+                            <a href="gasto_delete.php?id=<?php echo $dado2["id"] ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Deletar </a>
+                          </td>
+                        </tr>
+                        <?php } ?>
+                      </tbody>
+                    </table>
                           </div>
                           <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
                             <p>Informações adicionais...</p>

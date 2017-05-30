@@ -261,7 +261,6 @@ $resultado = mysqli_query($conn, $comando);
                         </thead>
 
                         <tbody>
-                          
                           <?php while($dado = mysqli_fetch_array($resultado)){ ?>
                            <tr class="even pointer">
                             <td class="a-center ">

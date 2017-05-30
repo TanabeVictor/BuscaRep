@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 30-Maio-2017 às 01:01
+-- Generation Time: 31-Maio-2017 às 01:32
 -- Versão do servidor: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -49,11 +49,20 @@ CREATE TABLE `acessante` (
 
 CREATE TABLE `gastos` (
   `id` int(8) NOT NULL,
+  `id_rep` int(8) NOT NULL,
   `type` varchar(20) NOT NULL,
   `date` date NOT NULL,
+  `date_creation` date NOT NULL,
   `value` float NOT NULL,
   `description` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `gastos`
+--
+
+INSERT INTO `gastos` (`id`, `id_rep`, `type`, `date`, `date_creation`, `value`, `description`) VALUES
+(5646, 0, 'AlimentaÃ§Ã£o', '2017-05-21', '2017-05-29', 134.5, 'Bretas');
 
 -- --------------------------------------------------------
 
@@ -77,8 +86,7 @@ CREATE TABLE `republica` (
   `qtd` int(2) NOT NULL,
   `services` varchar(80) NOT NULL,
   `agency` varchar(20) NOT NULL,
-  `people_name` varchar(80) NOT NULL,
-  `people_qtd` int(2) NOT NULL,
+  `able` varchar(20) NOT NULL,
   `img_id` int(6) NOT NULL,
   `img_name` varchar(40) NOT NULL,
   `img_date` date NOT NULL
@@ -88,8 +96,8 @@ CREATE TABLE `republica` (
 -- Extraindo dados da tabela `republica`
 --
 
-INSERT INTO `republica` (`id`, `name`, `creation`, `type`, `state`, `city`, `street`, `neighboor`, `complement`, `email`, `phone`, `cellphone`, `qtd`, `services`, `agency`, `people_name`, `people_qtd`, `img_id`, `img_name`, `img_date`) VALUES
-(9634, 'Repdo SASA', '0001-01-01', 'Escolha um', 'Escolha um estado', 'Escolha uma cidade', 'Rua Miguel Albano, 2071', 'LavapÃ©s', 'Casa', 'Msaj@nbdas.com', '299787976', '297678672', 9, 'sasas', 'Laranja', '', 0, 17382, '17382.jpg', '2017-05-29');
+INSERT INTO `republica` (`id`, `name`, `creation`, `type`, `state`, `city`, `street`, `neighboor`, `complement`, `email`, `phone`, `cellphone`, `qtd`, `services`, `agency`, `able`, `img_id`, `img_name`, `img_date`) VALUES
+(8661, 'Rep do Amor', '2017-05-30', 'Masculina', 'Minas Gerais', 'Cidades MG', 'Rua Miguel Albano, 2071', 'Abc', '', 'adlerunifei@gmail.com', '35991226598', '358896654', 5, 'nada', 'locadora', '', 96508, 'fccf40b5e80dfaf6605b9d7055b27fd2.jpg', '2017-05-29');
 
 -- --------------------------------------------------------
 
@@ -105,9 +113,17 @@ CREATE TABLE `usuario` (
   `password` varchar(16) NOT NULL,
   `confirmpassword` varchar(16) NOT NULL,
   `birthday` date NOT NULL,
+  `type` varchar(15) NOT NULL,
   `cod_image` int(15) NOT NULL,
   `name_image` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`user`, `name`, `lastname`, `email`, `password`, `confirmpassword`, `birthday`, `type`, `cod_image`, `name_image`) VALUES
+('2442', 'adler', 'diniz', 'adlerunifei@gmail.com', '123', '123', '1980-01-03', '', 0, '');
 
 --
 -- Indexes for dumped tables

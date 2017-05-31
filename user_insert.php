@@ -6,6 +6,7 @@ $user = rand(1000,10000);
 $name = $_POST['name'];
 $lastname = $_POST['lastname'];
 $email = $_POST['email'];
+$type = $_POST['type'];
 $birthday = $_POST['birthday'];
 $password = $_POST['password'];
 $confirm = $_POST['confirm'];

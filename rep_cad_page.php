@@ -87,7 +87,7 @@
                 </ul>
               </div>
             </div>
-!-- /sidebar menu -->
+<!-- /sidebar menu -->
             <!-- /menu footer buttons -->
           </div>
         </div>
@@ -205,7 +205,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <br />
+                    <br/>
                     <form action="rep_insert.php" method="POST" class="form-horizontal form-label-left" enctype="multipart/form-data">
                        <div class="item form-group">
                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="arquivo"> Imagem </label> 

@@ -1,8 +1,9 @@
 ﻿<?php
 include_once('connection/connect.php');
-$comando = "SELECT * FROM usuario";
+
 $id = $_GET['id'];
 
+$comando = "SELECT * FROM usuario WHERE user=('$id')";
 $resultado = mysqli_query($conn, $comando);
 ?>
 
@@ -13,7 +14,7 @@ $resultado = mysqli_query($conn, $comando);
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+	
     <title>Página Inicial</title>
 
     <!-- Bootstrap -->

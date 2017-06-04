@@ -2,7 +2,7 @@
 include_once('connection/connect.php');
 $id = $_GET['id'];
 
-$comando = "SELECT * FROM acessante WHERE id=('$id')";
+$comando = "SELECT * FROM acessante WHERE user=('$id')";
 $resultado = mysqli_query($conn, $comando);
 ?>
 

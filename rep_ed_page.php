@@ -1,8 +1,8 @@
 <?php
 include_once('connection/connect.php');
-$comando = "SELECT * FROM republica";
 $id = $_GET['id'];
 
+$comando = "SELECT * FROM republica WHERE id=('$id')";
 $resultado = mysqli_query($conn, $comando);
 ?>
 

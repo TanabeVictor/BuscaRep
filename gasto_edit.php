@@ -1,9 +1,9 @@
 ﻿<?php
 include_once('connection/connect.php');
 
-$comando = "SELECT * FROM gastos";
 $id = $_GET['id'];
 
+$comando = "SELECT * FROM acessante WHERE id=('$id')";
 $resultado = mysqli_query($conn, $comando);
 ?>
 

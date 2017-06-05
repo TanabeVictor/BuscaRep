@@ -308,7 +308,6 @@ $resultado = mysqli_query($conn, $comando);
                         <div id="myTabContent" class="tab-content">
                           <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 						   
-                           <a href="aval_page.php?id=<?php echo $dado["id"]?>" class="btn btn-block"><em class="fa fa-plus"></em> Avaliar</a>
                             <!-- start recent activity -->
                             <ul class="messages">
                                <li>
@@ -342,11 +341,19 @@ $resultado = mysqli_query($conn, $comando);
                                   <br />
 								</div>
                               </li>
-	 						 <?php } ?>
-                            </ul>
+	 						</ul>
                             <!-- end recent activity -->
-
+							<ul>
+                        	
+                        	<center><div class="input-group col-md-5 col-sm-5 col-xs-12">
+                    		<input type="text" class="form-control" placeholder="Escreva um comentário...">
+                    		<span class="input-group-btn">
+                      		<a href="aval_page.php?id=<?php echo ($id) ?>"> <button class="btn btn-round btn-info" type="button">Comentar</button></span>
+                  			</div>
+                         	</ul>
                           </div>
+                          <?php } ?>
+                          </center>
                           <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
 
                             <!-- start user projects -->

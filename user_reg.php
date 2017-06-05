@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -292,10 +292,9 @@
                           <button type="submit" value="Cadastrar" class="btn btn-success">Salvar</button>
                         </div>
                       </div>
-
-                    </form>
+				    </form>
                   </div>
-                </div>
+                 </div>
                 </div>
               </div>
             </div>

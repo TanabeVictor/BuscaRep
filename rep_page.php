@@ -10,9 +10,8 @@ $resultado = mysqli_query($conn, $comando);
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" href="images/favicon.ico">
@@ -54,7 +53,7 @@ $resultado = mysqli_query($conn, $comando);
             <br />
 
             <!-- sidebar menu -->
-                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Menu</h3>
                 <ul class="nav side-menu">
@@ -204,7 +203,7 @@ $resultado = mysqli_query($conn, $comando);
                   <div class="x_content">
                     <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
                       <div class="profile_img">
-                      <h3>República <?php echo $dado["name"]; ?></h3>
+                      <h3><?php echo $dado["name"]; ?></h3>
                         <div id="crop-avatar">
                           <!-- Current avatar -->
                           <img class="img-responsive avatar-view" src="upload/<?php echo $dado["img_name"];?>" alt="Avatar">
@@ -213,8 +212,8 @@ $resultado = mysqli_query($conn, $comando);
 
                       <ul class="list-unstyled user_data">
                        	<p></p>
-                        <li><em class="fa fa-map user-profile-icon"></em> <?php echo $dado["city"]; ?> - <?php echo $dado["state"]; ?></li>
-                        <li><em class="fa fa-map-marker user-profile-icon"></em> <?php echo $dado["street"]; ?><?php echo $dado["neighboor"]; ?>,
+                        <li><em class="fa fa-map user-profile-icon"></em> <?php echo $dado["city"];?> - <?php echo $dado["state"];?></li>
+                        <li><em class="fa fa-map-marker user-profile-icon"></em> <?php echo $dado["street"];?> <?php echo $dado["neighboor"];?>,
                         <?php echo $dado["complement"]; ?></li>
                         <li>
                           <i class="fa fa-phone user-profile-icon"></i><?php echo $dado["phone"]; ?>
@@ -236,15 +235,13 @@ $resultado = mysqli_query($conn, $comando);
                       <ul class="list-unstyled user_data">
                         <li>
                           <p> <em class="fa fa-group user-profile-icon"></em>Número de Moradores</p>
-                          <div class="progress progress_sm">
-                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-                          </div>
+                          inserir numero aqui
                         </li>
                         <li>
-                          <p> <em class="fa fa-info user-profile-icon"></em> Tipo de República:<p><h2><?php echo $dado["type"]; ?><h2></p></p>
+                          <p> <br><em class="fa fa-info user-profile-icon"></em> Tipo de República:<p><?php echo $dado["type"]; ?></p></p>
                         </li>
                         <li>
-                          <p> <em class="fa fa-server user-profile-icon"></em> Serviços:<p>.</p><p><?php echo $dado["services"]; ?></p>
+                          <p> <br><em class="fa fa-server user-profile-icon"></em> Serviços:<p></p><p><?php echo $dado["services"]; ?></p>
                         </li>
                       </ul>
                       <!-- end of skills -->
@@ -314,44 +311,7 @@ $resultado = mysqli_query($conn, $comando);
 
                             <!-- start recent activity -->
                             <ul class="messages">
-                              <li>
-                                <img src="images/img.jpg" class="avatar" alt="Avatar">
-                                <div class="message_date">
-                                  <h3 class="date text-info">24</h3>
-                                  <p class="month">May</p>
-                                </div>
-                                <div class="message_wrapper">
-                                  <h4 class="heading">Antônio Macedo</h4>
-                                  <blockquote class="message">República muito bem organizada e limpa!</blockquote>
-                                  <br />
-								</div>
-                              </li>
                               
-                               <li>
-                                <img src="images/img.jpg" class="avatar" alt="Avatar">
-                                <div class="message_date">
-                                  <h3 class="date text-error">21</h3>
-                                  <p class="month">May</p>
-                                </div>
-                                <div class="message_wrapper">
-                                  <h4 class="heading">Rachel Michaels</h4>
-                                  <blockquote class="message">Amei!!! <3</blockquote>
-                                  <br />
-
-                                </div>
-                              </li>
-                              <li>
-                                <img src="images/img.jpg" class="avatar" alt="Avatar">
-                                <div class="message_date">
-                                  <h3 class="date text-info">24</h3>
-                                  <p class="month">May</p>
-                                </div>
-                                <div class="message_wrapper">
-                                  <h4 class="heading">Desmond Davison</h4>
-                                  <blockquote class="message">Simplesmente incrível!</blockquote>
-                                  <br/>
-								</div>
-                              </li>
                               <li>
                                 <img src="images/img.jpg" class="avatar" alt="Avatar">
                                 <div class="message_date">

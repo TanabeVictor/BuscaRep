@@ -70,8 +70,7 @@ $resultado = mysqli_query($conn, $comando);
                   <li><a><em class="fa fa-home"></em> República <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                      <li><a href="rep_cad_page.php"> Nova República+</a></li>
-				     <li><a href="rep_page.php">Sua República</a></li>
-                     <li><a href="rep_view.php">Ver Repúblicas</a></li>
+				     <li><a href="rep_view.php">Ver Repúblicas</a></li>
                     
                     </ul>
                   <li><a><em class="fa fa-bar-chart-o"></em> Estatísticas <span class="fa fa-chevron-down"></span></a>

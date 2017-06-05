@@ -308,25 +308,42 @@ $resultado = mysqli_query($conn, $comando);
                         </ul>
                         <div id="myTabContent" class="tab-content">
                           <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-							<a href="" class="btn btn-block"><em class="fa fa-plus"></em> Avaliar</a>
+						   
+                           <a href="caminho" class="btn btn-block"><em class="fa fa-plus"></em> Avaliar</a>
                             <!-- start recent activity -->
                             <ul class="messages">
-                              
-                              <li>
-                                <img src="images/img.jpg" class="avatar" alt="Avatar">
+                               <li>
+                               <?php
+						        include_once('connection/connect.php');
+						        $id = $_GET['id'];
+                                $comando = "SELECT * FROM avaliacao WHERE id_rep=('$id')";
+						        $resultado3 = mysqli_query($conn, $comando)?>
+					     		
+                          		<?php while($dado3 = mysqli_fetch_array($resultado3)){ ?>
+                           
+                                <img src="upload/<?php echo $dado3['img_name']?>" class="avatar" alt="Avatar">
                                 <div class="message_date">
-                                  <h3 class="date text-error">21</h3>
-                                  <p class="month">May</p>
+                                  
+                                <h3 class="date text-error">
+                               	<?php 
+								$data = $dado3['date'];
+								$partes = explode("-", $data);
+								$dia = $partes[2];
+								$mes = $partes[1];
+							    $ano = $partes[0];													  
+								echo $dia?>
+                               	</h3>
+                                 
+                                <p class="month">Jun</p>
                                 </div>
                                 <div class="message_wrapper">
-                                  <h4 class="heading">Brian Michaels</h4>
+                                  <h4 class="heading"><?php echo $dado3['author'] ?></h4>
                                   <div>
-                      			  <div class="starrr stars"></div><span class="stars-count"></span></div>
-								  <blockquote class="message">Não gostei!</blockquote>
+                      			  <blockquote class="message"><?php echo $dado3['description'] ?></blockquote>
                                   <br />
 								</div>
                               </li>
-
+	 						 <?php } ?>
                             </ul>
                             <!-- end recent activity -->
 

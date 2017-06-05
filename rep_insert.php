@@ -17,7 +17,6 @@ $cellphone = $_POST['cellphone'];
 $qtd = $_POST['qtd'];
 $services = $_POST['services'];
 $agency = $_POST['agency'];
-$img_id = rand(1000,100000);
 
 $msg = false;
 
@@ -28,7 +27,7 @@ if(isset($_FILES['arquivo'])){
 	
 	move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome);}
 
-$comando = "INSERT INTO republica(id, name, creation, type, state, city, street, neighboor, complement, email, phone, cellphone, qtd, services, agency, img_id, img_name, img_date) VALUES ('$id', '$name', '$creation', '$type', '$state', '$city', '$street', '$neighboor', '$complement', '$email', '$phone', '$cellphone', '$qtd', '$services', '$agency','$img_id', '$novo_nome', NOW())";
+$comando = "INSERT INTO republica(id, name, creation, type, state, city, street, neighboor, complement, email, phone, cellphone, qtd, services, agency, img_name) VALUES ('$id', '$name', '$creation', '$type', '$state', '$city', '$street', '$neighboor', '$complement', '$email', '$phone', '$cellphone', '$qtd', '$services', '$agency', '$novo_nome')";
 
 $resultado = mysqli_query($conn, $comando);
 ?>

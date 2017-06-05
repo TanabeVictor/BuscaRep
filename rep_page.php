@@ -308,7 +308,7 @@ $resultado = mysqli_query($conn, $comando);
                         </ul>
                         <div id="myTabContent" class="tab-content">
                           <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-
+							<a href="" class="btn btn-block"><em class="fa fa-plus"></em> Avaliar</a>
                             <!-- start recent activity -->
                             <ul class="messages">
                               
@@ -320,7 +320,9 @@ $resultado = mysqli_query($conn, $comando);
                                 </div>
                                 <div class="message_wrapper">
                                   <h4 class="heading">Brian Michaels</h4>
-                                  <blockquote class="message">Não gostei!</blockquote>
+                                  <div>
+                      			  <div class="starrr stars"></div><span class="stars-count"></span></div>
+								  <blockquote class="message">Não gostei!</blockquote>
                                   <br />
 								</div>
                               </li>
@@ -341,7 +343,7 @@ $resultado = mysqli_query($conn, $comando);
                                   <th class="hidden-phone">Estadia</th>
                                 </tr>
                               </thead>
-                              <tbody>
+                 	             <tbody>
                                 <tr>
                                   <td>1</td>
                                   <td>Robertinho</td>
@@ -429,8 +431,20 @@ $resultado = mysqli_query($conn, $comando);
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../vendors/nprogress/nprogress.js"></script>
-    
+ 
+    <script src="../vendors/starrr/dist/starrr.js"></script>
+
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
   </body>
+	<script>
+      $(document).ready(function() {
+        $(".stars").starrr();
+
+        
+        $('.stars-existing').on('starrr:change', function (e, value) {
+          $('.stars-count-existing').html(value);
+        });
+      });
+    </script>
 </html>

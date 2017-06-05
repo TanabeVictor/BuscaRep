@@ -1,7 +1,9 @@
 <?php
 include_once('connection/connect.php');
+$id = $_GET['id'];
 
-$comando = "SELECT * FROM republica";
+$comando = "SELECT * FROM republica WHERE id=('$id')";
+
 $resultado = mysqli_query($conn, $comando);
 ?>
 
@@ -205,7 +207,7 @@ $resultado = mysqli_query($conn, $comando);
                       <h3>República <?php echo $dado["name"]; ?></h3>
                         <div id="crop-avatar">
                           <!-- Current avatar -->
-                          <img class="img-responsive avatar-view" src="images/Esqueleto-1983.jpg" alt="Avatar" title="Change the avatar">
+                          <img class="img-responsive avatar-view" src="upload/<?php echo $dado["img_name"];?>" alt="Avatar">
                         </div>
                       </div>
 
@@ -387,27 +389,6 @@ $resultado = mysqli_query($conn, $comando);
                                   <td class="hidden-phone">until today</td>
                                   <td class="vertical-align-mid">&nbsp;</td>
                                 </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Mr.Catra</td>
-                                  <td>03/08/2013</td>
-                                  <td class="hidden-phone">until today</td>
-                                  <td class="vertical-align-mid">&nbsp;</td>
-                                </tr>
-                                <tr>
-                                  <td>3</td>
-                                  <td>Pele</td>
-                                  <td>17/03/2014</td>
-                                  <td class="hidden-phone">until 12/11/2015</td>
-                                  <td class="vertical-align-mid">&nbsp;</td>
-                                </tr>
-                                <tr>
-                                  <td>4</td>
-                                  <td>Saitama</td>
-                                  <td>30/04/2009</td>
-                                  <td class="hidden-phone">until today</td>
-                                  <td class="vertical-align-mid">&nbsp;</td>
-                                </tr>
                               </tbody>
                             </table>
                             <!-- end user projects -->
@@ -417,7 +398,8 @@ $resultado = mysqli_query($conn, $comando);
                           <table class="table table-striped projects">
                           <?php
 						   include_once('connection/connect.php');
-                           $comando = "SELECT * FROM gastos";
+						   $id = $_GET['id'];
+                           $comando = "SELECT * FROM gastos WHERE id_rep=('$id')";
 						   $resultado2 = mysqli_query($conn, $comando)?>
 
                          <thead>

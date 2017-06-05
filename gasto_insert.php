@@ -3,12 +3,13 @@
 include_once('connection/connect.php');
 
 $id = rand(1000,10000);
+$id_rep = $_GET['id'];
 $type = $_POST['type'];
 $date = $_POST['date'];
 $value = $_POST['value'];
 $description = $_POST['description'];
 
-$comando = "INSERT INTO gastos(id, id_rep, type, date, date_creation, value, description) VALUES ('$id', 0, '$type', '$date', NOW(), '$value', '$description')";
+$comando = "INSERT INTO gastos(id, id_rep, type, date, date_creation, value, description) VALUES ('$id', '$id_rep', '$type', '$date', NOW(), '$value', '$description')";
 
 $resultado = mysqli_query($conn, $comando);
 ?>

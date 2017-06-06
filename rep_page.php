@@ -15,6 +15,7 @@ $resultado = mysqli_query($conn, $comando);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" href="images/favicon.ico">
+   	
     <title>BuscaRep</title>
 
     <!-- Bootstrap -->
@@ -307,52 +308,66 @@ $resultado = mysqli_query($conn, $comando);
                         </ul>
                         <div id="myTabContent" class="tab-content">
                           <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-						   
+						  
                             <!-- start recent activity -->
                             <ul class="messages">
-                               <li>
-                               <?php
+                              <?php
 						        include_once('connection/connect.php');
 						        $id = $_GET['id'];
                                 $comando = "SELECT * FROM avaliacao WHERE id_rep=('$id')";
 						        $resultado3 = mysqli_query($conn, $comando)?>
-					     		
-                          		<?php while($dado3 = mysqli_fetch_array($resultado3)){ ?>
+					     	  <?php while($dado3 = mysqli_fetch_array($resultado3)){ ?>
                            
-                                <img src="upload/<?php echo $dado3['img_name']?>" class="avatar" alt="Avatar">
+                              <li>
+                               <img src="upload/<?php echo $dado3['img_name']?>" class="avatar" alt="Avatar">
                                 <div class="message_date">
-                                  
-                                <h3 class="date text-error">
-                               	<?php 
+                                
+                                <h3 class="date text-info"><?php 
 								$data = $dado3['date'];
 								$partes = explode("-", $data);
 								$dia = $partes[2];
 								$mes = $partes[1];
 							    $ano = $partes[0];													  
-								echo $dia?>
-                               	</h3>
-                                 
-                                <p class="month">Jun</p>
+								echo $dia?></h3>
+                                  <p class="month">May</p>
                                 </div>
                                 <div class="message_wrapper">
                                   <h4 class="heading"><?php echo $dado3['author'] ?></h4>
-                                  <div>
-                      			  <blockquote class="message"><?php echo $dado3['description'] ?></blockquote>
+                                  <blockquote class="message"><?php echo $dado3['description']?></blockquote>
                                   <br />
-								</div>
+                                </div>
                               </li>
-	 						</ul>
-                            <!-- end recent activity -->
-							<ul>
-                        	
+                              <?php } ?>
+                              </ul>
+                            
+                       		<ul>
                         	<center><div class="input-group col-md-5 col-sm-5 col-xs-12">
-                    		<input type="text" class="form-control" placeholder="Escreva um comentário...">
+                    		
                     		<span class="input-group-btn">
-                      		<a href="aval_page.php?id=<?php echo ($id) ?>"> <button class="btn btn-round btn-info" type="button">Comentar</button></span>
-                  			</div>
+                      		
+                         	
+                      		<form action="" method="POST">
+                      		<input type="text" class="form-control" name="comentario" placeholder="Escreva um comentário...">
+                    		<input type="submit" class="btn btn-round btn-info" name="comentar" value="comentar">Comentar
+                     		</form>
+                     		<?php 
+							
+							if(isset($_POST["comentar"])){
+							$new_id = rand(1000,10000);
+							$description = $_POST['comentario'];														  
+							
+							
+   							$comandoIV = "INSERT INTO avaliacao(id, id_rep, date, description, value, author, image_name) VALUES ('$new_id', '$id', NOW(), '$description', 5, '$description', '$description')";
+							$resultadoIV = mysqli_query($conn, $comandoIV);
+								
+							echo $dado3;	
+							}
+														
+							?>
+                     		
+                      		</div>
                          	</ul>
                           </div>
-                          <?php } ?>
                           </center>
                           <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
 

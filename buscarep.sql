@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 31-Maio-2017 às 01:32
+-- Generation Time: 06-Jun-2017 às 14:22
 -- Versão do servidor: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `acessante` (
-  `user` varchar(10) NOT NULL,
+  `user` varchar(10) CHARACTER SET utf8 NOT NULL,
   `name` varchar(20) NOT NULL,
   `lastname` varchar(30) NOT NULL,
   `address` varchar(30) NOT NULL,
@@ -39,6 +39,22 @@ CREATE TABLE `acessante` (
   `birthday` date NOT NULL,
   `password` varchar(16) NOT NULL,
   `confirmpassword` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `avaliacao`
+--
+
+CREATE TABLE `avaliacao` (
+  `id` int(8) NOT NULL,
+  `id_rep` int(8) NOT NULL,
+  `date` date NOT NULL,
+  `description` varchar(180) NOT NULL,
+  `value` int(5) NOT NULL,
+  `user_id` int(8) NOT NULL,
+  `image_name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -57,13 +73,6 @@ CREATE TABLE `gastos` (
   `description` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `gastos`
---
-
-INSERT INTO `gastos` (`id`, `id_rep`, `type`, `date`, `date_creation`, `value`, `description`) VALUES
-(5646, 0, 'AlimentaÃ§Ã£o', '2017-05-21', '2017-05-29', 134.5, 'Bretas');
-
 -- --------------------------------------------------------
 
 --
@@ -73,31 +82,28 @@ INSERT INTO `gastos` (`id`, `id_rep`, `type`, `date`, `date_creation`, `value`, 
 CREATE TABLE `republica` (
   `id` int(5) NOT NULL,
   `name` varchar(25) NOT NULL,
-  `creation` date NOT NULL,
-  `type` varchar(10) NOT NULL,
-  `state` varchar(20) NOT NULL,
-  `city` varchar(30) NOT NULL,
-  `street` varchar(25) NOT NULL,
-  `neighboor` varchar(20) NOT NULL,
-  `complement` varchar(10) NOT NULL,
-  `email` varchar(25) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `cellphone` varchar(20) NOT NULL,
+  `type` varchar(10) CHARACTER SET latin1 NOT NULL,
+  `state` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `city` varchar(30) CHARACTER SET latin1 NOT NULL,
+  `street` varchar(45) CHARACTER SET latin1 NOT NULL,
+  `neighboor` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `complement` varchar(15) CHARACTER SET latin1 NOT NULL,
+  `email` varchar(45) CHARACTER SET latin1 NOT NULL,
+  `phone` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `cellphone` varchar(20) CHARACTER SET latin1 NOT NULL,
   `qtd` int(2) NOT NULL,
-  `services` varchar(80) NOT NULL,
-  `agency` varchar(20) NOT NULL,
-  `able` varchar(20) NOT NULL,
-  `img_id` int(6) NOT NULL,
-  `img_name` varchar(40) NOT NULL,
-  `img_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `services` varchar(80) CHARACTER SET latin1 NOT NULL,
+  `agency` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `able` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `img_name` varchar(40) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `republica`
 --
 
-INSERT INTO `republica` (`id`, `name`, `creation`, `type`, `state`, `city`, `street`, `neighboor`, `complement`, `email`, `phone`, `cellphone`, `qtd`, `services`, `agency`, `able`, `img_id`, `img_name`, `img_date`) VALUES
-(8661, 'Rep do Amor', '2017-05-30', 'Masculina', 'Minas Gerais', 'Cidades MG', 'Rua Miguel Albano, 2071', 'Abc', '', 'adlerunifei@gmail.com', '35991226598', '358896654', 5, 'nada', 'locadora', '', 96508, 'fccf40b5e80dfaf6605b9d7055b27fd2.jpg', '2017-05-29');
+INSERT INTO `republica` (`id`, `name`, `type`, `state`, `city`, `street`, `neighboor`, `complement`, `email`, `phone`, `cellphone`, `qtd`, `services`, `agency`, `able`, `img_name`) VALUES
+(1645, 'RepÃºblica DebÃ´nio', 'Mista', 'Minas Gerais', 'Cidades SP', 'Rua AntÃ´nio Alves de Almeida, 200', 'Alves CÃ¢ntara', 'Casa', 'vitaumsky@gmail.com', '', '', 8, 'Piscina, TV a Cabo', 'Free Wings', '', 'd21efa095a8bb4fdd690a3b05d0b8c16.jpg');
 
 -- --------------------------------------------------------
 
@@ -106,24 +112,17 @@ INSERT INTO `republica` (`id`, `name`, `creation`, `type`, `state`, `city`, `str
 --
 
 CREATE TABLE `usuario` (
-  `user` varchar(10) NOT NULL,
+  `user` int(8) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `lastname` varchar(30) NOT NULL,
-  `email` varchar(35) NOT NULL,
-  `password` varchar(16) NOT NULL,
-  `confirmpassword` varchar(16) NOT NULL,
+  `lastname` varchar(30) CHARACTER SET latin1 NOT NULL,
+  `email` varchar(35) CHARACTER SET latin1 NOT NULL,
+  `password` varchar(16) CHARACTER SET latin1 NOT NULL,
+  `confirmpassword` varchar(16) CHARACTER SET latin1 NOT NULL,
   `birthday` date NOT NULL,
-  `type` varchar(15) NOT NULL,
+  `type` varchar(15) CHARACTER SET latin1 NOT NULL,
   `cod_image` int(15) NOT NULL,
-  `name_image` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `usuario`
---
-
-INSERT INTO `usuario` (`user`, `name`, `lastname`, `email`, `password`, `confirmpassword`, `birthday`, `type`, `cod_image`, `name_image`) VALUES
-('2442', 'adler', 'diniz', 'adlerunifei@gmail.com', '123', '123', '1980-01-03', '', 0, '');
+  `name_image` varchar(20) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
@@ -136,10 +135,19 @@ ALTER TABLE `acessante`
   ADD PRIMARY KEY (`user`);
 
 --
+-- Indexes for table `avaliacao`
+--
+ALTER TABLE `avaliacao`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `avaliacao_id_rep` (`id_rep`),
+  ADD KEY `avaliacao_usuario_id` (`user_id`);
+
+--
 -- Indexes for table `gastos`
 --
 ALTER TABLE `gastos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `gastos_id_rep` (`id_rep`);
 
 --
 -- Indexes for table `republica`
@@ -152,6 +160,23 @@ ALTER TABLE `republica`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`user`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Limitadores para a tabela `avaliacao`
+--
+ALTER TABLE `avaliacao`
+  ADD CONSTRAINT `avaliacao_id_rep` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `avaliacao_usuario_id` FOREIGN KEY (`user_id`) REFERENCES `usuario` (`user`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `gastos`
+--
+ALTER TABLE `gastos`
+  ADD CONSTRAINT `gastos_id_rep` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

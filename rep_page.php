@@ -320,7 +320,7 @@ $resultado = mysqli_query($conn, $comando);
 					     	  <?php while($dado3 = mysqli_fetch_array($resultado3)){ ?>
                            
                               <li>
-                               <img src="upload/<?php echo $dado3['img_name']?>" class="avatar" alt="Avatar">
+                               <img src="images/img.jpg" alt="..." class="avatar" alt="Avatar">
                                 <div class="message_date">
                                 
                                 <h3 class="date text-info"><?php 
@@ -330,10 +330,12 @@ $resultado = mysqli_query($conn, $comando);
 								$mes = $partes[1];
 							    $ano = $partes[0];													  
 								echo $dia?></h3>
-                                  <p class="month">May</p>
+                                  <p class="month"><?php 
+									if($mes==6)
+									echo ("Junho")?></p>
                                 </div>
                                 <div class="message_wrapper">
-                                  <h4 class="heading"><?php echo $dado3['author'] ?></h4>
+                                  <h4 class="heading">Usuário Teste</h4>
                                   <blockquote class="message"><?php echo $dado3['description']?></blockquote>
                                   <br />
                                 </div>
@@ -368,7 +370,7 @@ $resultado = mysqli_query($conn, $comando);
                          	</ul>
                           </div>
                           </center>
-                          <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab"><a href="gasto_cad_page.php?id=<?php echo $dado["id"] ?>" class="btn btn-block"><em class="fa fa-plus"></em> Morador</a>
+                          <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab"><a href="morador_cad_page.php?id=<?php echo $dado["id"] ?>" class="btn btn-block"><em class="fa fa-plus"></em> Morador</a>
 
                             <!-- start user projects -->
                             <table class="data table table-striped no-margin">
@@ -377,7 +379,6 @@ $resultado = mysqli_query($conn, $comando);
 						      $id = $_GET['id'];
                               $comando4 = "SELECT * FROM morador WHERE id_rep=('$id')";
 						      $resultado4 = mysqli_query($conn, $comando4)?>
-
                                <thead>
                                 <tr>
                                   <th>ID</th>

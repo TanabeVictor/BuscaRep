@@ -2,8 +2,6 @@
 include_once('connection/connect.php');
 
 $id = $_GET['id'];	
-$comando = "SELECT * FROM gastos WHERE id=('$id')";
-$resultado = mysqli_query($conn, $comando);
 ?>
 
 <!DOCTYPE html>
@@ -197,45 +195,33 @@ $resultado = mysqli_query($conn, $comando);
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Gastos<small>Criando</small></h2>
+                    <h2>Morador<small>Criando</small></h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <br />
-                    <?php while($dado = mysqli_fetch_array($resultado)){ ?>
-                     <form action="gasto_update.php?id=<?php echo $dado["id"] ?>" method="POST" class="form-horizontal form-label-left">
+                    <br />	
+                     <form action="morador_insert.php?id=<?php echo $id?>" method="POST" class="form-horizontal form-label-left">
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Data <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nome <span class="required">*</span>
                         </label>
                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="date" name="date" class="date-picker form-control col-md-7 col-xs-12" value="<?php echo $dado["date"] ?>" required="required" type="date">
+                          <input id="name" name="name" class="form-control col-md-7 col-xs-12" required="required" type="text">
                         </div>
                       </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">Tipo de Gasto<span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select id="type" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="type" required>                 
-                            <option> Escolha um tipo </option>
-                            <option>Aluguel</option>
-                            <option>Água</option>
-                            <option>Luz</option>
-                            <option>Internet</option>
-                            <option>Alimentação</option>
-                            <option>Serviços Gerais</option>
-                          </select>
-                        </div>
-                      </div>
+                      
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="valor">Valor<span class="required">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dante_entrance">Data de Entrada<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input  id="value" step=0.01 type="number" value="<?php echo $dado["value"] ?>" name="value" class="form-control" required="required" placeholder="R$ __,__">
+                          <input id="date_entrance" type="date" name="date_entrance" class="form-control" required="required">
                         </div>
                       </div>
-                     
-                      <label for="description">Descrição:</label>
-                          <textarea id="description" required class="form-control" name="description" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
-                          data-parsley-validation-threshold="10"></textarea>
+                      
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dante_entrance">Data de Saída<span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="date_exit" type="date" name="date_exit" class="form-control" required="required">
+                        </div>
+                      </div>
                       
                       <div class="ln_solid"></div>
 
@@ -245,7 +231,6 @@ $resultado = mysqli_query($conn, $comando);
                           <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                       </div>
-                     <?php } ?>
                     </form>
                   </div>
                 </div>
@@ -365,6 +350,7 @@ $resultado = mysqli_query($conn, $comando);
 
         $('#options1').click(function() {
           $('#reportrange_right').data('daterangepicker').setOptions(optionSet1, cb);
+
         });
 
         $('#options2').click(function() {

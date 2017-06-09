@@ -68,8 +68,8 @@
                     </ul>
                   <li><a><em class="fa fa-bar-chart-o"></em> Estatísticas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
+                      <li><a href="relatorio_gastos.php">Relatório de Gastos</a></li>
+                      <li><a href="relatorio_vagas.php">Relatório de Vagas</a></li>
                    	</ul>
                   </li>
                 </ul>
@@ -226,7 +226,7 @@
                   <div class="x_content">
                     <br />
                    
-                     <form action="user_insert.php" method="POST" id="form" data-parsley-validate class="form-horizontal form-label-left">
+                     <form action="user_insert.php" method="POST" id="form" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
 					  <div class="item form-group">
                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="arquivo"> Imagem </label> 
                 			<div class="col-md-6 col-sm-6 col-xs-12">

@@ -1,11 +1,7 @@
 ﻿<?php
-
 include_once('connection/connect.php');
 
-$id = $_GET['id'];
-
-$comando = "DELETE FROM acessante WHERE user=('$id')";
-
+$comando = "SELECT * FROM republica";
 $resultado = mysqli_query($conn, $comando);
 ?>
 
@@ -35,8 +31,8 @@ $resultado = mysqli_query($conn, $comando);
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-           <div class="navbar nav_title" style="border: 0;"><a href="user_home.php" class="site_title"><em class="fa fa-hotel"></em> <span>Sistema   	BuscaRep</span></a></div>
-
+           <div class="navbar nav_title" style="border: 0;"><a href="user_home.php" class="site_title"><em class="fa fa-hotel"></em> <span>Sistema BuscaRep</span></a></div>
+ 
             <div class="clearfix"></div>
 
             <!-- menu profile quick info -->
@@ -55,7 +51,7 @@ $resultado = mysqli_query($conn, $comando);
             <br />
 
             <!-- sidebar menu -->
-                         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Menu</h3>
                 <ul class="nav side-menu">
@@ -86,8 +82,7 @@ $resultado = mysqli_query($conn, $comando);
                 </ul>
               </div>
             </div>
-
-<!-- /sidebar menu -->
+            <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
@@ -119,19 +114,19 @@ $resultado = mysqli_query($conn, $comando);
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="images/img.jpg" alt="">Usuário Teste
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
+                    <li><a href="javascript:;"> Perfil</a></li>
                     <li>
                       <a href="javascript:;">
                         <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
+                        <span>Configurações</span>
                       </a>
                     </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="javascript:;">Ajuda</a></li>
+                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
                   </ul>
                 </li>
 
@@ -209,67 +204,60 @@ $resultado = mysqli_query($conn, $comando);
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
-              <div class="title_left">
-                <h3>Operação</h3>
-              </div>
+              <div class="title_left"><h3>Relatório de Vagas</h3></div>
 
               <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search col-lg-2">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
+                    <button type="button" class="btn btn-dark"><em class="fa fa-folder-open-o"></em> Gerar PDF</button>
+			     </div>
                 </div>
               </div>
             </div>
-
-            <div class="clearfix"></div>
-
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
+            
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Remoção Concluída!</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h2>Levantamento de Vagas<small>Repúblicas</small></h2>
+                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    Acessante removido com sucesso!
+                    <p class="text-muted font-13 m-b-30">
+                      Confira o relatório geral de vagas disponíveis. Caso queira ordenar, clique em uma das colunas ou se desejar fazer uma pesquisa, utilize a barra de pesquisa ao lado.
+                    </p>
+                    <table id="datatable" class="table">
+                      <thead>
+                        <tr>
+                          <th>Nome ↓</th>
+                          <th>Endereço ↓</th>
+                          <th>Nº - Vagas Disponíveis↓</th>
+                          <th>Status ↓</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                      <?php while($dado = mysqli_fetch_array($resultado)){ ?>
+						  <tr>
+                          <td><?php echo $dado["name"];?></td>
+                          <td><?php echo $dado["street"];?> - <?php echo $dado["neighboor"];?></td>
+                          <td><?php echo $dado["qtd"];?></td>
+                          <td><?php echo $dado["able"];?></font></td>
+                        </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
                   </div>
-                </div>
-              </div>
+               </div>
             </div>
-          </div>
+            
+            <div class="clearfix"></div>
+            
+            
         </div>
-        <!-- /page content -->
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+       </div>
       </div>
-    </div>
-
+   
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -281,8 +269,136 @@ $resultado = mysqli_query($conn, $comando);
     
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-  </body>
-</html>
+ 
+    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+    
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    
+	
+	    <script>
+      Chart.defaults.global.legend = {
+        enabled: false
+      };
 
+      // Line chart
+      var ctx = document.getElementById("pieChart");
+      var data = {
+        datasets: [{
+		<?php while($dado = mysqli_fetch_array($resultado)){ ?>
+	      data: [<?php echo $dado["value"];?>],
+          <?php } ?>
+			backgroundColor: [
+            "#455C73",
+            "#9B59B6",
+            "#BDC3C7",
+            "#26B99A",
+            "#3498DB"
+          ],
+          label: 'My dataset' // for legend
+        }],
+        labels: [
+          "Dark Gray",
+          "Purple",
+          "Gray",
+          "Green",
+          "Blue"
+        ]
+      };
+
+      var pieChart = new Chart(ctx, {
+        data: data,
+        type: 'pie',
+        otpions: {
+          legend: false
+        }
+      });
+	</script>
 	
-	
+	  <script>
+      $(document).ready(function() {
+        var handleDataTableButtons = function() {
+          if ($("#datatable-buttons").length) {
+            $("#datatable-buttons").DataTable({
+              dom: "Bfrtip",
+              buttons: [
+                {
+                  extend: "copy",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "csv",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "excel",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "pdfHtml5",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "print",
+                  className: "btn-sm"
+                },
+              ],
+              responsive: true
+            });
+          }
+        };
+
+        TableManageButtons = function() {
+          "use strict";
+          return {
+            init: function() {
+              handleDataTableButtons();
+            }
+          };
+        }();
+
+        $('#datatable').dataTable();
+
+        $('#datatable-keytable').DataTable({
+          keys: true
+        });
+
+        $('#datatable-responsive').DataTable();
+
+        $('#datatable-scroller').DataTable({
+          ajax: "js/datatables/json/scroller-demo.json",
+          deferRender: true,
+          scrollY: 380,
+          scrollCollapse: true,
+          scroller: true
+        });
+
+        $('#datatable-fixed-header').DataTable({
+          fixedHeader: true
+        });
+
+        var $datatable = $('#datatable-checkbox');
+
+        $datatable.dataTable({
+          'order': [[ 1, 'asc' ]],
+          'columnDefs': [
+            { orderable: false, targets: [0] }
+          ]
+        });
+        $datatable.on('draw.dt', function() {
+          $('input').iCheck({
+            checkboxClass: 'icheckbox_flat-green'
+          });
+        });
+
+        TableManageButtons.init();
+      });
+    </script>
+</body>
+</html>

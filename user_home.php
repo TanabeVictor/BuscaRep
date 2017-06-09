@@ -68,8 +68,8 @@
                     </ul>
                   <li><a><em class="fa fa-bar-chart-o"></em> Estatísticas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
+                      <li><a href="relatorio_gastos.php">Relatório de Gastos</a></li>
+                      <li><a href="relatorio_vagas.php">Relatório de Vagas</a></li>
                    	</ul>
                   </li>
                 </ul>
@@ -178,54 +178,6 @@
                 </div>
               </div>
             </div>
-
-
-            <div class="col-md-8 col-sm-8 col-xs-12">
-              <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                  <div class="x_panel">
-                    <div class="x_title">
-                      <h2>Localidades<small>Estados</small></h2>
-                      
-                      <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                      <div class="dashboard-widget-content">
-                        <div class="col-md-4 hidden-small">
-                          <h2 class="line_30">125.7k Views from 60 countries</h2>
-
-                          <table class="countries_list">
-                            <tbody>
-                              <tr>
-                                <td>United States</td>
-                                <td class="fs15 fw700 text-right">33%</td>
-                              </tr>
-                              <tr>
-                                <td>France</td>
-                                <td class="fs15 fw700 text-right">27%</td>
-                              </tr>
-                              <tr>
-                                <td>Germany</td>
-                                <td class="fs15 fw700 text-right">16%</td>
-                              </tr>
-                              <tr>
-                                <td>Spain</td>
-                                <td class="fs15 fw700 text-right">11%</td>
-                              </tr>
-                              <tr>
-                                <td>Britain</td>
-                                <td class="fs15 fw700 text-right">10%</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                        <div id="world-map-gdp" class="col-md-8 col-sm-12 col-xs-12" style="height:230px;"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-             </div>
-           </div>
           </div>
         </div>
         <!-- /page content -->

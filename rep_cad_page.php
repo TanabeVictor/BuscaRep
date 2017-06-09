@@ -79,8 +79,8 @@
                     </ul>
                   <li><a><em class="fa fa-bar-chart-o"></em> Estatísticas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
+                      <li><a href="relatorio_gastos.php">Relatório de Gastos</a></li>
+                      <li><a href="relatorio_vagas.php">Relatório de Vagas</a></li>
                    	</ul>
                   </li>
                 </ul>
@@ -226,7 +226,7 @@
                        <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="repType">Tipo de República <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select id="type" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="type" required>                   
                             <option> Escolha um tipo </option>
                             <option>Masculina</option>
@@ -239,11 +239,16 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="state">Estado <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select id="state" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="state" required>                        
+                          <select id="state" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="state" required>
+                           <?php
+							include_once('connection/connect.php');
+							$comando = "SELECT * FROM estados";
+							$resultado = mysqli_query($conn, $comando);?>
+                                                   
                             <option> Escolha um estado </option>
-                            <option>Minas Gerais</option>
-                            <option>São Paulo</option>
-                            <option>Mais em breve...</option>
+                             <?php while($dado = mysqli_fetch_array($resultado)){ ?>
+                            	<option><?php echo $dado["nome"]; ?></option>
+                          	 <?php }?>
                           </select>
                         </div>
                       </div>
@@ -251,11 +256,16 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="city">Cidade <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                         <select id="city" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="city" required>                        
+                         <select id="city" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="city" required>
+                           <?php
+							include_once('connection/connect.php');
+							$id = 14;
+							$comando = "SELECT * FROM cidades WHERE estados_cod_estados =($id)";
+							$resultado = mysqli_query($conn, $comando);?>		                        
                             <option> Escolha uma cidade </option>
-                            <option>Cidades MG</option>
-                            <option>Cidades SP</option>
-                            <option>Outras cidades</option>
+                            <?php while($dado = mysqli_fetch_array($resultado)){ ?>
+                            <option><?php echo $dado["nome"]; ?></option>
+                          	<?php }?>
                           </select>
                         </div>
                       </div>

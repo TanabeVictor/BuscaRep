@@ -1,11 +1,7 @@
 ﻿<?php
-
 include_once('connection/connect.php');
 
-$id = $_GET['id'];
-
-$comando = "DELETE FROM acessante WHERE user=('$id')";
-
+$comando = "SELECT * FROM republica";
 $resultado = mysqli_query($conn, $comando);
 ?>
 
@@ -35,8 +31,8 @@ $resultado = mysqli_query($conn, $comando);
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-           <div class="navbar nav_title" style="border: 0;"><a href="user_home.php" class="site_title"><em class="fa fa-hotel"></em> <span>Sistema   	BuscaRep</span></a></div>
-
+           <div class="navbar nav_title" style="border: 0;"><a href="user_home.php" class="site_title"><em class="fa fa-hotel"></em> <span>Sistema BuscaRep</span></a></div>
+ 
             <div class="clearfix"></div>
 
             <!-- menu profile quick info -->
@@ -55,7 +51,7 @@ $resultado = mysqli_query($conn, $comando);
             <br />
 
             <!-- sidebar menu -->
-                         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Menu</h3>
                 <ul class="nav side-menu">
@@ -86,8 +82,7 @@ $resultado = mysqli_query($conn, $comando);
                 </ul>
               </div>
             </div>
-
-<!-- /sidebar menu -->
+            <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
@@ -119,19 +114,19 @@ $resultado = mysqli_query($conn, $comando);
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="images/img.jpg" alt="">Usuário Teste
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
+                    <li><a href="javascript:;"> Perfil</a></li>
                     <li>
                       <a href="javascript:;">
                         <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
+                        <span>Configurações</span>
                       </a>
                     </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="javascript:;">Ajuda</a></li>
+                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
                   </ul>
                 </li>
 
@@ -209,67 +204,51 @@ $resultado = mysqli_query($conn, $comando);
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
-              <div class="title_left">
-                <h3>Operação</h3>
-              </div>
+              <div class="title_left"><h3>Relatório de Gastos</h3></div>
 
               <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search col-lg-2">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
+                    <button type="button" class="btn btn-dark"><em class="fa fa-folder-open-o"></em> Gerar PDF</button>
+			     </div>
                 </div>
               </div>
             </div>
-
-            <div class="clearfix"></div>
-
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
+            
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Remoção Concluída!</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h2>Levantamento dos Gastos<small>Repúblicas</small></h2>
+                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    Acessante removido com sucesso!
+                    <p class="text-muted font-13 m-b-30">
+                      Confira o relatório geral de gastos e custos. Por favor informe o ID da república desejada:
+                      <form action="relatorio_gastos_table.php" method="POST" id="form" data-parsley-validate class="form-horizontal form-label-left">
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_text">ID <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="id" name="id" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                        <button type="submit" value="enviar" class="btn btn-success">Enviar</button>
+                      </div>
+                      
+                      </form>
+                    </p>
+                    
                   </div>
-                </div>
-              </div>
+               </div>
             </div>
-          </div>
+            
+            <div class="clearfix"></div>
+            
+            
         </div>
-        <!-- /page content -->
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+       </div>
       </div>
-    </div>
-
+   
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -281,8 +260,9 @@ $resultado = mysqli_query($conn, $comando);
     
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-  </body>
+ 
+    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+    
+   
+</body>
 </html>
-
-	
-	

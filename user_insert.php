@@ -15,13 +15,12 @@ $msg = false;
 
 if(isset($_FILES['arquivo'])){
 	$extensao = strtolower(substr($_FILES['arquivo']['name'], -4));
-	$novo_nome = md5(time()).$extensao;
+	$nome = md5(time()).$extensao;
 	$diretorio = "upload/";
 	
-	move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome);}
+	move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$nome);}
 
-
-$result_msg_contato = "INSERT INTO usuario(user, name, lastname, email, password, confirmpassword, birthday, type, img_name) VALUES ('$user','$name', '$lastname', '$email', '$password', '$confirm', '$birthday', '$type', '$novo_nome')";
+$result_msg_contato = "INSERT INTO usuario(user, name, lastname, email, password, confirmpassword, birthday, type, img_name) VALUES ('$user','$name', '$lastname', '$email', '$password', '$confirm', '$birthday', '$type', '$nome')";
 
 $resultado_msg_contato = mysqli_query($conn, $result_msg_contato);
 ?>
@@ -96,8 +95,8 @@ $resultado_msg_contato = mysqli_query($conn, $result_msg_contato);
                     </ul>
                   <li><a><em class="fa fa-bar-chart-o"></em> Estatísticas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
+                      <li><a href="relatorio_gastos.php">Relatório de Gastos</a></li>
+                      <li><a href="relatorio_vagas.php">Relatório de Vagas</a></li>
                    	</ul>
                   </li>
                 </ul>

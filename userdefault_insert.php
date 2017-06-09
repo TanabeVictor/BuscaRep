@@ -64,7 +64,7 @@ $resultado = mysqli_query($conn, $comando);
             <br />
 
             <!-- sidebar menu -->
-                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Menu</h3>
                 <ul class="nav side-menu">
@@ -88,8 +88,8 @@ $resultado = mysqli_query($conn, $comando);
                     </ul>
                   <li><a><em class="fa fa-bar-chart-o"></em> Estatísticas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
+                      <li><a href="relatorio_gastos.php">Relatório de Gastos</a></li>
+                      <li><a href="relatorio_vagas.php">Relatório de Vagas</a></li>
                    	</ul>
                   </li>
                 </ul>

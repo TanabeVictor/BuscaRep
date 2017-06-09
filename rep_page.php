@@ -73,13 +73,13 @@ $resultado = mysqli_query($conn, $comando);
                   <li><a><em class="fa fa-home"></em> República <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                      <li><a href="rep_cad_page.php"> Nova República+</a></li>
-                     <li><a href="rep_view.php">Ver Repúblicas</a></li>
+				     <li><a href="rep_view.php">Ver Repúblicas</a></li>
                     
                     </ul>
                   <li><a><em class="fa fa-bar-chart-o"></em> Estatísticas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
+                      <li><a href="relatorio_gastos.php">Relatório de Gastos</a></li>
+                      <li><a href="relatorio_vagas.php">Relatório de Vagas</a></li>
                    	</ul>
                   </li>
                 </ul>
@@ -299,6 +299,7 @@ $resultado = mysqli_query($conn, $comando);
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                           <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Avaliações</a>
                           </li>
+                          
                           <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Moradores</a>
                           </li>
                           <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Gastos</a>
@@ -361,38 +362,44 @@ $resultado = mysqli_query($conn, $comando);
 								
 							echo $dado3;	
 							}
-														
 							?>
                      		
                       		</div>
                          	</ul>
                           </div>
                           </center>
-                          <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                          <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab"><a href="gasto_cad_page.php?id=<?php echo $dado["id"] ?>" class="btn btn-block"><em class="fa fa-plus"></em> Morador</a>
 
                             <!-- start user projects -->
                             <table class="data table table-striped no-margin">
-                              <thead>
+                              <?php
+						   	  include_once('connection/connect.php');
+						      $id = $_GET['id'];
+                              $comando4 = "SELECT * FROM morador WHERE id_rep=('$id')";
+						      $resultado4 = mysqli_query($conn, $comando4)?>
+
+                               <thead>
                                 <tr>
                                   <th>ID</th>
                                   <th>Nome do Morador</th>
                                   <th>Entrada</th>
-                                  <th class="hidden-phone">Estadia</th>
+                                  <th>Estadia</th>
                                 </tr>
                               </thead>
                  	             <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Robertinho</td>
-                                  <td>20/02/2015</td>
-                                  <td class="hidden-phone">until today</td>
-                                  <td class="vertical-align-mid">&nbsp;</td>
+                                 <?php while($dado4 = mysqli_fetch_array($resultado4)){ ?>
+                                 <tr>
+                                  <td><?php echo $dado4['id'] ?></td>
+                                  <td><?php echo $dado4['name'] ?></td>
+                                  <td><?php echo $dado2['date_entrance'] ?></td>
+                                  <td><?php echo $dado2['date_exit'] ?></td>
                                 </tr>
-                              </tbody>
+                               <?php } ?>
+								</tbody>
                             </table>
                             <!-- end user projects -->
-
-                          </div>
+							</div>
+                          
                           <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab"><a href="gasto_cad_page.php?id=<?php echo $dado["id"] ?>" class="btn btn-block"><em class="fa fa-plus"></em> Gasto</a>
                           <table class="table table-striped projects">
                           <?php

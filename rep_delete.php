@@ -63,6 +63,12 @@ $resultado = mysqli_query($conn, $comando);
                       <li><a href="user_reg.php">Usuário</a></li>
                       <li><a href="userdefault_reg.php">Acessante</a></li>
                     </ul>
+                  </li<ul class="nav side-menu">
+                  <li><a href="user_home.php"><em class="fa fa-home"></em> Home </a></li>
+                  <li><a><em class="fa fa-edit"></em> Cadastro </a> <ul class="nav child_menu">
+                      <li><a href="user_reg.php">Usuário</a></li>
+                      <li><a href="userdefault_reg.php">Acessante</a></li>
+                    </ul>
                   </li>
                   <li><a><em class="fa fa-desktop"></em> Consulta<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -78,8 +84,8 @@ $resultado = mysqli_query($conn, $comando);
                     </ul>
                   <li><a><em class="fa fa-bar-chart-o"></em> Estatísticas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
+                      <li><a href="relatorio_gastos.php">Relatório de Gastos</a></li>
+                      <li><a href="relatorio_vagas.php">Relatório de Vagas</a></li>
                    	</ul>
                   </li>
                 </ul>

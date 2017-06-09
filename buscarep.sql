@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 09-Jun-2017 às 17:15
+-- Generation Time: 09-Jun-2017 às 18:37
 -- Versão do servidor: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -62,6 +62,7 @@ CREATE TABLE `avaliacao` (
 --
 
 INSERT INTO `avaliacao` (`id`, `id_rep`, `date`, `description`, `value`, `user_id`, `image_name`) VALUES
+(2103, 2604, '2017-06-09', 'Teste', 5, 7039, 'Teste'),
 (2311, 2604, '2017-06-09', 'Olá', 5, 7039, 'Olá'),
 (4545, 1645, '2017-06-06', 'dasdas', 5, 7039, 'dasdas'),
 (8497, 3931, '2017-06-09', 'Olá', 5, 7039, 'Olá');
@@ -10180,10 +10181,8 @@ CREATE TABLE `gastos` (
 --
 
 INSERT INTO `gastos` (`id`, `id_rep`, `type`, `date`, `date_creation`, `value`, `description`) VALUES
-(3875, 2604, 'Alimentação', '2017-06-09', '2017-06-09', 120.32, 'Unissul'),
-(5563, 2604, 'Luz', '2017-06-08', '2017-06-09', 140.3, 'Cemig'),
-(7604, 2604, 'Alimentação', '2017-06-09', '2017-06-09', 30.76, 'Compras Emergenciais'),
-(7709, 2604, 'Água', '2017-06-05', '2017-06-09', 57.83, 'SAAE');
+(3875, 2604, 'Escolha um tipo', '2017-06-09', '2017-06-09', 130.32, 'lala'),
+(7604, 2604, 'Alimentação', '2017-06-09', '2017-06-09', 30.76, 'Compras Emergenciais');
 
 -- --------------------------------------------------------
 
@@ -10195,7 +10194,7 @@ CREATE TABLE `morador` (
   `id` int(8) NOT NULL,
   `name` varchar(50) NOT NULL,
   `date_entrance` date NOT NULL,
-  `date_exit` varchar(30) NOT NULL,
+  `date_exit` date NOT NULL,
   `id_rep` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

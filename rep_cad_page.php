@@ -217,17 +217,13 @@
                        <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nome <span class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                       
+                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="1" name="name" placeholder="Nome da República" required="required" type="text">
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="creation">Data de Criação<span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input id="creation" name="creation" class="date-picker form-control col-md-7 col-xs-12" required="required" type="date">
-                        </div>
-                      </div>
-                      <div class="item form-group">
+                      
+                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="repType">Tipo de República <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">

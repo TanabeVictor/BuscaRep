@@ -310,7 +310,7 @@ $resultado = mysqli_query($conn, $comando);
                           <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 						  
                             <!-- start recent activity -->
-                            <ul class="messages">
+                            <ul class="messages" id="comments">
                               <?php
 						        include_once('connection/connect.php');
 						        $id = $_GET['id'];
@@ -356,8 +356,7 @@ $resultado = mysqli_query($conn, $comando);
 							$new_id = rand(1000,10000);
 							$description = $_POST['comentario'];														  
 							
-							
-   							$comandoIV = "INSERT INTO avaliacao(id, id_rep, date, description, value, author, image_name) VALUES ('$new_id', '$id', NOW(), '$description', 5, '$description', '$description')";
+   							$comandoIV = "INSERT INTO avaliacao(id, id_rep, date, description, value, user_id, image_name) VALUES ('$new_id', '$id', NOW(), '$description', 5, 7039, '$description')";
 							$resultadoIV = mysqli_query($conn, $comandoIV);
 								
 							echo $dado3;	
@@ -476,13 +475,6 @@ $resultado = mysqli_query($conn, $comando);
     <script src="../build/js/custom.min.js"></script>
   </body>
 	<script>
-      $(document).ready(function() {
-        $(".stars").starrr();
-
-        
-        $('.stars-existing').on('starrr:change', function (e, value) {
-          $('.stars-count-existing').html(value);
-        });
-      });
+      
     </script>
 </html>

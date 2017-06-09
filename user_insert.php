@@ -11,7 +11,17 @@ $birthday = $_POST['birthday'];
 $password = $_POST['password'];
 $confirm = $_POST['confirm'];
 
-$result_msg_contato = "INSERT INTO usuario(user, name, lastname, email, password, confirmpassword, birthday) VALUES ('$user','$name', '$lastname', '$email', '$password', '$confirm', '$birthday')";
+$msg = false;
+
+if(isset($_FILES['arquivo'])){
+	$extensao = strtolower(substr($_FILES['arquivo']['name'], -4));
+	$novo_nome = md5(time()).$extensao;
+	$diretorio = "upload/";
+	
+	move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome);}
+
+
+$result_msg_contato = "INSERT INTO usuario(user, name, lastname, email, password, confirmpassword, birthday, type, img_name) VALUES ('$user','$name', '$lastname', '$email', '$password', '$confirm', '$birthday', '$type', '$novo_nome')";
 
 $resultado_msg_contato = mysqli_query($conn, $result_msg_contato);
 ?>
@@ -62,7 +72,7 @@ $resultado_msg_contato = mysqli_query($conn, $result_msg_contato);
             <br />
 
             <!-- sidebar menu -->
-                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Menu</h3>
                 <ul class="nav side-menu">

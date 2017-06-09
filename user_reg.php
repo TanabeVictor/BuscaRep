@@ -227,7 +227,16 @@
                     <br />
                    
                      <form action="user_insert.php" method="POST" id="form" data-parsley-validate class="form-horizontal form-label-left">
-					  <div class="form-group">
+					  <div class="item form-group">
+                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="arquivo"> Imagem </label> 
+                			<div class="col-md-6 col-sm-6 col-xs-12">
+                			<image id="profileImage" src="images/user.png" />
+							<br></br>
+               				<input class="form-control col-md-7 col-xs-12" type="file" required name="arquivo">
+						   </div>
+                       </div>
+                       
+                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nome <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">

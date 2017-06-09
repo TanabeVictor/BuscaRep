@@ -254,7 +254,7 @@ $resultado = mysqli_query($conn, $comando);
             
             <div class="clearfix"></div>
             
-             <div class="row">
+             <!--<div class="row">
               <div class="col-md-6 col-sm-6 col-xs-12 col-lg-offset-3">
                 <div class="x_panel">
                   <div class="x_title">
@@ -281,9 +281,7 @@ $resultado = mysqli_query($conn, $comando);
                   </div>
                 </div>
               </div>
-          </div>
-        
-        
+          </div>--->
         
         </div>
        </div>

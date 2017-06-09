@@ -391,8 +391,8 @@ $resultado = mysqli_query($conn, $comando);
                                  <tr>
                                   <td><?php echo $dado4['id'] ?></td>
                                   <td><?php echo $dado4['name'] ?></td>
-                                  <td><?php echo $dado2['date_entrance'] ?></td>
-                                  <td><?php echo $dado2['date_exit'] ?></td>
+                                  <td><?php echo $dado4['date_entrance'] ?></td>
+                                  <td><?php echo $dado4['date_exit'] ?></td>
                                 </tr>
                                <?php } ?>
 								</tbody>

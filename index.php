@@ -64,22 +64,22 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form>
+            <form action="http://localhost/SiteBuscaRep/production/user_insert.php" method="POST">
               <h1>Nova Conta</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Nome de Usuário" required="required" />
+                <input name="user_name" type="text" class="form-control" placeholder="Nome de Usuário" required="required" />
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required="required" />
+                <input name="email" type="email" class="form-control" placeholder="Email" required="required" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Senha" required="required" />
+                <input name="password" type="password" class="form-control" placeholder="Senha" required="required" />
               </div>
               <div>
                 <input type="password" class="form-control" placeholder="Confirme a Senha" required="required" />
               </div>
               <div>
-                <a class="btn btn-default submit" href="production/loged_page_user.php">Criar</a>
+                <input class="btn btn-default submit" value="Criar" type="submit">
               </div>
 
               <div class="clearfix"></div>

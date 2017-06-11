@@ -49,9 +49,9 @@ include_once __DIR__ . '/loged_test.php';
             <div class="profile clearfix">
               <div class="profile_pic">
                <?php if ($_SESSION['user']['img_name'] == NULL):?>
-               	<img src="images/user.png" alt="avatar" class="img-circle profile_img">
+               	<img src="images/user.png" alt="avatar" height="50px" width="50px" class="img-circle profile_img">
                 <?php else:?>
-                <img src="upload/<?=$_SESSION['user']['img_name']?>" alt="avatar" class="img-circle profile_img">
+                <img src="upload/<?=$_SESSION['user']['img_name']?>" alt="avatar" height="50px" width="50px" class="img-circle profile_img">
                 <?php endif;?>
               </div>
               <div class="profile_info">
@@ -167,7 +167,7 @@ include_once __DIR__ . '/loged_test.php';
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gender">Sexo</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select id="gender" class="form-control col-md-7 col-xs-12"  name="gender">                 
-                            <option>...</option>
+                            <option></option>
                             <option value="Masculino">Masculino</option>
                             <option value="Feminino">Feminino</option>
                           </select>

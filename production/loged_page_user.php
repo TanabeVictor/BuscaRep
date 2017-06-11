@@ -42,9 +42,9 @@ $resultado = $conn->query($comando);
             <div class="profile clearfix">
               <div class="profile_pic">
                <?php if ($_SESSION['user']['img_name'] == NULL):?>
-               	<img src="images/user.png" alt="avatar" class="img-circle profile_img">
+               	<img src="images/user.png" alt="avatar" height="50px" width="50px" class="img-circle profile_img">
                 <?php else:?>
-                <img src="upload/<?=$_SESSION['user']['img_name']?>" alt="avatar" class="img-circle profile_img">
+                <img src="upload/<?=$_SESSION['user']['img_name']?>" height="50px" width="50px" alt="avatar" class="img-circle profile_img">
                 <?php endif;?>
               </div>
               <div class="profile_info">
@@ -168,7 +168,7 @@ $resultado = $conn->query($comando);
                           	<td class=" "><?php echo $dado["id"]; ?></td>
                             <td class=" "><?php echo $dado["name"]; ?></td>
                             <td class=" "><?php echo $dado["neighborhood"] . ', ' .$dado["street"] . ', ' . $dado["number"]; ?></td>
-                            <td class=" "><?php echo $dado["phone"]; ?></td>
+                            <td class=" "><?php echo masc_tel($dado["phone"]);?></td>
                             <?php if($dado["able"]):?>
 	
                             <td class=" "><botton class="border-dark bg-green btn-xs">Disponível</td>
@@ -201,7 +201,28 @@ $resultado = $conn->query($comando);
         <!-- /footer content -->
       </div>
     </div>
-
+		
+	<?php
+													
+	    function masc_tel($TEL) {
+		$tam = strlen(preg_replace("/[^0-9]/", "", $TEL));
+		  if ($tam == 13) { // COM CÓDIGO DE ÁREA NACIONAL E DO PAIS e 9 dígitos
+		  return "+".substr($TEL,0,$tam-11)."(".substr($TEL,$tam-11,2).")".substr($TEL,$tam-9,5)."-".substr($TEL,-4);
+		  }
+		  if ($tam == 12) { // COM CÓDIGO DE ÁREA NACIONAL E DO PAIS
+		  return "+".substr($TEL,0,$tam-10)."(".substr($TEL,$tam-10,2).")".substr($TEL,$tam-8,4)."-".substr($TEL,-4);
+		  }
+		  if ($tam == 11) { // COM CÓDIGO DE ÁREA NACIONAL e 9 dígitos
+		  return "(".substr($TEL,0,2).")".substr($TEL,2,5)."-".substr($TEL,7,11);
+		  }
+		  if ($tam == 10) { // COM CÓDIGO DE ÁREA NACIONAL
+		  return "(".substr($TEL,0,2).")".substr($TEL,2,4)."-".substr($TEL,6,10);
+		  }
+		  if ($tam <= 9) { // SEM CÓDIGO DE ÁREA
+		  return substr($TEL,0,$tam-4)."-".substr($TEL,-4);
+		  }
+	 	}
+	?>
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->

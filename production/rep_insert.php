@@ -19,7 +19,7 @@ $phone = $_POST['phone'];
 $qtd = $_POST['qtd'];
 $services = $_POST['services'];
 $agency = $_POST['agency'];
-$resp = $_SESSION['user']['user'];
+$responsavel = $_SESSION['user']['user'];
 $msg = false;
 
 if(isset($_FILES['arquivo'])){
@@ -30,10 +30,10 @@ if(isset($_FILES['arquivo'])){
 	move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome);
 }
 
-$comando = "INSERT INTO republica(id, name, type, state, city, street, neighborhood, number, complement, email, phone, qtd, services, agency,img_name, responsavel) VALUES ('$id', '$name', '$type', '$state', '$city', '$street', '$neighboor', '$number', '$complement', '$email', '$phone', '$qtd', '$services', '$agency', '$novo_nome', '$resp')";
+$comando = "INSERT INTO republica(id, name, type, state, city, street, neighborhood, number, complement, email, phone, qtd, services, agency,dweller, img_name, resposavel) VALUES ('$id', '$name', '$type', '$state', '$city', '$street', '$neighboor', '$number', '$complement', '$email', '$phone', '$qtd', '$services', '$agency', 1 , '$novo_nome', '$responsavel')";
 
 $resultado = $conn->query($comando);
 
 header("location:http://localhost/production/BuscaRep/production/loged_page_user.php");
-
+?>
     

@@ -50,9 +50,9 @@ $resultado = $conn->query( $comando );
             <div class="profile clearfix">
               <div class="profile_pic">
                <?php if ($_SESSION['user']['img_name'] == NULL):?>
-               	<img src="images/user.png" alt="..." class="img-circle profile_img">
+               	<img src="images/user.png" alt="..." height="50px" width="50px" class="img-circle profile_img">
                 <?php else:?>
-                <img src="upload/<?=$_SESSION['user']['img_name']?>" alt="..." class="img-circle profile_img">
+                <img src="upload/<?=$_SESSION['user']['img_name']?>" alt="..." height="50px" width="50px" class="img-circle profile_img">
                 <?php endif;?>
               </div>
               <div class="profile_info">

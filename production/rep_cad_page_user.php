@@ -2,10 +2,19 @@
 include_once __DIR__ . '/connection/connect.php';
 include_once __DIR__ . '/loged_test.php';
 
-$sql = "SELECT cod_estados, nome FROM estados ORDER BY nome";
-$res = $conn->query($sql);
+$user = $_SESSION['user']['user'];
+$comando = "SELECT * FROM republica WHERE resposavel=('$user')";
+$resultado = $conn->query($comando);
+
+if ($conn->affected_rows != 0):
+	header("location:http://localhost/production/BuscaRep/production/rep_default_page2.php");
+endif;
+
+	$sql = "SELECT cod_estados, nome FROM estados ORDER BY nome";
+	$res = $conn->query($sql);
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -52,9 +61,9 @@ $res = $conn->query($sql);
             <div class="profile clearfix">
               <div class="profile_pic">
                <?php if ($_SESSION['user']['img_name'] == NULL):?>
-               	<img src="images/user.png" alt="avatar" class="img-circle profile_img">
+               	<img src="images/user.png" alt="avatar" height="50px" width="50px" class="img-circle profile_img">
                 <?php else:?>
-                <img src="upload/<?=$_SESSION['user']['img_name']?>" alt="avatar" class="img-circle profile_img">
+                <img src="upload/<?=$_SESSION['user']['img_name']?>" alt="avatar" height="50px" width="50px" class="img-circle profile_img">
                 <?php endif;?>
               </div>
               <div class="profile_info">
@@ -159,11 +168,10 @@ $res = $conn->query($sql);
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="repType">Tipo de República <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select id="type" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="type" required>                   
-                            <option> Escolha um tipo </option>
+                          <select id="type" class="form-control col-md-7 col-xs-12" name="type" required>                   
                             <option>Masculina</option>
                             <option>Feminina</option>
-                            <option>Mista</option>
+                            <option>Masculina / Feminina</option>
                           </select>
                         </div>
                       </div>
@@ -215,7 +223,7 @@ $res = $conn->query($sql);
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="complement">Complemento
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="complement" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="complement" placeholder="Informações Adicionais" type="text">
+                          <input id="complement" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="1" name="complement" placeholder="Nº Apartamento, Casa A ou B, ..." type="text">
                         </div>
                       </div>
                       <div class="item form-group">
@@ -243,14 +251,14 @@ $res = $conn->query($sql);
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="agency">Locadora <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="agency" class="form-control col-md-7 col-xs-12" name="agency" placeholder="Nome da empresa / pessoa locadora" required="required" type="text">
+                          <input id="agency" class="form-control col-md-7 col-xs-12" name="agency" placeholder="Nome da empresa / Pessoa" required="required" type="text">
                         </div>
                       </div>
                       
                       <div class="item form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="services">Serviços e Gerais </label>
                          <div class="col-md-6 col-sm-6 col-xs-12">
-                          <textarea id="services" class="form-control" name="services" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
+                          <textarea id="services" class="form-control" name="services" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" placeholder="Separe cada um deles por vírgula..."
                           data-parsley-validation-threshold="10"></textarea>
 						 </div>
 					  </div>

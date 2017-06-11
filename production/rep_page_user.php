@@ -2,6 +2,18 @@
 include_once __DIR__ . '/connection/connect.php';
 include_once __DIR__ . '/loged_test.php';
 
+$user= $_SESSION['user']['user'];
+
+$comando = "SELECT * FROM republica WHERE resposavel=('$user')";
+
+$resultado = $conn->query($comando);
+
+if ($conn->affected_rows == 0) {
+
+	header("location:http://localhost/production/BuscaRep/production/rep_default_page.php");
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +53,7 @@ include_once __DIR__ . '/loged_test.php';
                <?php if ($_SESSION['user']['img_name'] == NULL):?>
                	<img src="images/user.png" alt="avatar" class="img-circle profile_img">
                 <?php else:?>
-                <img src="upload/<?=$_SESSION['user']['img_name']?>" alt="avatar" class="img-circle profile_img">
+                <img src="upload/<?=$_SESSION['user']['img_name']?>" height="50px" width="50px" alt="avatar" class="img-circle profile_img">
                 <?php endif;?>
               </div>
               <div class="profile_info">
@@ -113,41 +125,41 @@ include_once __DIR__ . '/loged_test.php';
 
 						<div class="title_right"> </div>
 					</div>
-
+					<?php while($dado = mysqli_fetch_array($resultado)){ ?>
 					<div class="clearfix"></div>
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>República #ID</h2>
-
+									<h2>República <?= $dado['name']?></h2>
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
 									<div class="col-md-3 col-sm-3 col-xs-12 profile_left">
 										<div class="profile_img">
-											<h3>Nome da República</h3>
 											<div id="crop-avatar">
 												<!-- Current avatar -->
-												<img class="img-responsive avatar-view" src="images/Esqueleto-1983.jpg" alt="Avatar" title="Change the avatar">
+											   <?php if ($dado["img_name"] == "NULL"):?>
+												<img src="images/image_default.jpg" alt="avatar" height="200px" width="200px">
+												<?php else:?>
+												<img src="upload/<?=$dado["img_name"]?>" alt="avatar" height="200px" width="200px">
+												<?php endif;?>
 											</div>
 										</div>
 
 										<ul class="list-unstyled user_data">
 											<p></p>
-											<li><em class="fa fa-map user-profile-icon"></em> Cidade - Estado</li>
-											<li><em class="fa fa-map-marker user-profile-icon"></em> Rua,Número,Bairro, Complemento
-											</li>
+											<li><em class="fa fa-map user-profile-icon"></em>&nbsp <?= $dado['city']. ' - '. $dado['state']?></li>
+											<li><em class="fa fa-map-marker user-profile-icon"></em> &nbsp <?= $dado['neighborhood'].' , '.$dado['street']. ' , '.$dado['number']. ' , '.$dado['complement']?></li>
 											<li>
-												<i class="fa fa-phone user-profile-icon"></i> <?php>masc_tel($telefone);?>
-											</li>
+												<i class="fa fa-phone user-profile-icon"></i>&nbsp <?= masc_tel($dado['phone'])?></li>
 
 											<li class="m-top-xs">
-												<i class="fa fa-envelope user-profile-icon"> user_email@email.com</i>
+												<i class="fa fa-envelope user-profile-icon">&nbsp <?= $dado['email']?></i>
 											</li>
 											<li class="m-top-xs">
-												<i class="fa fa-institution user-profile-icon"> Locador</i>
+												<i class="fa fa-institution user-profile-icon">&nbsp <?= $dado['agency']?></i>
 											</li>
 										</ul>
 
@@ -159,17 +171,24 @@ include_once __DIR__ . '/loged_test.php';
 										<h4>Outros</h4>
 										<ul class="list-unstyled user_data">
 											<li>
-												<p> <em class="fa fa-group user-profile-icon"></em> Número de Moradores</p>
-												<div class="progress progress_sm">
-													<div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-												</div>
-											</li>
-											<li>
-												<p> <em class="fa fa-info user-profile-icon"></em> Tipo de República:
+												<p> <em class="fa fa-group user-profile-icon"></em> Número de Moradores </p>
+												<p>
+													<?= $dado["dweller"]. ' / '.$dado['qtd'];?>
 												</p>
 											</li>
 											<li>
-												<p> <em class="fa fa-server user-profile-icon"></em> Serviços:
+												<p> <br><em class="fa fa-info user-profile-icon"></em> Tipo de República
+													<p>
+														<?= $dado["type"]; ?>
+													</p>
+												</p>
+											</li>
+											<li>
+												<p> <br><em class="fa fa-server user-profile-icon"></em> Serviços
+													<p></p>
+													<p>
+														<?= $dado["services"]; ?>
+													</p>
 											</li>
 										</ul>
 										<!-- end of skills -->
@@ -218,6 +237,7 @@ include_once __DIR__ . '/loged_test.php';
 				</div>
 			</div>
 		</div>
+		<?php } ?>
 	</div>
 	<!-- /page content -->
 

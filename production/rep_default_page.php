@@ -2,21 +2,7 @@
 include_once __DIR__ . '/connection/connect.php';
 include_once __DIR__ . '/loged_test.php';
 
-$user_name = $_SESSION[ 'user' ][ 'user' ];
-$resultado = "SELECT id_rep FROM morador WHERE user_name = $user_name ";
-$resultado = $conn->query( $resultado );
-
-if ( $resultado ) {
-
-	$busca = "SELECT name FROM republica WHERE id = $resultado";
-	$rep_name = $conn->query($busca);
-
-} else {
-	$rep_name = "A procura de um lar...";
-}
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,9 +24,6 @@ if ( $resultado ) {
 
 	<!-- Custom Theme Style -->
 	<link href="../build/css/custom.min.css" rel="stylesheet">
-	<style>
-
-	</style>
 </head>
 
 <body class="nav-md">
@@ -56,7 +39,7 @@ if ( $resultado ) {
             <div class="profile clearfix">
               <div class="profile_pic">
                <?php if ($_SESSION['user']['img_name'] == NULL):?>
-               	<img src="images/user.png" alt="avatar" height="50px" width="50px" class="img-circle profile_img">
+               	<img src="images/user.png" alt="avatar" class="img-circle profile_img">
                 <?php else:?>
                 <img src="upload/<?=$_SESSION['user']['img_name']?>" height="50px" width="50px" alt="avatar" class="img-circle profile_img">
                 <?php endif;?>
@@ -130,61 +113,18 @@ if ( $resultado ) {
 
 						<div class="title_right"> </div>
 					</div>
-
 					<div class="clearfix"></div>
+
 					<div class="row">
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>
-										<?php echo $_SESSION['user']['name']?>
-									</h2>
-
+									<h2> <a class="fa fa-exclamation-circle"></a> Oh não! Você ainda não possui uma República Cadastrada</h2>
 									<div class="clearfix"></div>
 								</div>
-								<div class="x_content">
-									<div class="col-md-3 col-sm-3 col-xs-12 profile_left">
-										<div class="profile_img">
-											<div id="crop-avatar">
-												<!-- Current avatar -->
-												<?php $image_name = $_SESSION['user']['img_name'];?>
-												<?php if ($image_name == NULL):?>
-												<img src="images/user.png" alt="Avatar" width="200px" height="200px">
-												<?php else:?>
-												<img src="upload/<?=$image_name?>" alt="Avatar" width="200px" height="200px">
-												<?php endif;?>
-											</div>
-										</div>
-										<br>
-										<a class="btn bg-green" href="profile_edit.php"><i class="fa fa-edit"></i> Editar Perfil</a>
-										<a class="btn btn-danger" href="user_delete.php"><i class="fa fa-remove m-right-xs"></i> Deletar Perfil</a>
-										<br/>
-									</div>
-									<div class="col-md-9 col-sm-9 col-xs-12">
-										<h2>
-												<i class="fa fa-home ">&nbsp<?= $rep_name?></i>
-												<br></br>
-												<?php if($_SESSION['user']['gender'] == "Masculino"):?>
-												<i class="fa fa-mars">&nbsp<?= $_SESSION['user']['gender']?></i>
-												<?php elseif($_SESSION['user']['gender'] == "Feminino"):?>
-														<i class="fa fa-venus">&nbsp <?= $_SESSION['user']['gender']?></i>
-												<?php else:?>
-													<i class="fa fa-neuter">&nbsp Desconhecido</i>	
-												<?php endif;?>
-												<br></br>
-												<?php $date = $_SESSION['user']['birthday'];?>
-												<i class="fa fa-birthday-cake">&nbsp <?= inverteData($date)?></i>
-												<br></br>
-												<?php $phone = $_SESSION['user']['phone'] ?>
-												<i class="fa fa-phone">&nbsp <?= masc_tel("$phone")?></i>
-												<br></br>
-										</h2>
-									</div>
-								</div>
-							</div>
+							</div>	
 						</div>
 					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -198,46 +138,26 @@ if ( $resultado ) {
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->
-	<?php	
-	
-		function inverteData($data){
-				if(count(explode("/",$data)) > 1){
-					return implode("-",array_reverse(explode("/",$data)));
-				}elseif(count(explode("-",$data)) > 1){
-					return implode("/",array_reverse(explode("-",$data)));
-    			}
-	  	}
-													
-	    function masc_tel($TEL) {
-		$tam = strlen(preg_replace("/[^0-9]/", "", $TEL));
-		  if ($tam == 13) { // COM CÓDIGO DE ÁREA NACIONAL E DO PAIS e 9 dígitos
-		  return "+".substr($TEL,0,$tam-11)."(".substr($TEL,$tam-11,2).")".substr($TEL,$tam-9,5)."-".substr($TEL,-4);
-		  }
-		  if ($tam == 12) { // COM CÓDIGO DE ÁREA NACIONAL E DO PAIS
-		  return "+".substr($TEL,0,$tam-10)."(".substr($TEL,$tam-10,2).")".substr($TEL,$tam-8,4)."-".substr($TEL,-4);
-		  }
-		  if ($tam == 11) { // COM CÓDIGO DE ÁREA NACIONAL e 9 dígitos
-		  return "(".substr($TEL,0,2).")".substr($TEL,2,5)."-".substr($TEL,7,11);
-		  }
-		  if ($tam == 10) { // COM CÓDIGO DE ÁREA NACIONAL
-		  return "(".substr($TEL,0,2).")".substr($TEL,2,4)."-".substr($TEL,6,10);
-		  }
-		  if ($tam <= 9) { // SEM CÓDIGO DE ÁREA
-		  return substr($TEL,0,$tam-4)."-".substr($TEL,-4);
-		  }
-	 }
-	?>
-	<!-- jQuery -->
-	<script src="../vendors/jquery/dist/jquery.min.js"></script>
-	<!-- Bootstrap -->
-	<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-	<!-- FastClick -->
-	<script src="../vendors/fastclick/lib/fastclick.js"></script>
-	<!-- NProgress -->
-	<script src="../vendors/nprogress/nprogress.js"></script>
+	</div>
+	</div>
 
-	<!-- Custom Theme Scripts -->
-	<script src="../build/js/custom.min.js"></script>
+			<!-- jQuery -->
+			<script src="../vendors/jquery/dist/jquery.min.js"></script>
+			<!-- Bootstrap -->
+			<script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+			<!-- FastClick -->
+			<script src="../vendors/fastclick/lib/fastclick.js"></script>
+			<!-- NProgress -->
+			<script src="../vendors/nprogress/nprogress.js"></script>
+
+			<!-- Custom Theme Scripts -->
+			<script src="../build/js/custom.min.js"></script>
+
+			<!-- Trigger the modal with a button -->
+
+
+		</div>
+	</div>
 </body>
 
 </html>

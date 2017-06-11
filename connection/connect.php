@@ -5,7 +5,5 @@ $usuario  = "root";
 $senha	  = "";
 $dbname   = "buscarep";
 
-$conn = mysqli_connect($servidor,$usuario,$senha,$dbname);
-mysqli_set_charset($conn,"utf8");
-	
-?>
+$conn = new mysqli($servidor, $usuario, $senha, $dbname );
+$conn->set_charset("utf8");

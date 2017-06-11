@@ -3,15 +3,36 @@
 include_once('connection/connect.php');
 
 $id = rand(1000,10000);
-$id_rep = $_GET['id'];
+echo "$id <br>";
+$id_rep = 0;
+echo "$id_rep <br>";
+$date = date ('Y-m-d');
+echo "$date <br>";
 $type = $_POST['type'];
-$date = $_POST['date'];
+echo "$type <br>";
 $value = $_POST['value'];
-$description = $_POST['description'];
+echo "$value <br>";
+$description = $_POST['services'];
+echo "$description <br>";
 
-$comando = "INSERT INTO gastos(id, id_rep, type, date, date_creation, value, description) VALUES ('$id', '$id_rep', '$type', '$date', NOW(), '$value', '$description')";
+$comando = "INSERT INTO gastos (id, id_rep, type, date, value, description) VALUES ('$id','$id_rep','$type', '$date', '$value', '$description')";
+
+if ($comando){
+    echo  "Cadastrado!<br>";
+}else{
+     echo "Erro ao cadastrar, motivo : <br>" . mysql_error(); 
+
+}
 
 $resultado = mysqli_query($conn, $comando);
+
+if ($resultado){
+    echo  "Cadastrado no banco!";
+}else{
+     echo "Erro ao cadastrar, motivo : " . mysql_error(); 
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -79,13 +100,14 @@ $resultado = mysqli_query($conn, $comando);
                   <li><a><em class="fa fa-home"></em> República <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                      <li><a href="rep_cad_page.php"> Nova República+</a></li>
-				     <li><a href="rep_view.php">Ver Repúblicas</a></li>
+				     <li><a href="rep_page.php">Sua República</a></li>
+                     <li><a href="rep_view.php">Ver Repúblicas</a></li>
                     
                     </ul>
                   <li><a><em class="fa fa-bar-chart-o"></em> Estatísticas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="relatorio_gastos.php">Relatório de Gastos</a></li>
-                      <li><a href="relatorio_vagas.php">Relatório de Vagas</a></li>
+                      <li><a href="chartjs.html">Chart JS</a></li>
+                      <li><a href="chartjs2.html">Chart JS2</a></li>
                    	</ul>
                   </li>
                 </ul>
@@ -235,7 +257,7 @@ $resultado = mysqli_query($conn, $comando);
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Gasto Inserido!</h2>
+                    <h2>Usuário Inserido!</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>

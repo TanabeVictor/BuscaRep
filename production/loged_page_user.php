@@ -3,6 +3,7 @@ include_once __DIR__ . '/connection/connect.php';
 include_once __DIR__ . '/loged_test.php';
 $comando = "SELECT * FROM republica ORDER BY name ";
 
+
 $resultado = $conn->query($comando);
 ?>
 
@@ -40,11 +41,15 @@ $resultado = $conn->query($comando);
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="images/user.png" alt="..." class="img-circle profile_img">
+               <?php if ($_SESSION['user']['img_name'] == "NULL"):?>
+               	<img src="images/user.png" alt="..." class="img-circle profile_img">
+                <?php else:?>
+                <img src="upload/<?=$_SESSION['user']['img_name']?>" width="200px" height="200px" alt="..." class="img-circle profile_img">
+                <?php endif;?>
               </div>
               <div class="profile_info">
                 <span>Bem Vindo,</span>
-                <h2>Usuário</h2>
+                <h2><?= $_SESSION['user']['user']?></h2>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -86,12 +91,12 @@ $resultado = $conn->query($comando);
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/user.png" alt="">Usuário
+                    <img src="images/user.png" alt=""><?= $_SESSION['user']['user']?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="profile_page.php"> Perfil</a></li>
+                    <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
                   </ul>
                 </li>
                  <!--caixa de messagem-->

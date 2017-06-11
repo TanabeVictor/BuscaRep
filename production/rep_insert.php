@@ -1,6 +1,7 @@
 ﻿<?php
 
 include_once __DIR__ . '/connection/connect.php';
+include_once __DIR__ . '/loged_test.php';
 
 $id = rand(1000,10000);
 $name = $_POST['name'];
@@ -18,7 +19,7 @@ $phone = $_POST['phone'];
 $qtd = $_POST['qtd'];
 $services = $_POST['services'];
 $agency = $_POST['agency'];
-$dweller = 0;
+$resp = $_SESSION['user']['user'];
 $msg = false;
 
 if(isset($_FILES['arquivo'])){
@@ -29,7 +30,7 @@ if(isset($_FILES['arquivo'])){
 	move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome);
 }
 
-$comando = "INSERT INTO republica(id, name, type, state, city, street, neighborhood, number, complement, email, phone, qtd, services, agency,img_name) VALUES ('$id', '$name', '$type', '$state', '$city', '$street', '$neighboor', '$number', '$complement', '$email', '$phone', '$qtd', '$services', '$agency', '$novo_nome')";
+$comando = "INSERT INTO republica(id, name, type, state, city, street, neighborhood, number, complement, email, phone, qtd, services, agency,img_name, responsavel) VALUES ('$id', '$name', '$type', '$state', '$city', '$street', '$neighboor', '$number', '$complement', '$email', '$phone', '$qtd', '$services', '$agency', '$novo_nome', '$resp')";
 
 $resultado = $conn->query($comando);
 

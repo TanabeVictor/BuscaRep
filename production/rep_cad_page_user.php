@@ -1,5 +1,6 @@
 ﻿<?php
 include_once __DIR__ . '/connection/connect.php';
+include_once __DIR__ . '/loged_test.php';
 
 $sql = "SELECT cod_estados, nome FROM estados ORDER BY nome";
 $res = $conn->query($sql);

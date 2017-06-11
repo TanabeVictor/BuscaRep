@@ -14,7 +14,7 @@ if ($conn->affected_rows == 0) {
 
 } else {
 	session_start();
-	$_SESSION['user'] = $resultado->fetch_all(MYSQLI_ASSOC);	
+	$_SESSION['user'] = $resultado->fetch_all(MYSQLI_ASSOC)[0];	
 	header("location:http://localhost/production/BuscaRep/production/loged_page_user.php");
 }
 

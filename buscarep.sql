@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 11-Jun-2017 às 02:31
+-- Generation Time: 08-Jun-2017 às 01:53
 -- Versão do servidor: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -23,13 +23,36 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `acessante`
+--
+
+CREATE TABLE `acessante` (
+  `user` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `lastname` varchar(30) NOT NULL,
+  `address` varchar(30) NOT NULL,
+  `email` varchar(35) NOT NULL,
+  `phone` varchar(11) NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `birthday` date NOT NULL,
+  `password` varchar(16) NOT NULL,
+  `confirmpassword` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `avaliacao`
 --
 
 CREATE TABLE `avaliacao` (
   `id` int(8) NOT NULL,
-  `comentario` text NOT NULL,
-  `id_rep` int(8) NOT NULL
+  `id_rep` int(8) NOT NULL,
+  `date` date NOT NULL,
+  `description` varchar(180) NOT NULL,
+  `value` int(5) NOT NULL,
+  `user_id` int(8) NOT NULL,
+  `image_name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -40,7 +63,7 @@ CREATE TABLE `avaliacao` (
 
 CREATE TABLE `cidades` (
   `estados_cod_estados` int(11) DEFAULT NULL,
-  `cod_cidades` int(11) NOT NULL,
+  `cod_cidades` int(11) DEFAULT NULL,
   `nome` varchar(72) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cep` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -10087,7 +10110,7 @@ INSERT INTO `cidades` (`estados_cod_estados`, `cod_cidades`, `nome`, `cep`) VALU
 --
 
 CREATE TABLE `estados` (
-  `cod_estados` int(11) NOT NULL,
+  `cod_estados` int(11) DEFAULT NULL,
   `sigla` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
   `nome` varchar(72) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -10134,26 +10157,12 @@ INSERT INTO `estados` (`cod_estados`, `sigla`, `nome`) VALUES
 CREATE TABLE `gastos` (
   `id` int(8) NOT NULL,
   `id_rep` int(8) NOT NULL,
+  `type` varchar(20) NOT NULL,
   `date` date NOT NULL,
-  `type` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `date_creation` date NOT NULL,
   `value` float NOT NULL,
-  `description` varchar(80) CHARACTER SET utf8 NOT NULL
+  `description` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `morador`
---
-
-CREATE TABLE `morador` (
-  `id` int(8) NOT NULL,
-  `user_name` varchar(20) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `id_rep` int(8) NOT NULL,
-  `entrada` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `estadia` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
 
@@ -10176,8 +10185,6 @@ CREATE TABLE `republica` (
   `qtd` int(2) NOT NULL,
   `services` varchar(80) NOT NULL,
   `agency` varchar(20) NOT NULL,
-  `dweller` int(2) NOT NULL DEFAULT '0',
-  `able` tinyint(1) NOT NULL DEFAULT '1',
   `img_name` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -10185,10 +10192,10 @@ CREATE TABLE `republica` (
 -- Extraindo dados da tabela `republica`
 --
 
-INSERT INTO `republica` (`id`, `name`, `type`, `state`, `city`, `street`, `neighborhood`, `number`, `complement`, `email`, `phone`, `qtd`, `services`, `agency`, `dweller`, `able`, `img_name`) VALUES
-(6692, 'Xavascaria', 'Mista', 'RIO DE JANEIRO', 'BANQUETE', 'Simão Mauad', 'Varginha', 97, '', 'xavascaria@gmail.com', '(35)99998-7534', 12, '', 'wanted', 0, 1, 'e78e18d90915699ecd8f304fd99c6364.jpg'),
-(8029, 'Desenvolver', 'Feminina', 'RIO GRANDE DO NORTE', 'BOA SAÚDE', 'Fodas ', 'Marajó', 987, 'apartamento', 'confraria@hotmail.com', '(35) 4002-8922', 12, '', 'wanted', 0, 1, 'de788cd2ef1d13cc11203cb5649db29a.jpg'),
-(9641, 'Mago do Acre', 'Masculina', 'ACRE', 'ACRELÂNDIA', 'Pau Brasil', 'Marajó', 122, 'Casa', 'fodas@hotmail.com', '(11) 4002 -8922', 14, '', 'fodas', 0, 1, '68046080d30b2a7329ba58b524553b36.jpg');
+INSERT INTO `republica` (`id`, `name`, `type`, `state`, `city`, `street`, `neighborhood`, `number`, `complement`, `email`, `phone`, `qtd`, `services`, `agency`, `img_name`) VALUES
+(2279, 'Confraria', 'Feminina', 'São Paulo', 'Cidades SP', 'Prefeito Tigre Maia', 'Pinheirinho', 132, 'Casa', 'confraria@hotmail.com', '(35) 4002-8922', 14, 'churrasqueira', 'wanted', '54ed3b7e5402f5fb9cb29d644c10d449.jpg'),
+(7789, 'Hello World!', 'Masculina', 'Minas Gerais', 'Cidades MG', 'Fodas ', 'Varginha', 890, 'Casa', 'fodas@hotmail.com', '(11) 4002 -8922', 12, '', 'fodas', '68d42ee0648f5b36628da8780cc9c762.jpg'),
+(8522, 'Xavascaria', 'Mista', 'Mais em breve...', 'Outras cidades', 'Simão Mauad', 'Pinheirinho', 512, 'Casa', 'xavascaria@gmail.com', '(35)99998-7534', 13, 'churrasqueira de controle remoto', 'locarep', '0534c95d1e6ca564cd37713c64ef339d.jpg');
 
 -- --------------------------------------------------------
 
@@ -10197,62 +10204,49 @@ INSERT INTO `republica` (`id`, `name`, `type`, `state`, `city`, `street`, `neigh
 --
 
 CREATE TABLE `usuario` (
-  `user` varchar(20) NOT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `email` varchar(35) NOT NULL,
-  `password` text,
+  `user` int(8) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `lastname` varchar(30) CHARACTER SET latin1 NOT NULL,
+  `email` varchar(35) CHARACTER SET latin1 NOT NULL,
+  `password` varchar(16) CHARACTER SET latin1 NOT NULL,
+  `confirmpassword` varchar(16) CHARACTER SET latin1 NOT NULL,
   `birthday` date NOT NULL,
-  `gender` varchar(12) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
-  `name_image` varchar(20) NOT NULL
+  `type` varchar(15) CHARACTER SET latin1 NOT NULL,
+  `cod_image` int(15) NOT NULL,
+  `name_image` varchar(20) CHARACTER SET latin1 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`user`, `name`, `email`, `password`, `birthday`, `gender`, `phone`, `name_image`) VALUES
-('7039', 'Victor', 'vitaumsky@gmail.com', '\0\0vi\0\0\0?\0\0\0?\0\0\0?\0\0\0?', '1998-01-21', NULL, NULL, '');
+INSERT INTO `usuario` (`user`, `name`, `lastname`, `email`, `password`, `confirmpassword`, `birthday`, `type`, `cod_image`, `name_image`) VALUES
+(7039, 'Victor', 'Pereira', 'vitaumsky@gmail.com', 'victor', 'victor', '1998-01-21', '', 0, '');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `acessante`
+--
+ALTER TABLE `acessante`
+  ADD PRIMARY KEY (`user`);
+
+--
 -- Indexes for table `avaliacao`
 --
 ALTER TABLE `avaliacao`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_rep` (`id_rep`);
-
---
--- Indexes for table `cidades`
---
-ALTER TABLE `cidades`
-  ADD PRIMARY KEY (`cod_cidades`),
-  ADD KEY `estados_cod_estados` (`estados_cod_estados`);
-
---
--- Indexes for table `estados`
---
-ALTER TABLE `estados`
-  ADD PRIMARY KEY (`cod_estados`);
+  ADD KEY `avaliacao_id_rep` (`id_rep`),
+  ADD KEY `avaliacao_usuario_id` (`user_id`);
 
 --
 -- Indexes for table `gastos`
 --
 ALTER TABLE `gastos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `gastos_id_rep` (`id_rep`),
-  ADD KEY `id_rep` (`id_rep`);
-
---
--- Indexes for table `morador`
---
-ALTER TABLE `morador`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`user_name`),
-  ADD KEY `id_rep` (`id_rep`);
+  ADD KEY `gastos_id_rep` (`id_rep`);
 
 --
 -- Indexes for table `republica`
@@ -10264,23 +10258,8 @@ ALTER TABLE `republica`
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`user`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`user`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `avaliacao`
---
-ALTER TABLE `avaliacao`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `gastos`
---
-ALTER TABLE `gastos`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
@@ -10289,20 +10268,14 @@ ALTER TABLE `gastos`
 -- Limitadores para a tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
-  ADD CONSTRAINT `avaliacao_ibfk_1` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`);
+  ADD CONSTRAINT `avaliacao_id_rep` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `avaliacao_usuario_id` FOREIGN KEY (`user_id`) REFERENCES `usuario` (`user`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `gastos`
 --
 ALTER TABLE `gastos`
-  ADD CONSTRAINT `gastos_ibfk_1` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`);
-
---
--- Limitadores para a tabela `morador`
---
-ALTER TABLE `morador`
-  ADD CONSTRAINT `morador_ibfk_1` FOREIGN KEY (`user_name`) REFERENCES `usuario` (`user`),
-  ADD CONSTRAINT `morador_ibfk_2` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`);
+  ADD CONSTRAINT `gastos_id_rep` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

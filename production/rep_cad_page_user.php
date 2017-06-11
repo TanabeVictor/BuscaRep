@@ -44,18 +44,22 @@ $res = $conn->query($sql);
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-			<div class="navbar nav_title" style="border: 0;"><a href="loged_page_user.php" class="site_title"> <img src="images/buscarep.png" width="40" height="40"> <span>BuscaRep</span></a></div>
+			<div class="navbar nav_title" style="border: 0;"><a href="loged_page_user.php" class="site_title"> <img src="images/buscarep.png" width="40px" height="40px"> <span>BuscaRep</span></a></div>
 
             <div class="clearfix"></div>
 
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="images/user.png" alt="..." class="img-circle profile_img">
+               <?php if ($_SESSION['user']['img_name'] == NULL):?>
+               	<img src="images/user.png" alt="avatar" class="img-circle profile_img">
+                <?php else:?>
+                <img src="upload/<?=$_SESSION['user']['img_name']?>" alt="avatar" class="img-circle profile_img">
+                <?php endif;?>
               </div>
               <div class="profile_info">
                 <span>Bem Vindo,</span>
-                <h2>Usuário</h2>
+                <h2><?= $_SESSION['user']['user']?></h2>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -64,7 +68,7 @@ $res = $conn->query($sql);
             <br />
 
             <!-- sidebar menu -->
-		              <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Menu</h3>
                 <ul class="nav side-menu">
@@ -72,15 +76,13 @@ $res = $conn->query($sql);
                     <ul class="nav child_menu">
                      <li><a href="rep_cad_page_user.php"> Nova República+</a></li>
 						<li><a href="rep_page_user.php">Sua República</a></li>
-                        <li><a href="media_rep_user.php">Galeria</a></li>
-                      	<li><a href="review_rep_user.php">Avaliações</a></li>
-                      	<li><a href="inbox.php">Caixa de Menssagem</a></li>  
                     </ul>
                   </li>                             
                 </ul>
               </div>
+
             </div>
-			<!-- /sidebar menu -->
+            <!-- /sidebar menu -->
             <!-- /menu footer buttons -->
           </div>
         </div>
@@ -96,15 +98,19 @@ $res = $conn->query($sql);
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/user.png" alt="">Usuário
+					<?php if ($_SESSION['user']['img_name'] == NULL):?>
+					<img src="images/user.png" alt="">
+					<?php else:?>
+					<img src="upload/<?=$_SESSION['user']['img_name']?>" alt="">
+					<?php endif;?><?= $_SESSION['user']['user']?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Perfil</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="profile_page.php"> Perfil</a></li>
+                    <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
                   </ul>
                 </li>
-				<!--caixa de mensagens-->
+                 <!--caixa de messagem-->
               </ul>
             </nav>
           </div>
@@ -133,7 +139,7 @@ $res = $conn->query($sql);
                   </div>
                   <div class="x_content">
                     <br/>
-                    <form action="rep_insert.php" method="POST" class="form-horizontal form-label-left" enctype="multipart/form-data">
+                    <form action="http://localhost/production/BuscaRep/production/rep_insert.php" method="POST" class="form-horizontal form-label-left" enctype="multipart/form-data">
                        <div class="item form-group">
                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="arquivo"> Imagem </label> 
                 			<div class="col-md-6 col-sm-6 col-xs-12">
@@ -253,7 +259,6 @@ $res = $conn->query($sql);
 
                       <div class="form-group">
                         <div class="col-md-9 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">Cancel</button>
                           <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                       </div>

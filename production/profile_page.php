@@ -9,10 +9,10 @@ $resultado = $conn->query( $resultado );
 if ( $resultado ) {
 
 	$busca = "SELECT name FROM republica WHERE id = $resultado";
-	$rep_name = $conn->query( busca );
+	$rep_name = $conn->query($busca);
 
 } else {
-	$rep_name = "Morador de rua";
+	$rep_name = "A procura de um lar...";
 }
 
 ?>
@@ -46,85 +46,80 @@ if ( $resultado ) {
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-			<div class="col-md-3 left_col">
-				<div class="left_col scroll-view">
-					<div class="navbar nav_title" style="border: 0;"><a href="loged_page_user.php" class="site_title"> <img src="images/buscarep.png" width="40" height="40"> BuscaRep</a>
-					</div>
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+			<div class="navbar nav_title" style="border: 0;"><a href="loged_page_user.php" class="site_title"> <img src="images/buscarep.png" width="40px" height="40px"> <span>BuscaRep</span></a></div>
 
-					<div class="clearfix"></div>
+            <div class="clearfix"></div>
 
-					<!-- menu profile quick info -->
-					<div class="profile clearfix">
-						<div class="profile_pic">
-							<img src="images/user.png" alt="..." class="img-circle profile_img">
-						</div>
-						<div class="profile_info">
-							<span>Bem Vindo,</span>
-						
-							<h2>Usuário</h2>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<!-- /menu profile quick info -->
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+               <?php if ($_SESSION['user']['img_name'] == NULL):?>
+               	<img src="images/user.png" alt="avatar" class="img-circle profile_img">
+                <?php else:?>
+                <img src="upload/<?=$_SESSION['user']['img_name']?>" height="50px" width="50px" alt="avatar" class="img-circle profile_img">
+                <?php endif;?>
+              </div>
+              <div class="profile_info">
+                <span>Bem Vindo,</span>
+                <h2><?= $_SESSION['user']['user']?></h2>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <!-- /menu profile quick info -->
 
-					<br/>
+            <br />
 
-					<!-- sidebar menu -->
-					<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-						<div class="menu_section">
-							<h3>Menu</h3>
-							<ul class="nav side-menu">
-								<li><a><em class="fa fa-home"></em> República <span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="rep_cad_page_user.php"> Nova República+</a>
-										</li>
-										<li><a href="rep_page_user.php">Sua República</a>
-										</li>
-										<li><a href="media_rep_user.php">Galeria</a>
-										</li>
-										<li><a href="review_rep_user.php">Avaliações</a>
-										</li>
-										<li><a href="inbox.php">Caixa de Menssagem</a>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</div>
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <h3>Menu</h3>
+                <ul class="nav side-menu">
+                  <li><a><em class="fa fa-home"></em> República <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                     <li><a href="rep_cad_page_user.php"> Nova República+</a></li>
+						<li><a href="rep_page_user.php">Sua República</a></li>
+                    </ul>
+                  </li>                             
+                </ul>
+              </div>
 
-					</div>
-					<!-- /sidebar menu -->
-					<!-- /menu footer buttons -->
-				</div>
-			</div>
+            </div>
+            <!-- /sidebar menu -->
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
 
-			<!-- top navigation -->
-			<div class="top_nav">
-				<div class="nav_menu">
-					<nav>
-						<div class="nav toggle">
-							<a id="menu_toggle"><i class="fa fa-bars"></i></a>
-						</div>
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
 
-						<ul class="nav navbar-nav navbar-right">
-							<li class="">
-								<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/user.png" alt="">Usuário
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					<?php if ($_SESSION['user']['img_name'] == NULL):?>
+					<img src="images/user.png" alt="">
+					<?php else:?>
+					<img src="upload/<?=$_SESSION['user']['img_name']?>" alt="">
+					<?php endif;?><?= $_SESSION['user']['user']?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
-							
-								<ul class="dropdown-menu dropdown-usermenu pull-right">
-									<li><a href="javascript:;"> Profile</a>
-									</li>
-									<li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-									</li>
-								</ul>
-							</li>
-							<!--caixa de messagem-->
-						</ul>
-					</nav>
-				</div>
-			</div>
-			<!-- /top navigation -->
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="profile_page.php"> Perfil</a></li>
+                    <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
+                  </ul>
+                </li>
+                 <!--caixa de messagem-->
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
 
 			<!-- page content -->
 			<div class="right_col" role="main">
@@ -152,35 +147,38 @@ if ( $resultado ) {
 										<div class="profile_img">
 											<div id="crop-avatar">
 												<!-- Current avatar -->
-												<img src="upload/<?= $_SESSION['user'][" img_name "];?>" width="200px" height="200px" alt="Avatar">
+												<?php $image_name = $_SESSION['user']['img_name'];?>
+												<?php if ($image_name == NULL):?>
+												<img src="images/user.png" alt="Avatar" width="200px" height="200px">
+												<?php else:?>
+												<img src="upload/<?=$image_name?>" alt="Avatar" width="200px" height="200px">
+												<?php endif;?>
 											</div>
 										</div>
 										<br>
 										<a class="btn bg-green" href="profile_edit.php"><i class="fa fa-edit"></i> Editar Perfil</a>
+										<a class="btn btn-danger" href="user_delete.php"><i class="fa fa-remove m-right-xs"></i> Deletar Perfil</a>
+										<br/>
 									</div>
 									<div class="col-md-9 col-sm-9 col-xs-12">
-										<div class="x_panel">
-											<ul class="list-unstyled user_data">
-												<p></p>
-												<li>
-													<em class="fa fa-home ">&nbsp<?= $rep_name?></em>
-												</li>
-												<li>
-													<?php if($_SESSION['user']['gender'] == "Masculino"):?>
-													<em class="fa fa-mars">&nbsp<?= $_SESSION['user']['gender']?></em>
-													<?php else:?>
-													<em class="fa fa-venus">&nbsp <?= $_SESSION['user']['gender']?></em>
-													<?php endif;?>
-												</li>
-												<li>
-													<em class="fa fa-birthday-cake">&nbsp <?= $_SESSION['user']['birthday']?></em>
-												</li>
-												<li>
-													<em class="fa fa-phone">&nbsp <?= $_SESSION['user']['phone']?></em>
-												</li>
-											</ul>
-										</div>
-										<!--galeria-->
+										<h2>
+												<i class="fa fa-home ">&nbsp<?= $rep_name?></i>
+												<br></br>
+												<?php if($_SESSION['user']['gender'] == "Masculino"):?>
+												<i class="fa fa-mars">&nbsp<?= $_SESSION['user']['gender']?></i>
+												<?php elseif($_SESSION['user']['gender'] == "Feminino"):?>
+														<i class="fa fa-venus">&nbsp <?= $_SESSION['user']['gender']?></i>
+												<?php else:?>
+													<i class="fa fa-neuter">&nbsp Desconhecido</i>	
+												<?php endif;?>
+												<br></br>
+												<?php $date = $_SESSION['user']['birthday'];?>
+												<i class="fa fa-birthday-cake">&nbsp <?= inverteData($date)?></i>
+												<br></br>
+												<?php $phone = $_SESSION['user']['phone'] ?>
+												<i class="fa fa-phone">&nbsp <?= masc_tel("$phone")?></i>
+												<br></br>
+										</h2>
 									</div>
 								</div>
 							</div>
@@ -200,7 +198,35 @@ if ( $resultado ) {
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->
-
+	<?php	
+	
+		function inverteData($data){
+				if(count(explode("/",$data)) > 1){
+					return implode("-",array_reverse(explode("/",$data)));
+				}elseif(count(explode("-",$data)) > 1){
+					return implode("/",array_reverse(explode("-",$data)));
+    			}
+	  	}
+													
+	    function masc_tel($TEL) {
+		$tam = strlen(preg_replace("/[^0-9]/", "", $TEL));
+		  if ($tam == 13) { // COM CÓDIGO DE ÁREA NACIONAL E DO PAIS e 9 dígitos
+		  return "+".substr($TEL,0,$tam-11)."(".substr($TEL,$tam-11,2).")".substr($TEL,$tam-9,5)."-".substr($TEL,-4);
+		  }
+		  if ($tam == 12) { // COM CÓDIGO DE ÁREA NACIONAL E DO PAIS
+		  return "+".substr($TEL,0,$tam-10)."(".substr($TEL,$tam-10,2).")".substr($TEL,$tam-8,4)."-".substr($TEL,-4);
+		  }
+		  if ($tam == 11) { // COM CÓDIGO DE ÁREA NACIONAL e 9 dígitos
+		  return "(".substr($TEL,0,2).")".substr($TEL,2,5)."-".substr($TEL,7,11);
+		  }
+		  if ($tam == 10) { // COM CÓDIGO DE ÁREA NACIONAL
+		  return "(".substr($TEL,0,2).")".substr($TEL,2,4)."-".substr($TEL,6,10);
+		  }
+		  if ($tam <= 9) { // SEM CÓDIGO DE ÁREA
+		  return substr($TEL,0,$tam-4)."-".substr($TEL,-4);
+		  }
+	 }
+	?>
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->

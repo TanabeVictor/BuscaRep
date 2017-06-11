@@ -115,67 +115,6 @@ $resultado = mysqli_query($conn, $comando);
                     <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
-
-                <li role="presentation" class="dropdown"><a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false"> <em class="fa fa-envelope-o"></em> <span class="badge bg-green">4</span> </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>Usuário</span>
-                          <span class="time">1 min ago</span>
-                        </span>
-                        <span class="message">
-                          Se fudeu...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>Usuário</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Sua mãe é minha...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>Usuário</span>
-                          <span class="time">10 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Why so serious?!
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>Usuário</span>
-                          <span class="time">1 mounth ago</span>
-                        </span>
-                        <span class="message">
-                          Me fudi no Peruano...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
               </ul>
             </nav>
           </div>

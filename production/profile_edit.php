@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<?php
+include_once __DIR__ . '/connection/connect.php';
+include_once __DIR__ . '/loged_test.php';
+
+?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -28,6 +33,7 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
   </head>
 
   <body class="nav-md">
@@ -35,18 +41,22 @@
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-			<div class="navbar nav_title" style="border: 0;"><a href="loged_page_user.php" class="site_title"> <img src="images/buscarep.png" width="40" height="40"> <span>BuscaRep</span></a></div>
+			<div class="navbar nav_title" style="border: 0;"><a href="loged_page_user.php" class="site_title"> <img src="images/buscarep.png" width="40px" height="40px"> <span>BuscaRep</span></a></div>
 
             <div class="clearfix"></div>
 
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="images/user.png" alt="..." class="img-circle profile_img">
+               <?php if ($_SESSION['user']['img_name'] == NULL):?>
+               	<img src="images/user.png" alt="avatar" class="img-circle profile_img">
+                <?php else:?>
+                <img src="upload/<?=$_SESSION['user']['img_name']?>" alt="avatar" class="img-circle profile_img">
+                <?php endif;?>
               </div>
               <div class="profile_info">
                 <span>Bem Vindo,</span>
-                <h2>Usuário</h2>
+                <h2><?= $_SESSION['user']['user']?></h2>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -63,13 +73,11 @@
                     <ul class="nav child_menu">
                      <li><a href="rep_cad_page_user.php"> Nova República+</a></li>
 						<li><a href="rep_page_user.php">Sua República</a></li>
-                        <li><a href="media_rep_user.php">Galeria</a></li>
-                      	<li><a href="review_rep_user.php">Avaliações</a></li>
-                      	<li><a href="inbox.php">Caixa de Menssagem</a></li>  
                     </ul>
-                  </li>                           
+                  </li>                             
                 </ul>
               </div>
+
             </div>
             <!-- /sidebar menu -->
             <!-- /menu footer buttons -->
@@ -87,21 +95,19 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/user.png" alt="">Usuário
+					<?php if ($_SESSION['user']['img_name'] == NULL):?>
+					<img src="images/user.png" alt="">
+					<?php else:?>
+					<img src="upload/<?=$_SESSION['user']['img_name']?>" alt="">
+					<?php endif;?><?= $_SESSION['user']['user']?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Perfil</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span>Opções</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Ajuda</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="profile_page.php"> Perfil</a></li>
+                    <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
                   </ul>
                 </li>
-                <!--caixa de messagem-->
+                 <!--caixa de messagem-->
               </ul>
             </nav>
           </div>
@@ -125,46 +131,52 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>República<small>Editando</small></h2>
+                    <h2>República<small>Cadastro</small></h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <br />
-                    <form action="gasto_insert.php" method="POST" class="form-horizontal form-label-left">
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">Tipo de Gasto<span class="required">*</span>
-                        </label>
+                    <br/>
+                    <form action="http://localhost/production/BuscaRep/production/profile_update.php" method="post" class="form-horizontal form-label-left" enctype="multipart/form-data">
+                       <div class="item form-group">
+                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="arquivo">Imagem </label> 
+                			<div class="col-md-6 col-sm-6 col-xs-12">
+                			<image id="profileImage" src="images/user.png"/>
+							<br></br>
+               				<input class="form-control col-md-7 col-xs-12" type="file" name="arquivo">
+						   </div>
+                       </div>
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="name">Nome </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select id="type" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="type" required>                 
-                            <option> Escolha um tipo </option>
-                            <option>Alguel</option>
-                            <option>Água</option>
-                            <option>Luz</option>
-                            <option>Internet</option>
-                            <option>Serviços Gerais</option>
+                          <input id="name" class="form-control col-md-7 col-xs-12" type="text" placeholder="Nome Completo" name="name">
+                        </div>
+					  </div>
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="birthday">Data de Nascimento </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="birthday" name="birthday" type="date" class="form-control">
+                        </div>
+                      </div>
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="phone">Telefone </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="phone" class="form-control col-md-7 col-xs-12" placeholder="com DDD e sem Simbolos" type="text" name="phone">
+                        </div>
+					  </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gender">Sexo</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select id="gender" class="form-control col-md-7 col-xs-12"  name="gender">                 
+                            <option>...</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
                           </select>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="value">Valor<span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input  id="value" step=0.01 type="number" name="value" class="form-control" required="required">
-                        </div>
-                      </div>
-                      
-                      <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="services">Descrição</label>
-                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <textarea id="services" class="form-control" name="services" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100"
-                          data-parsley-validation-threshold="10"></textarea>
-						 </div>
-					  </div>
-                 
                       <div class="ln_solid"></div>
 
                       <div class="form-group">
                         <div class="col-md-9 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">Cancel</button>
                           <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                       </div>
@@ -842,6 +854,7 @@
       });
     </script>
     <!-- /Cropper -->
+    
     <!-- validator -->
     <script>
       // initialize the validator function
@@ -872,6 +885,6 @@
         return false;
       });
     </script>
-    <!-- /validator -->
+
   </body>
 </html>

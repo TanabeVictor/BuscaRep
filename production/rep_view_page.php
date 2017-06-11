@@ -1,5 +1,7 @@
 ﻿<?php
 include_once __DIR__ . '/connection/connect.php';
+include_once __DIR__ . '/loged_test.php';
+
 
 $id = $_GET[ 'id' ];
 
@@ -44,19 +46,22 @@ $resultado = $conn->query( $comando );
 
 					<div class="clearfix"></div>
 
-					<!-- menu profile quick info -->
-					<div class="profile clearfix">
-						<div class="profile_pic">
-							<img src="images/user.png" alt="..." class="img-circle profile_img">
-						</div>
-						<div class="profile_info">
-							<span>Bem Vindo,</span>
-						
-							<h2>Usuário</h2>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<!-- /menu profile quick info -->
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+               <?php if ($_SESSION['user']['img_name'] == NULL):?>
+               	<img src="images/user.png" alt="..." class="img-circle profile_img">
+                <?php else:?>
+                <img src="upload/<?=$_SESSION['user']['img_name']?>" alt="..." class="img-circle profile_img">
+                <?php endif;?>
+              </div>
+              <div class="profile_info">
+                <span>Bem Vindo,</span>
+                <h2><?= $_SESSION['user']['user']?></h2>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <!-- /menu profile quick info -->
 
 					<br/>
 
@@ -70,12 +75,6 @@ $resultado = $conn->query( $comando );
 										<li><a href="rep_cad_page_user.php"> Nova República+</a>
 										</li>
 										<li><a href="rep_page_user.php">Sua República</a>
-										</li>
-										<li><a href="media_rep_user.php">Galeria</a>
-										</li>
-										<li><a href="review_rep_user.php">Avaliações</a>
-										</li>
-										<li><a href="inbox.php">Caixa de Menssagem</a>
 										</li>
 									</ul>
 								</li>
@@ -96,22 +95,23 @@ $resultado = $conn->query( $comando );
 							<a id="menu_toggle"><i class="fa fa-bars"></i></a>
 						</div>
 
-						<ul class="nav navbar-nav navbar-right">
-							<li class="">
-								<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/user.png" alt="">Usuário
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					<?php if ($_SESSION['user']['img_name'] == NULL):?>
+					<img src="images/user.png" alt="">
+					<?php else:?>
+					<img src="upload/<?=$_SESSION['user']['img_name']?>" alt="">
+					<?php endif;?><?= $_SESSION['user']['user']?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
-							
-								<ul class="dropdown-menu dropdown-usermenu pull-right">
-									<li><a href="javascript:;"> Profile</a>
-									</li>
-									<li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-									</li>
-								</ul>
-							</li>
-							<!--caixa de messagem-->
-						</ul>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="profile_page.php"> Perfil</a></li>
+                    <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
+                  </ul>
+                </li>
+                 <!--caixa de messagem-->
+              </ul>
 					</nav>
 				</div>
 			</div>
@@ -142,7 +142,11 @@ $resultado = $conn->query( $comando );
 										<div class="profile_img">
 											<div id="crop-avatar">
 												<!-- Current avatar -->
-												<img src="upload/<?php echo $dado[" img_name "];?>" width="200px" height="200px" alt="Avatar">
+											   <?php if ($dado["img_name"] == "NULL"):?>
+												<img src="images/image_default.jpg" alt="avatar" height="200px" width="200px">
+												<?php else:?>
+												<img src="upload/<?=$dado["img_name"]?>" alt="avatar" height="200px" width="200px">
+												<?php endif;?>
 											</div>
 										</div>
 
@@ -160,7 +164,7 @@ $resultado = $conn->query( $comando );
 											</li>
 											<li>
 												<i class="fa fa-phone user-profile-icon"></i>
-												<?php echo $dado["phone"]; ?>
+												<?php echo masc_tel($dado["phone"]);?>
 											</li>
 
 											<li class="m-top-xs">
@@ -203,57 +207,6 @@ $resultado = $conn->query( $comando );
 										<a class="btn bg-blue" href="rep_ed_page.html"><i class="fa fa-star"></i> Avaliar</a>
 									</div>
 									<div class="col-md-9 col-sm-9 col-xs-12">
-
-										<div class="x_panel">
-											<div class="x_title">
-												<h2>Galeria de Fotos</h2>
-												<ul class="nav navbar-right panel_toolbox">
-													<li><span style="padding-left:100px"><a class="collapse-link"><i class="fa fa-chevron-up"></span>
-														</i>
-														</a>
-													</li>
-												</ul>
-												<div class="clearfix"></div>
-											</div>
-											<div class="x_content">
-
-												<div class="row">
-													<div class="col-md-3">
-														<div class="image view view-first">
-															<img style="width: 100%; display: block;" src="images/media.jpg" alt="image"/>
-															<div class="mask">
-																<p>Your Text</p>
-															</div>
-														</div>
-													</div>
-													<div class="col-md-3">
-														<div class="image view view-first">
-															<img style="width: 100%; display: block;" src="images/media.jpg" alt="image"/>
-															<div class="mask">
-																<p>Your Text</p>
-															</div>
-														</div>
-													</div>
-													<div class="col-md-3">
-														<div class="image view view-first">
-															<img style="width: 100%; display: block;" src="images/media.jpg" alt="image"/>
-															<div class="mask">
-																<p>Your Text</p>
-															</div>
-														</div>
-													</div>
-													<div class="col-md-3">
-														<div class="image view view-first">
-															<img style="width: 100%; display: block;" src="images/media.jpg" alt="image"/>
-															<div class="mask">
-																<p>Your Text</p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!--galeria-->
 										<div class="" role="tabpanel" data-example-id="togglable-tabs">
 											<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
 												<li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Avaliações</a>
@@ -276,48 +229,10 @@ $resultado = $conn->query( $comando );
 												</div>
 												<div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
 
-													<!-- start user projects -->
+													<!-- moradores -->
 													<table class="data table table-striped no-margin">
-														<thead>
-															<tr>
-																<th>ID</th>
-																<th>Nome do Morador</th>
-																<th>Entrada</th>
-																<th class="hidden-phone">Estadia</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<td>1</td>
-																<td>Robertinho</td>
-																<td>20/02/2015</td>
-																<td class="hidden-phone">until today</td>
-																<td class="vertical-align-mid">&nbsp;</td>
-															</tr>
-															<tr>
-																<td>2</td>
-																<td>Mr.Catra</td>
-																<td>03/08/2013</td>
-																<td class="hidden-phone">until today</td>
-																<td class="vertical-align-mid">&nbsp;</td>
-															</tr>
-															<tr>
-																<td>3</td>
-																<td>Pele</td>
-																<td>17/03/2014</td>
-																<td class="hidden-phone">until 12/11/2015</td>
-																<td class="vertical-align-mid">&nbsp;</td>
-															</tr>
-															<tr>
-																<td>4</td>
-																<td>Saitama</td>
-																<td>30/04/2009</td>
-																<td class="hidden-phone">until today</td>
-																<td class="vertical-align-mid">&nbsp;</td>
-															</tr>
-														</tbody>
 													</table>
-													<!-- end user projects -->
+													<!-- moradores -->
 
 												</div>
 												<div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
@@ -349,6 +264,28 @@ $resultado = $conn->query( $comando );
 	</footer>
 	<!-- /footer content -->
 
+		<?php
+													
+	    function masc_tel($TEL) {
+		$tam = strlen(preg_replace("/[^0-9]/", "", $TEL));
+		  if ($tam == 13) { // COM CÓDIGO DE ÁREA NACIONAL E DO PAIS e 9 dígitos
+		  return "+".substr($TEL,0,$tam-11)."(".substr($TEL,$tam-11,2).")".substr($TEL,$tam-9,5)."-".substr($TEL,-4);
+		  }
+		  if ($tam == 12) { // COM CÓDIGO DE ÁREA NACIONAL E DO PAIS
+		  return "+".substr($TEL,0,$tam-10)."(".substr($TEL,$tam-10,2).")".substr($TEL,$tam-8,4)."-".substr($TEL,-4);
+		  }
+		  if ($tam == 11) { // COM CÓDIGO DE ÁREA NACIONAL e 9 dígitos
+		  return "(".substr($TEL,0,2).")".substr($TEL,2,5)."-".substr($TEL,7,11);
+		  }
+		  if ($tam == 10) { // COM CÓDIGO DE ÁREA NACIONAL
+		  return "(".substr($TEL,0,2).")".substr($TEL,2,4)."-".substr($TEL,6,10);
+		  }
+		  if ($tam <= 9) { // SEM CÓDIGO DE ÁREA
+		  return substr($TEL,0,$tam-4)."-".substr($TEL,-4);
+		  }
+	 	}
+					  
+		?>
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->

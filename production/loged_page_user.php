@@ -34,17 +34,17 @@ $resultado = $conn->query($comando);
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-			<div class="navbar nav_title" style="border: 0;"><a href="loged_page_user.php" class="site_title"> <img src="images/buscarep.png" width="40" height="40"> <span>BuscaRep</span></a></div>
+			<div class="navbar nav_title" style="border: 0;"><a href="loged_page_user.php" class="site_title"> <img src="images/buscarep.png" width="40px" height="40px"> <span>BuscaRep</span></a></div>
 
             <div class="clearfix"></div>
 
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-               <?php if ($_SESSION['user']['img_name'] == "NULL"):?>
-               	<img src="images/user.png" alt="..." class="img-circle profile_img">
+               <?php if ($_SESSION['user']['img_name'] == NULL):?>
+               	<img src="images/user.png" alt="avatar" class="img-circle profile_img">
                 <?php else:?>
-                <img src="upload/<?=$_SESSION['user']['img_name']?>" width="200px" height="200px" alt="..." class="img-circle profile_img">
+                <img src="upload/<?=$_SESSION['user']['img_name']?>" alt="avatar" class="img-circle profile_img">
                 <?php endif;?>
               </div>
               <div class="profile_info">
@@ -66,9 +66,6 @@ $resultado = $conn->query($comando);
                     <ul class="nav child_menu">
                      <li><a href="rep_cad_page_user.php"> Nova República+</a></li>
 						<li><a href="rep_page_user.php">Sua República</a></li>
-                        <li><a href="media_rep_user.php">Galeria</a></li>
-                      	<li><a href="review_rep_user.php">Avaliações</a></li>
-                      	<li><a href="inbox.php">Caixa de Menssagem</a></li>  
                     </ul>
                   </li>                             
                 </ul>
@@ -91,7 +88,11 @@ $resultado = $conn->query($comando);
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/user.png" alt=""><?= $_SESSION['user']['user']?>
+					<?php if ($_SESSION['user']['img_name'] == NULL):?>
+					<img src="images/user.png" alt="">
+					<?php else:?>
+					<img src="upload/<?=$_SESSION['user']['img_name']?>" alt="">
+					<?php endif;?><?= $_SESSION['user']['user']?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">

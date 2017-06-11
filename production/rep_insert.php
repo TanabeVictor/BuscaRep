@@ -34,6 +34,6 @@ $comando = "INSERT INTO republica(id, name, type, state, city, street, neighborh
 
 $resultado = $conn->query($comando);
 
-header("location:http://localhost/SiteBuscaRep/production/loged_page_user.php");
-?>
+header("location:http://localhost/production/BuscaRep/production/loged_page_user.php");
+
     

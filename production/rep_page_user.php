@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<?php
+include_once __DIR__ . '/connection/connect.php';
+include_once __DIR__ . '/loged_test.php';
+
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -24,103 +29,80 @@
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-			<div class="col-md-3 left_col">
-				<div class="left_col scroll-view">
-					<div class="navbar nav_title" style="border: 0;"><a href="loged_page_user.php" class="site_title"> <img src="images/buscarep.png" width="40" height="40"> BuscaRep</a>
-					</div>
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+			<div class="navbar nav_title" style="border: 0;"><a href="loged_page_user.php" class="site_title"> <img src="images/buscarep.png" width="40px" height="40px"> <span>BuscaRep</span></a></div>
 
-					<div class="clearfix"></div>
+            <div class="clearfix"></div>
 
-					<!-- menu profile quick info -->
-					<div class="profile clearfix">
-						<div class="profile_pic">
-							<img src="images/He-man.jpg" alt="..." class="img-circle profile_img">
-						</div>
-						<div class="profile_info">
-							<span>Bem Vindo,</span>
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+               <?php if ($_SESSION['user']['img_name'] == NULL):?>
+               	<img src="images/user.png" alt="avatar" class="img-circle profile_img">
+                <?php else:?>
+                <img src="upload/<?=$_SESSION['user']['img_name']?>" alt="avatar" class="img-circle profile_img">
+                <?php endif;?>
+              </div>
+              <div class="profile_info">
+                <span>Bem Vindo,</span>
+                <h2><?= $_SESSION['user']['user']?></h2>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <!-- /menu profile quick info -->
 
+            <br />
 
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <h3>Menu</h3>
+                <ul class="nav side-menu">
+                  <li><a><em class="fa fa-home"></em> República <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                     <li><a href="rep_cad_page_user.php"> Nova República+</a></li>
+						<li><a href="rep_page_user.php">Sua República</a></li>
+                    </ul>
+                  </li>                             
+                </ul>
+              </div>
 
-						
+            </div>
+            <!-- /sidebar menu -->
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
 
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
 
-
-							<h2>Usuário</h2>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<!-- /menu profile quick info -->
-
-					<br/>
-
-					<!-- sidebar menu -->
-					<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-						<div class="menu_section">
-							<h3>Menu</h3>
-							<ul class="nav side-menu">
-								<li><a><em class="fa fa-home"></em> República <span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="rep_cad_page_user.php"> Nova República+</a>
-										</li>
-										<li><a href="rep_page_user.php">Sua República</a>
-										</li>
-										<li><a href="media_rep_user.php">Galeria</a>
-										</li>
-										<li><a href="review_rep_user.php">Avaliações</a>
-										</li>
-										<li><a href="inbox.php">Caixa de Menssagem</a>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-
-					</div>
-					<!-- /sidebar menu -->
-					<!-- /menu footer buttons -->
-				</div>
-			</div>
-
-			<!-- top navigation -->
-			<div class="top_nav">
-				<div class="nav_menu">
-					<nav>
-						<div class="nav toggle">
-							<a id="menu_toggle"><i class="fa fa-bars"></i></a>
-						</div>
-
-						<ul class="nav navbar-nav navbar-right">
-							<li class="">
-								<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/He-man.jpg" alt="">Usuário
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					<?php if ($_SESSION['user']['img_name'] == NULL):?>
+					<img src="images/user.png" alt="">
+					<?php else:?>
+					<img src="upload/<?=$_SESSION['user']['img_name']?>" alt="">
+					<?php endif;?><?= $_SESSION['user']['user']?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
-							
-
-
-								<ul class="dropdown-menu dropdown-usermenu pull-right">
-									<li><a href="javascript:;"> Perfil</a>
-									</li>
-									<li>
-										<a href="javascript:;">
-                        <span>Opções</span>
-                      </a>
-									
-
-
-									</li>
-									<li><a href="javascript:;">Ajuda</a>
-									</li>
-									<li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-									</li>
-								</ul>
-							</li>
-							<!--caixa de messagem-->
-						</ul>
-					</nav>
-				</div>
-			</div>
-			<!-- /top navigation -->
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="profile_page.php"> Perfil</a></li>
+                    <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
+                  </ul>
+                </li>
+                 <!--caixa de messagem-->
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
 
 			<!-- page content -->
 			<div class="right_col" role="main">
@@ -158,7 +140,7 @@
 											<li><em class="fa fa-map-marker user-profile-icon"></em> Rua,Número,Bairro, Complemento
 											</li>
 											<li>
-												<i class="fa fa-phone user-profile-icon"></i> (__) ____-____
+												<i class="fa fa-phone user-profile-icon"></i> <?php>masc_tel($telefone);?>
 											</li>
 
 											<li class="m-top-xs">
@@ -184,68 +166,15 @@
 											</li>
 											<li>
 												<p> <em class="fa fa-info user-profile-icon"></em> Tipo de República:
-													<p>.</p>
 												</p>
 											</li>
 											<li>
 												<p> <em class="fa fa-server user-profile-icon"></em> Serviços:
-													<p>.</p>
-													<p>.</p>
 											</li>
 										</ul>
 										<!-- end of skills -->
 									</div>
 									<div class="col-md-9 col-sm-9 col-xs-12">
-
-										<div class="x_panel">
-											<div class="x_title">
-												<h2>Galeria de Fotos</h2>
-												<ul class="nav navbar-right panel_toolbox">
-													<li><span style="padding-left:100px"><a class="collapse-link"><i class="fa fa-chevron-up"></span>
-														</i>
-														</a>
-													</li>
-												</ul>
-												<div class="clearfix"></div>
-											</div>
-											<div class="x_content">
-
-												<div class="row">
-													<div class="col-md-3">
-														<div class="image view view-first">
-															<img style="width: 100%; display: block;" src="images/media.jpg" alt="image"/>
-															<div class="mask">
-																<p>Your Text</p>
-															</div>
-														</div>
-													</div>
-													<div class="col-md-3">
-														<div class="image view view-first">
-															<img style="width: 100%; display: block;" src="images/media.jpg" alt="image"/>
-															<div class="mask">
-																<p>Your Text</p>
-															</div>
-														</div>
-													</div>
-													<div class="col-md-3">
-														<div class="image view view-first">
-															<img style="width: 100%; display: block;" src="images/media.jpg" alt="image"/>
-															<div class="mask">
-																<p>Your Text</p>
-															</div>
-														</div>
-													</div>
-													<div class="col-md-3">
-														<div class="image view view-first">
-															<img style="width: 100%; display: block;" src="images/media.jpg" alt="image"/>
-															<div class="mask">
-																<p>Your Text</p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
 										<div class="" role="tabpanel" data-example-id="togglable-tabs">
 											<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
 												<li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Avaliações</a>
@@ -253,8 +182,6 @@
 												<li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Moradores</a>
 												</li>
 												<li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Gastos</a>
-												</li>
-												<li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Outros</a>
 												</li>
 											</ul>
 											<div id="myTabContent" class="tab-content">
@@ -268,12 +195,14 @@
 
 												</div>
 												<div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-													<a class="btn btn-block" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus" ></i> Morador </a>
+													<a class="btn btn-block" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#modal_morador"><i class="fa fa-plus" ></i> Morador </a>
 													<table class="data table table-striped no-margin">
 													</table>
 												</div>
 												<div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-													<a class="btn btn-block" href="gasto_cad_page_user.php"><i class="fa fa-plus" ></i> Gasto</a>
+													<a class="btn btn-block" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#modal_gasto"><i class="fa fa-plus" ></i> Gasto </a>
+													<table class="data table table-striped no-margin">
+													</table>
 												</div>
 
 												<div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
@@ -306,23 +235,113 @@
 
 
 
-	<!-- Modal -->
-	<div id="myModal" class="modal fade" role="dialog">
+	<!-- Modal Morador -->
+	<div id="modal_morador" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Modal Header</h4>
+					<h4 class="modal-title">Novo Morador</h4>
 				</div>
 				<div class="modal-body">
-					<p>Some text in the modal.</p>
+					<form action="gasto_insert.php" method="POST" class="form-horizontal form-label-left">
+						<div class="item form-group">
+							listar usuários
+						</div>
+
+						<div class="ln_solid"></div>
+
+						<div class="form-group">
+							<div class="col-md-9 col-md-offset-3">
+								<button type="submit" class="btn btn-success">Submit</button>
+							</div>
+						</div>
+					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
+		</div>
+	</div>
+			<!-- Modal Gasto -->
+			<div id="modal_gasto" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Novo Gasto</h4>
+						</div>
+						<div class="modal-body">
+							<form action="http://localhost/production/BuscaRep/production/gasto_insert.php" method="POST" class="form-horizontal form-label-left">
+								<div class="item form-group">
+									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">Tipo de Gasto<span class="required">*</span>
+                        			</label>
+									<div class="col-md-6 col-sm-6 col-xs-12">
+										<select id="type" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="type" required>
+											<option> Escolha um tipo </option>
+											<option>Alguel</option>
+											<option>Água</option>
+											<option>Luz</option>
+											<option>Internet</option>
+											<option>Serviços Gerais</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="value">Valor<span class="required">*</span></label>
+									<div class="col-md-6 col-sm-6 col-xs-12">
+										<input id="value" step=0.01 type="number" name="value" class="form-control" required="required">
+									</div>
+								</div>
+
+								<div class="item form-group">
+									<label class="control-label col-md-3 col-sm-3 col-xs-12" for="services">Descrição</label>
+									<div class="col-md-6 col-sm-6 col-xs-12">
+										<textarea id="services" class="form-control" name="services" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-validation-threshold="10"></textarea>
+									</div>
+								</div>
+								<div class="ln_solid"></div>
+								<div class="form-group">
+									<div class="col-md-9 col-md-offset-3">
+										<button type="submit" class="btn btn-success">Submit</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		<?php
+													
+	    function masc_tel($TEL) {
+		$tam = strlen(preg_replace("/[^0-9]/", "", $TEL));
+		  if ($tam == 13) { // COM CÓDIGO DE ÁREA NACIONAL E DO PAIS e 9 dígitos
+		  return "+".substr($TEL,0,$tam-11)."(".substr($TEL,$tam-11,2).")".substr($TEL,$tam-9,5)."-".substr($TEL,-4);
+		  }
+		  if ($tam == 12) { // COM CÓDIGO DE ÁREA NACIONAL E DO PAIS
+		  return "+".substr($TEL,0,$tam-10)."(".substr($TEL,$tam-10,2).")".substr($TEL,$tam-8,4)."-".substr($TEL,-4);
+		  }
+		  if ($tam == 11) { // COM CÓDIGO DE ÁREA NACIONAL e 9 dígitos
+		  return "(".substr($TEL,0,2).")".substr($TEL,2,5)."-".substr($TEL,7,11);
+		  }
+		  if ($tam == 10) { // COM CÓDIGO DE ÁREA NACIONAL
+		  return "(".substr($TEL,0,2).")".substr($TEL,2,4)."-".substr($TEL,6,10);
+		  }
+		  if ($tam <= 9) { // SEM CÓDIGO DE ÁREA
+		  return substr($TEL,0,$tam-4)."-".substr($TEL,-4);
+		  }
+	 	}
+					  
+		?>
 			<!-- jQuery -->
 			<script src="../vendors/jquery/dist/jquery.min.js"></script>
 			<!-- Bootstrap -->

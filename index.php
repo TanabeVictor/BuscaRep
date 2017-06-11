@@ -30,16 +30,16 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form>
+            <form action="http://localhost/production/BuscaRep/production/user_connect.php" method="POST">
               <h1>Login</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Nome de Usuário" required="required" />
+                <input name="user_name" type="text" class="form-control" placeholder="Nome de Usuário" required="required" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Senha" required="required" />
+                <input name="password" type="password" class="form-control" placeholder="Senha" required="required" />
               </div>
               <div>
-                <a class="btn btn-default submit" href="production/loged_page_user.php">Entrar</a>
+                <input class="btn btn-default submit" value="Entrar" type="submit">
                 <a class="reset_pass" href="#">Esqueceu a senha?</a>
               </div>
 
@@ -52,19 +52,25 @@
 
                 <div class="clearfix"></div>
                 <br />
-
+				
                 <div>
                   <h1><img src="production/images/buscarep.png" width="40" height="40"> Sistema BuscaRep</h1>
                   <p>©Developed by Atares IT</p>
                 </div>
               </div>
             </form>
+            <?php if(isset ($_GET['error'])):
+			  if($_GET['error'] == true):?>
+            <div class="panel panel-danger">
+            <div class="panel-heading">Erro no Login</div>	
+			 </div>
+            <?php endif; endif?>
           </section>
         </div>
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form action="http://localhost/SiteBuscaRep/production/user_insert.php" method="POST">
+            <form action="http://localhost/production/BuscaRep/production/user_insert.php" method="POST">
               <h1>Nova Conta</h1>
               <div>
                 <input name="user_name" type="text" class="form-control" placeholder="Nome de Usuário" required="required" />

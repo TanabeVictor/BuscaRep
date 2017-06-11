@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<?php include_once __DIR__ . '/loged_test.php';?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

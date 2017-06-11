@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿<?php
+
+session_start();
+if(isset($_SESSION['user'])){
+	header("location:http://localhost/production/BuscaRep/production/loged_page_user.php");
+}
+
+?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

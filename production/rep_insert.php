@@ -3,23 +3,24 @@
 include_once __DIR__ . '/connection/connect.php';
 include_once __DIR__ . '/loged_test.php';
 
-$id = rand(1000,10000);
-$name = $_POST['name'];
-$type = $_POST['type'];
-$state_id = $_POST['state'];
-$state = $conn->query("SELECT nome FROM estados WHERE cod_estados=$state_id")->fetch_assoc()['nome']; 
-$city_id = $_POST['city'];
-$city = $conn->query("SELECT nome FROM cidades WHERE cod_cidades=$city_id")->fetch_assoc()['nome'];
-$street = $_POST['street'];
-$neighboor = $_POST['neighboor'];
-$number = $_POST['number'];
-$complement = $_POST['complement'];
-$email = $_POST['email'];
-$phone = $_POST['phone'];
-$qtd = $_POST['qtd'];
-$services = $_POST['services'];
-$agency = $_POST['agency'];
-$responsavel = $_SESSION['user']['user'];
+echo $id = rand(1000,10000);
+echo $name = $_POST['name'];
+echo $type = $_POST['type'];
+echo $state_id = $_POST['state'];
+echo $state = $conn->query("SELECT nome FROM estados WHERE cod_estados=$state_id")->fetch_assoc()['nome']; 
+echo $city_id = $_POST['city'];
+echo $city = $conn->query("SELECT nome FROM cidades WHERE cod_cidades=$city_id")->fetch_assoc()['nome'];
+echo $street = $_POST['street'];
+echo $neighborhood = $_POST['neighboor'];
+echo $number = $_POST['number'];
+echo $complement = $_POST['complement'];
+echo $email = $_POST['email'];
+echo $phone = $_POST['phone'];
+echo $qtd = $_POST['qtd'];
+echo $services = $_POST['services'];
+echo $agency = $_POST['agency'];
+echo $responsavel = $_SESSION['user']['user'];
+echo $dweller = 1;
 $msg = false;
 
 if(isset($_FILES['arquivo'])){
@@ -30,9 +31,15 @@ if(isset($_FILES['arquivo'])){
 	move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome);
 }
 
-$comando = "INSERT INTO republica(id, name, type, state, city, street, neighborhood, number, complement, email, phone, qtd, services, agency,dweller, img_name, resposavel) VALUES ('$id', '$name', '$type', '$state', '$city', '$street', '$neighboor', '$number', '$complement', '$email', '$phone', '$qtd', '$services', '$agency', 1 , '$novo_nome', '$responsavel')";
+$comando = "INSERT INTO republica(id, name, type, state, city, street, neighborhood, number, complement, email, phone, qtd, services, agency, dweller, img_name, responsavel) VALUES ('$id', '$name', '$type', '$state', '$city', '$street', '$neighborhood', '$number', '$complement', '$email', '$phone', '$qtd', '$services', '$agency', '$dweller', '$novo_nome', '$responsavel')";
 
 $resultado = $conn->query($comando);
+
+
+$user_name = $_SESSION['user']['name'];
+$date = date('Y-m-d');
+$comando2 = "INSERT INTO morador(user_name, id_rep, entrada) VALUES ('$user_name','$id','$date')";
+$result = $conn->query($comando);
 
 header("location:http://localhost/production/BuscaRep/production/loged_page_user.php");
 ?>

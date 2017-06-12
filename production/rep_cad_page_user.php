@@ -3,16 +3,16 @@ include_once __DIR__ . '/connection/connect.php';
 include_once __DIR__ . '/loged_test.php';
 
 $user = $_SESSION['user']['user'];
-$comando = "SELECT * FROM republica WHERE resposavel=('$user')";
+$comando = "SELECT * FROM republica WHERE responsavel=('$user')";
 $resultado = $conn->query($comando);
 
 if ($conn->affected_rows != 0):
 	header("location:http://localhost/production/BuscaRep/production/rep_default_page2.php");
-endif;
-
+endif;	
+	
 	$sql = "SELECT cod_estados, nome FROM estados ORDER BY nome";
 	$res = $conn->query($sql);
-
+		
 ?>
 
 <!DOCTYPE html>
@@ -154,7 +154,7 @@ endif;
                 			<div class="col-md-6 col-sm-6 col-xs-12">
                 			<image id="profileImage" src="images/user.png"/>
 							<br></br>
-               				<input class="form-control col-md-7 col-xs-12" type="file" required name="arquivo">
+               				<input class="form-control col-md-7 col-xs-12" type="file" name="arquivo">
 						   </div>
                        </div>
                        <div class="item form-group">

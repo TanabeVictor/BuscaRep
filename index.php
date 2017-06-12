@@ -78,7 +78,7 @@ if(isset($_SESSION['user'])){
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form action="http://localhost/production/BuscaRep/production/user_insert.php" method="POST">
+            <form action="http://localhost/production/BuscaRep/production/user_insert.php" method="POST" name="f1">
               <h1>Nova Conta</h1>
               <div>
                 <input name="user_name" type="text" class="form-control" placeholder="Nome de Usuário" required="required" />
@@ -90,10 +90,10 @@ if(isset($_SESSION['user'])){
                 <input name="password" type="password" class="form-control" placeholder="Senha" required="required" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Confirme a Senha" required="required" />
+                <input name="confirm_password" type="password" class="form-control" placeholder="Confirme a Senha" required="required"/>
               </div>
               <div>
-                <input class="btn btn-default submit" value="Criar" type="submit">
+                <input id="button" class="btn btn-default submit" value="Criar"  onClick="validarSenha()">
               </div>
 
               <div class="clearfix"></div>
@@ -116,5 +116,19 @@ if(isset($_SESSION['user'])){
         </div>
       </div>
     </div>
+    
+    <script>
+		function validarSenha(){
+				password = document.f1.password.value
+				confirm_password = document.f1.confirm_password.value
+
+			if (password != confirm_password){
+				alert("Senhas não conferem!")
+			}
+			else
+				document.f1.submit();
+		}
+   </script>
+ 
   </body>
 </html>

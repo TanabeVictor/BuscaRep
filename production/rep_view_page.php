@@ -2,6 +2,7 @@
 include_once __DIR__ . '/connection/connect.php';
 include_once __DIR__ . '/loged_test.php';
 include_once __DIR__ . '/busca_morador.php';
+include_once __DIR__ . '/busca_avaliacao.php';
 
 $id = $_GET['id'];
 
@@ -209,7 +210,7 @@ $resultado = $conn->query($comando);
 													</p>
 											</li>
 										</ul>
-										<a class="btn bg-blue" href="rep_ed_page.html"><i class="fa fa-star"></i> Avaliar</a>
+										<a class="btn bg-blue" href="rep_ed_page.html" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#modal_morador"><i class="fa fa-star"></i>Avaliar</a>
 									</div>
 									<div class="col-md-9 col-sm-9 col-xs-12">
 										<div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -225,8 +226,35 @@ $resultado = $conn->query($comando);
 												<div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 													<p>Lista de Avaliações...</p>
 													<!-- start recent activity -->
-													<ul class="messages">
-													</ul>
+													<ul class="messages" id="comments">
+
+													  <?php foreach($avaliacao as $value){ ?>
+
+													  <li>
+															<?php if ($value['img_name'] == NULL):?>
+															<img src="images/user.png" alt="">
+															<?php else:?>
+															<img src="upload/<?=$value['img_name']?>" alt="">
+															<?php endif;?>
+														<div class="message_date">
+
+														<h3 class="date text-info"><?php 
+														$data = $value['date'];
+														$partes = explode("-", $data);
+														$dia = $partes[2];
+														$mes = $partes[1];
+														$ano = $partes[0];													  
+														echo $dia?></h3>
+														  <p class="month"><?= jdmonthname($data,2)?></p>
+														</div>
+														<div class="message_wrapper">
+														  <h4 class="heading"><?= $value['author']?></h4>
+														  <blockquote class="message"><?= $value['description']?></blockquote>
+														  <br />
+														</div>
+													  </li>
+													  <?php } ?>
+													  </ul>
 													<!-- end recent activity -->
 
 												</div>
@@ -341,6 +369,32 @@ $resultado = $conn->query($comando);
 	</footer>
 	<!-- /footer content -->
 
+
+	<!-- Modal Avaliação -->
+	<div id="modal_morador" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Avaliação</h4>
+				</div>
+				<div class="modal-body">
+					<form action="review_insert.php" method="POST" class="form-horizontal form-label-left">
+					 <form action="" method="POST">
+                      	  <textarea id="comentario" class="form-control" name="comentario" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" placeholder="Comente aqui..." data-parsley-validation-threshold="10"></textarea>
+                      	<br></br>
+                    	<input type="submit" class="btn btn-round btn-info bg-orange" name="comentar" value="Comentar">
+                     </form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 		<?php
 
 		function inverteData($data){

@@ -4,6 +4,7 @@ include_once __DIR__ . '/loged_test.php';
 include_once __DIR__ . '/busca_morador.php';
 include_once __DIR__ . '/busca_gasto.php';
 include_once __DIR__ . '/busca_usuario.php';
+include_once __DIR__ . '/busca_avaliacao.php';
 
 
 $user = $_SESSION[ 'user' ][ 'user' ];
@@ -225,14 +226,40 @@ if ( $conn->affected_rows == 0 ) {
 												<div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 
 													<!-- start recent activity -->
-													<ul class="messages">
+													<ul class="messages" id="comments">
 
-													</ul>
+													  <?php foreach($avaliacao as $value){ ?>
+
+													  <li>
+													   	<img src="upload/<?= $value['img_name']?>" class="avatar"	alt="Avatar">
+														<div class="message_date">
+
+														<h3 class="date text-info"><?php 
+														$data = $value['date'];
+														$partes = explode("-", $data);
+														$dia = $partes[2];
+														$mes = $partes[1];
+														$ano = $partes[0];													  
+														echo $dia?></h3>
+														  <p class="month"><?= jdmonthname($data,2)?></p>
+														</div>
+														<div class="message_wrapper">
+														  <h4 class="heading"><?= $value['author']?></h4>
+														  <blockquote class="message"><?= $value['description']?></blockquote>
+														  <br />
+														</div>
+													  </li>
+													  <?php } ?>
+													  </ul>
 													<!-- end recent activity -->
 
 												</div>
 												<div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-													<a class="btn btn-block" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#modal_morador"><i class="fa fa-plus" ></i> Morador </a>
+												<?php if($dado['dweller'] == $dado['qtd']): ?>
+												<a class="fa fa-exclamation-circle"> Já atingiu o limite de moradores!</a>
+												<?php else:?>
+														<a class="btn btn-block" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#modal_morador"><i class="fa fa-plus" ></i> Morador </a>
+												<?php endif; ?>
 													<div class="x_content">
 														<div class="table-responsive">
 															<table class="table table-striped jambo_table bulk_action">

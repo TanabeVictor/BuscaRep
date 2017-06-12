@@ -177,7 +177,7 @@ $resultado = $conn->query($comando);
                             <td class=" "><botton class="border-dark bg-red btn-xs">Indisponível</td>							
                             <?php endif; ?>					  
                            	<td>
-                            <a href="rep_view_page.php?id=<?php echo $dado["id"] ?>" class="fa fa-search-plus" class="btn btn-xs">Visualizar</a>
+                            <a href="rep_view_page.php?id=<?php echo $dado["id"]?>" class="fa fa-search-plus" class="btn btn-xs">Visualizar</a>
                           	</td>
                           </tr>
                           <?php } ?>

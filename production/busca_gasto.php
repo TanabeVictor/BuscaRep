@@ -9,8 +9,8 @@ $comando = "SELECT id FROM republica WHERE responsavel=('$user')";
 $resultado = $conn->query($comando)->fetch_assoc();
 $id_rep = $resultado['id'];
 
-$res = $conn->query("SELECT * FROM gastos WHERE id_rep=('$id_rep')")->fetch_assoc();
-
+$res = $conn->query("SELECT * FROM gastos WHERE id_rep=('$id_rep')")->fetch_all(MYSQL_ASSOC);
+//echo '<pre>'.var_export($res,true).'</pre>';
 $gasto = $res;
 
 ?>

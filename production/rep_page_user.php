@@ -3,6 +3,8 @@ include_once __DIR__ . '/connection/connect.php';
 include_once __DIR__ . '/loged_test.php';
 include_once __DIR__ . '/busca_morador.php';
 include_once __DIR__ . '/busca_gasto.php';
+include_once __DIR__ . '/busca_usuario.php';
+
 
 $user = $_SESSION[ 'user' ][ 'user' ];
 
@@ -15,9 +17,6 @@ if ( $conn->affected_rows == 0 ) {
 	header( "location:http://localhost/production/BuscaRep/production/rep_default_page.php" );
 
 }
-
-$comando2 = "SELECT * FROM usuario";
-$res = $conn->query( $comando2 );
 
 ?>
 <!DOCTYPE html>
@@ -251,27 +250,27 @@ $res = $conn->query( $comando2 );
 																</thead>
 
 																<tbody>
-
+																<?php foreach($morador as $value) { ?>
 																	<tr class="even pointer">
 																		<td class="a-center ">
 																		</td>
 																		<td class=" ">
-																			<?=$morador['name']; ?>
+																			<?=$value['name']?>
 																		</td>
 																		<td class=" ">
-																			<?= $morador['entrada']; ?>
+																			<?= inverteData($value['entrada']) ?>
 																		</td>
 																		<td class=" ">
-																		<?php if($morador['estadia'] == NULL):?>
+																		<?php if(empty($value['estadia'])):?>
 																			<?= "until today"?>
 																		<?php else:?>	
-																			<?= inverteData($morador['estadia']);?>
+																			<?= inverteData($value['estadia'])?>
 																		<?php endif; ?>
 																		</td>
 																		<td>
 																		</td>
 																	</tr>
-
+																<?php } ?>
 																</tbody>
 															</table>
 														</div>
@@ -279,7 +278,6 @@ $res = $conn->query( $comando2 );
 												</div>
 												<div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
 													<a class="btn btn-block" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#modal_gasto"><i class="fa fa-plus" ></i> Gasto </a>
-													
 													<div class="x_content">
 														<div class="table-responsive">
 															<table class="table table-striped jambo_table bulk_action">
@@ -298,33 +296,31 @@ $res = $conn->query( $comando2 );
 																</thead>
 
 																<tbody>
-
+																<?php foreach($gasto as $value) { ?>
 																	<tr class="even pointer">
 																		<td class="a-center ">
-
-
 																		</td>
 																		<td class=" ">
-																			<?= inverteData($gasto['date']) ?>
+																			<?= inverteData($value['date']) ?>
 																		</td>
 																		<td class=" ">
-																			<?=  $gasto['type'] ?>
+																			<?=  $value['type'] ?>
 																		</td>
 																		<td class=" ">
-																			<?=  "R$ ".$gasto['value']?>
+																			<?=  "R$ ".$value['value']?>
 																		</td>
 																		<td class=" ">
-																			<?=  $gasto['description']?>
+																			<?=  $value['description']?>
 																		</td>
 																		<td>
 																		</td>
 																	</tr>
-
+																<?php } ?>
 																</tbody>
 															</table>
 														</div>
 													</div>
-
+													<?//php }?>
 												</div>
 											</div>
 										</div>
@@ -387,23 +383,23 @@ $res = $conn->query( $comando2 );
 										</thead>
 
 										<tbody>
-											<?php while($dado = mysqli_fetch_array($res)): ?>
+											<?php foreach($usuario as $value){ ?>
 											<tr class="even pointer">
 												<td class="a-center ">
 													<input type="checkbox" class="flat" name="table_records">
 												</td>
 												<td class="">
-													<?= $dado["user"]; ?>
+													<?= $value['user']; ?>
 												</td>
 												<td class="">
-													<?= $dado["name"]; ?>
+													<?= $value['name']; ?>
 												</td>
-												<td href="/profile_view.php?id=<?=$dado[" user "];?>"><button type="button" class="btn bg-blue btn-xs">Ver Perfil</button>
+												<td href="/profile_view.php?id=<?=$value['user'];?>"><button type="button" class="btn bg-blue btn-xs">Ver Perfil</button>
 												</td>
 												</td>
 											</tr>
 										</tbody>
-										<?php endwhile; ?>
+										<?php } ?>
 									</table>
 								</div>
 							</div>
@@ -446,7 +442,7 @@ $res = $conn->query( $comando2 );
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="type">Tipo de Gasto<span class="required">*</span>
                         			</label>
 							<div class="col-md-6 col-sm-6 col-xs-12">
-								<select id="type" class="form-control col-md-7 col-xs-12" name="type" required="requiredd">
+								<select id="type" class="form-control col-md-7 col-xs-12" name="type" required>
 									<option></option>
 									<option>Aluguel</option>
 									<option>Agua</option>

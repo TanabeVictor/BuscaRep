@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 08-Jun-2017 às 01:53
+-- Generation Time: 12-Jun-2017 às 03:13
 -- Versão do servidor: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -23,36 +23,13 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `acessante`
---
-
-CREATE TABLE `acessante` (
-  `user` varchar(10) CHARACTER SET utf8 NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `lastname` varchar(30) NOT NULL,
-  `address` varchar(30) NOT NULL,
-  `email` varchar(35) NOT NULL,
-  `phone` varchar(11) NOT NULL,
-  `gender` varchar(10) NOT NULL,
-  `birthday` date NOT NULL,
-  `password` varchar(16) NOT NULL,
-  `confirmpassword` varchar(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `avaliacao`
 --
 
 CREATE TABLE `avaliacao` (
   `id` int(8) NOT NULL,
-  `id_rep` int(8) NOT NULL,
-  `date` date NOT NULL,
-  `description` varchar(180) NOT NULL,
-  `value` int(5) NOT NULL,
-  `user_id` int(8) NOT NULL,
-  `image_name` varchar(20) NOT NULL
+  `comentario` text NOT NULL,
+  `id_rep` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -63,7 +40,7 @@ CREATE TABLE `avaliacao` (
 
 CREATE TABLE `cidades` (
   `estados_cod_estados` int(11) DEFAULT NULL,
-  `cod_cidades` int(11) DEFAULT NULL,
+  `cod_cidades` int(11) NOT NULL,
   `nome` varchar(72) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cep` varchar(8) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -10110,7 +10087,7 @@ INSERT INTO `cidades` (`estados_cod_estados`, `cod_cidades`, `nome`, `cep`) VALU
 --
 
 CREATE TABLE `estados` (
-  `cod_estados` int(11) DEFAULT NULL,
+  `cod_estados` int(11) NOT NULL,
   `sigla` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
   `nome` varchar(72) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -10157,12 +10134,36 @@ INSERT INTO `estados` (`cod_estados`, `sigla`, `nome`) VALUES
 CREATE TABLE `gastos` (
   `id` int(8) NOT NULL,
   `id_rep` int(8) NOT NULL,
-  `type` varchar(20) NOT NULL,
   `date` date NOT NULL,
-  `date_creation` date NOT NULL,
-  `value` float NOT NULL,
-  `description` varchar(40) NOT NULL
+  `type` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `value` decimal(5,0) NOT NULL,
+  `description` varchar(20) CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `gastos`
+--
+
+INSERT INTO `gastos` (`id`, `id_rep`, `date`, `type`, `value`, `description`) VALUES
+(46, 7345, '2017-06-11', 'Aluguel', '650', 'Casa'),
+(49, 7345, '2017-06-11', 'Internet', '120', 'MasterCai'),
+(50, 7345, '2017-05-20', 'Serviços Gerais', '450', 'D.A'),
+(51, 7345, '2017-06-12', 'Serviços Gerais', '110', 'Pizza');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `morador`
+--
+
+CREATE TABLE `morador` (
+  `id` int(8) NOT NULL,
+  `user_name` varchar(20) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `id_rep` int(8) NOT NULL,
+  `entrada` date NOT NULL,
+  `estadia` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
 
@@ -10171,7 +10172,7 @@ CREATE TABLE `gastos` (
 --
 
 CREATE TABLE `republica` (
-  `id` int(5) NOT NULL,
+  `id` int(8) NOT NULL,
   `name` varchar(25) NOT NULL,
   `type` varchar(10) NOT NULL,
   `state` varchar(20) NOT NULL,
@@ -10183,19 +10184,22 @@ CREATE TABLE `republica` (
   `email` varchar(45) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `qtd` int(2) NOT NULL,
-  `services` varchar(80) NOT NULL,
+  `services` varchar(80) DEFAULT NULL,
   `agency` varchar(20) NOT NULL,
-  `img_name` varchar(40) NOT NULL
+  `dweller` int(2) NOT NULL DEFAULT '0',
+  `able` tinyint(1) NOT NULL DEFAULT '1',
+  `img_name` varchar(40) DEFAULT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT '1',
+  `responsavel` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `republica`
 --
 
-INSERT INTO `republica` (`id`, `name`, `type`, `state`, `city`, `street`, `neighborhood`, `number`, `complement`, `email`, `phone`, `qtd`, `services`, `agency`, `img_name`) VALUES
-(2279, 'Confraria', 'Feminina', 'São Paulo', 'Cidades SP', 'Prefeito Tigre Maia', 'Pinheirinho', 132, 'Casa', 'confraria@hotmail.com', '(35) 4002-8922', 14, 'churrasqueira', 'wanted', '54ed3b7e5402f5fb9cb29d644c10d449.jpg'),
-(7789, 'Hello World!', 'Masculina', 'Minas Gerais', 'Cidades MG', 'Fodas ', 'Varginha', 890, 'Casa', 'fodas@hotmail.com', '(11) 4002 -8922', 12, '', 'fodas', '68d42ee0648f5b36628da8780cc9c762.jpg'),
-(8522, 'Xavascaria', 'Mista', 'Mais em breve...', 'Outras cidades', 'Simão Mauad', 'Pinheirinho', 512, 'Casa', 'xavascaria@gmail.com', '(35)99998-7534', 13, 'churrasqueira de controle remoto', 'locarep', '0534c95d1e6ca564cd37713c64ef339d.jpg');
+INSERT INTO `republica` (`id`, `name`, `type`, `state`, `city`, `street`, `neighborhood`, `number`, `complement`, `email`, `phone`, `qtd`, `services`, `agency`, `dweller`, `able`, `img_name`, `ativo`, `responsavel`) VALUES
+(1043, 'Xavascaria', 'Masculina ', 'PARAÍBA', 'AREIAS', 'Simão Mauad', 'Olavo Bilac', 404, 'Casa', 'xavascaria@gmail.com', '3540028922', 12, 'Pebolim', 'Nova Esperança', 1, 1, '4759b5935104a2b303836cfc9e8ee83e.jpg', 1, 'marralixo'),
+(7345, 'Horrorosos', 'Masculina', 'ACRE', 'ACRELÂNDIA', 'Pau Brasil', 'Marajó', 647, 'apto 201', 'confraria@hotmail.com', '11998987024', 12, '', 'wanted', 1, 1, '4975e67dcfb04c4d78615d0fb00220be.jpg', 1, 'Andre');
 
 -- --------------------------------------------------------
 
@@ -10204,49 +10208,63 @@ INSERT INTO `republica` (`id`, `name`, `type`, `state`, `city`, `street`, `neigh
 --
 
 CREATE TABLE `usuario` (
-  `user` int(8) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `lastname` varchar(30) CHARACTER SET latin1 NOT NULL,
-  `email` varchar(35) CHARACTER SET latin1 NOT NULL,
-  `password` varchar(16) CHARACTER SET latin1 NOT NULL,
-  `confirmpassword` varchar(16) CHARACTER SET latin1 NOT NULL,
-  `birthday` date NOT NULL,
-  `type` varchar(15) CHARACTER SET latin1 NOT NULL,
-  `cod_image` int(15) NOT NULL,
-  `name_image` varchar(20) CHARACTER SET latin1 NOT NULL
+  `user` varchar(20) NOT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `email` varchar(35) NOT NULL,
+  `password` text NOT NULL,
+  `birthday` date DEFAULT NULL,
+  `gender` varchar(12) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `img_name` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`user`, `name`, `lastname`, `email`, `password`, `confirmpassword`, `birthday`, `type`, `cod_image`, `name_image`) VALUES
-(7039, 'Victor', 'Pereira', 'vitaumsky@gmail.com', 'victor', 'victor', '1998-01-21', '', 0, '');
+INSERT INTO `usuario` (`user`, `name`, `email`, `password`, `birthday`, `gender`, `phone`, `img_name`) VALUES
+('Andre', 'Andre Arantes', 'andresinho41@hotmail.com', '6bb558f2a3f586d106fe800f8ad67b263daf8f41cc2facb04431e871143b87f3c78d3c7c85d81163af333c88a3e7112f0b1bc5e8743762efcac7dc8db38af750', '1997-09-21', 'Masculino', '31976589014', 'e16d9e8bd85d7e271407169eba7898d4'),
+('marralixo', 'Marra Lixo', 'marralixo@bol.com.br', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', '1995-05-16', 'Masculino', '(11) 4002 -8922', '172f1a41f8fab1c46b2ed66d8afa2d47.jpg');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `acessante`
---
-ALTER TABLE `acessante`
-  ADD PRIMARY KEY (`user`);
-
---
 -- Indexes for table `avaliacao`
 --
 ALTER TABLE `avaliacao`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `avaliacao_id_rep` (`id_rep`),
-  ADD KEY `avaliacao_usuario_id` (`user_id`);
+  ADD KEY `id_rep` (`id_rep`);
+
+--
+-- Indexes for table `cidades`
+--
+ALTER TABLE `cidades`
+  ADD PRIMARY KEY (`cod_cidades`),
+  ADD KEY `estados_cod_estados` (`estados_cod_estados`);
+
+--
+-- Indexes for table `estados`
+--
+ALTER TABLE `estados`
+  ADD PRIMARY KEY (`cod_estados`);
 
 --
 -- Indexes for table `gastos`
 --
 ALTER TABLE `gastos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `gastos_id_rep` (`id_rep`);
+  ADD KEY `gastos_id_rep` (`id_rep`),
+  ADD KEY `id_rep` (`id_rep`);
+
+--
+-- Indexes for table `morador`
+--
+ALTER TABLE `morador`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`user_name`),
+  ADD KEY `id_rep` (`id_rep`);
 
 --
 -- Indexes for table `republica`
@@ -10258,8 +10276,23 @@ ALTER TABLE `republica`
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`user`);
+  ADD PRIMARY KEY (`user`),
+  ADD UNIQUE KEY `email` (`email`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `avaliacao`
+--
+ALTER TABLE `avaliacao`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `gastos`
+--
+ALTER TABLE `gastos`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 --
 -- Constraints for dumped tables
 --
@@ -10268,14 +10301,20 @@ ALTER TABLE `usuario`
 -- Limitadores para a tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
-  ADD CONSTRAINT `avaliacao_id_rep` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `avaliacao_usuario_id` FOREIGN KEY (`user_id`) REFERENCES `usuario` (`user`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `avaliacao_ibfk_1` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`);
 
 --
 -- Limitadores para a tabela `gastos`
 --
 ALTER TABLE `gastos`
-  ADD CONSTRAINT `gastos_id_rep` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `gastos_ibfk_1` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`);
+
+--
+-- Limitadores para a tabela `morador`
+--
+ALTER TABLE `morador`
+  ADD CONSTRAINT `morador_ibfk_1` FOREIGN KEY (`user_name`) REFERENCES `usuario` (`user`),
+  ADD CONSTRAINT `morador_ibfk_2` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

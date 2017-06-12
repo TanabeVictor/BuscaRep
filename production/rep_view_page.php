@@ -1,13 +1,18 @@
 ﻿<?php
 include_once __DIR__ . '/connection/connect.php';
 include_once __DIR__ . '/loged_test.php';
+include_once __DIR__ . '/busca_morador.php';
 
+$id = $_GET['id'];
 
-$id = $_GET[ 'id' ];
+$res = $conn->query("SELECT * FROM gastos WHERE id_rep=('$id')")->fetch_all(MYSQL_ASSOC);
+$gastos = $res;
+//echo '<pre>'.var_export($res,true).'</pre>';
 
 $comando = "SELECT * FROM republica WHERE id=('$id')";
 
-$resultado = $conn->query( $comando );
+$resultado = $conn->query($comando);
+
 ?>
 
 <!DOCTYPE html>
@@ -200,7 +205,7 @@ $resultado = $conn->query( $comando );
 												<p> <br><em class="fa fa-server user-profile-icon"></em> Serviços
 													<p></p>
 													<p>
-														<?php echo $dado["services"]; ?>
+														<?php echo $dado['services']; ?>
 													</p>
 											</li>
 										</ul>
@@ -215,8 +220,6 @@ $resultado = $conn->query( $comando );
 												</li>
 												<li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Gastos</a>
 												</li>
-												<li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Outros</a>
-												</li>
 											</ul>
 											<div id="myTabContent" class="tab-content">
 												<div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
@@ -228,18 +231,93 @@ $resultado = $conn->query( $comando );
 
 												</div>
 												<div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+													<div class="x_content">
+														<div class="table-responsive">
+															<table class="table table-striped jambo_table bulk_action">
+																<thead>
+																	<tr class="headings">
+																		<th class="column-title"></th>
+																		<th class="column-title">Nome</th>
+																		<th class="column-title">Entrada</th>
+																		<th class="column-title">Estadia</th>
+																		<th class="column-title"></th>
+																		<th class="bulk-actions" colspan="7">
+																			<a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+																		</th>
+																	</tr>
+																</thead>
 
-													<!-- moradores -->
-													<table class="data table table-striped no-margin">
-													</table>
-													<!-- moradores -->
-
+																<tbody>
+																<?php foreach($morador as $value) { ?>
+																	<tr class="even pointer">
+																		<td class="a-center ">
+																		</td>
+																		<td class=" ">
+																			<?=$value['name']; ?>
+																		</td>
+																		<td class=" ">
+																			<?= inverteData($value['entrada']) ?>
+																		</td>
+																		<td class=" ">
+																		<?php if(empty($value['estadia'])):?>
+																			<?= "until today"?>
+																		<?php else:?>	
+																			<?= inverteData($value['estadia'])?>
+																		<?php endif; ?>
+																		</td>
+																		<td>
+																		</td>
+																	</tr>
+																<?php } ?>
+																</tbody>
+															</table>
+														</div>
+													</div>
 												</div>
 												<div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-													<p>Lista de Gastos...</p>
-												</div>
-												<div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
-													<p>Informações Adicionais...</p>
+													<div class="x_content">
+														<div class="table-responsive">
+															<table class="table table-striped jambo_table bulk_action">
+																<thead>
+																	<tr class="headings">
+																		<th class="column-title"></th>
+																		<th class="column-title">Data</th>
+																		<th class="column-title">Tipo</th>
+																		<th class="column-title">Valor</th>
+																		<th class="column-title">Descrição</th>
+																		<th class="column-title"></th>
+																		<th class="bulk-actions" colspan="7">
+																			<a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+																		</th>
+																	</tr>
+																</thead>
+
+																<tbody>
+																<?php foreach($gastos as $value) { ?>
+																	<tr class="even pointer">
+																		<td class="a-center ">
+																		</td>
+																		<td class=" ">
+																			<?= inverteData($value['date']) ?>
+																		</td>
+																		<td class=" ">
+																			<?=  $value['type'] ?>
+																		</td>
+																		<td class=" ">
+																			<?=  "R$ ".$value['value']?>
+																		</td>
+																		<td class=" ">
+																			<?=  $value['description']?>
+																		</td>
+																		<td>
+																		</td>
+																	</tr>
+																<?php } ?>
+																</tbody>
+															</table>
+														</div>
+													</div>												
+													</div>	
 												</div>
 											</div>
 										</div>
@@ -250,7 +328,6 @@ $resultado = $conn->query( $comando );
 					</div>
 				</div>
 			</div>
-		</div>
 		<?php } ?>
 	</div>
 	<!-- /page content -->
@@ -265,7 +342,15 @@ $resultado = $conn->query( $comando );
 	<!-- /footer content -->
 
 		<?php
-													
+
+		function inverteData($data){
+			if(count(explode("/",$data)) > 1){
+				return implode("-",array_reverse(explode("/",$data)));
+			}elseif(count(explode("-",$data)) > 1){
+				return implode("/",array_reverse(explode("-",$data)));
+			}
+		}
+
 	    function masc_tel($TEL) {
 		$tam = strlen(preg_replace("/[^0-9]/", "", $TEL));
 		  if ($tam == 13) { // COM CÓDIGO DE ÁREA NACIONAL E DO PAIS e 9 dígitos

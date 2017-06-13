@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 12-Jun-2017 às 03:13
+-- Generation Time: 12-Jun-2017 às 23:01
 -- Versão do servidor: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -28,8 +28,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `avaliacao` (
   `id` int(8) NOT NULL,
-  `comentario` text NOT NULL,
-  `id_rep` int(8) NOT NULL
+  `comentario` text CHARACTER SET utf8 NOT NULL,
+  `author` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `date` date NOT NULL,
+  `id_rep` int(8) NOT NULL,
+  `img_name` varchar(40) CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -10148,7 +10151,9 @@ INSERT INTO `gastos` (`id`, `id_rep`, `date`, `type`, `value`, `description`) VA
 (46, 7345, '2017-06-11', 'Aluguel', '650', 'Casa'),
 (49, 7345, '2017-06-11', 'Internet', '120', 'MasterCai'),
 (50, 7345, '2017-05-20', 'Serviços Gerais', '450', 'D.A'),
-(51, 7345, '2017-06-12', 'Serviços Gerais', '110', 'Pizza');
+(51, 7345, '2017-06-12', 'Serviços Gerais', '110', 'Pizza'),
+(52, 1043, '2017-06-12', 'Internet', '126', 'Oi Velox'),
+(53, 3924, '2017-06-12', 'Agua', '450', 'Copasa');
 
 -- --------------------------------------------------------
 
@@ -10158,12 +10163,19 @@ INSERT INTO `gastos` (`id`, `id_rep`, `date`, `type`, `value`, `description`) VA
 
 CREATE TABLE `morador` (
   `id` int(8) NOT NULL,
-  `user_name` varchar(20) NOT NULL,
-  `name` varchar(30) NOT NULL,
+  `user_name` varchar(30) NOT NULL,
   `id_rep` int(8) NOT NULL,
   `entrada` date NOT NULL,
   `estadia` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Extraindo dados da tabela `morador`
+--
+
+INSERT INTO `morador` (`id`, `user_name`, `id_rep`, `entrada`, `estadia`) VALUES
+(24, 'Andre Arantes', 7345, '2017-06-12', NULL),
+(28, 'Marra Lixo', 1043, '2017-06-12', NULL);
 
 -- --------------------------------------------------------
 
@@ -10180,7 +10192,7 @@ CREATE TABLE `republica` (
   `street` varchar(45) NOT NULL,
   `neighborhood` varchar(20) NOT NULL,
   `number` int(4) NOT NULL,
-  `complement` varchar(15) NOT NULL,
+  `complement` varchar(15) DEFAULT NULL,
   `email` varchar(45) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `qtd` int(2) NOT NULL,
@@ -10189,17 +10201,18 @@ CREATE TABLE `republica` (
   `dweller` int(2) NOT NULL DEFAULT '0',
   `able` tinyint(1) NOT NULL DEFAULT '1',
   `img_name` varchar(40) DEFAULT NULL,
-  `ativo` tinyint(1) NOT NULL DEFAULT '1',
-  `responsavel` varchar(20) NOT NULL
+  `responsavel` varchar(20) NOT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `republica`
 --
 
-INSERT INTO `republica` (`id`, `name`, `type`, `state`, `city`, `street`, `neighborhood`, `number`, `complement`, `email`, `phone`, `qtd`, `services`, `agency`, `dweller`, `able`, `img_name`, `ativo`, `responsavel`) VALUES
-(1043, 'Xavascaria', 'Masculina ', 'PARAÍBA', 'AREIAS', 'Simão Mauad', 'Olavo Bilac', 404, 'Casa', 'xavascaria@gmail.com', '3540028922', 12, 'Pebolim', 'Nova Esperança', 1, 1, '4759b5935104a2b303836cfc9e8ee83e.jpg', 1, 'marralixo'),
-(7345, 'Horrorosos', 'Masculina', 'ACRE', 'ACRELÂNDIA', 'Pau Brasil', 'Marajó', 647, 'apto 201', 'confraria@hotmail.com', '11998987024', 12, '', 'wanted', 1, 1, '4975e67dcfb04c4d78615d0fb00220be.jpg', 1, 'Andre');
+INSERT INTO `republica` (`id`, `name`, `type`, `state`, `city`, `street`, `neighborhood`, `number`, `complement`, `email`, `phone`, `qtd`, `services`, `agency`, `dweller`, `able`, `img_name`, `responsavel`, `ativo`) VALUES
+(1043, 'Xavascaria', 'Masculina ', 'PARAÍBA', 'AREIAS', 'Simão Mauad', 'Olavo Bilac', 404, 'Casa', 'xavascaria@gmail.com', '3540028922', 12, 'Pebolim', 'Nova Esperança', 1, 1, '4759b5935104a2b303836cfc9e8ee83e.jpg', 'Marra', 1),
+(3924, 'Mansão', 'Masculina ', 'MINAS GERAIS', 'ITAJUBÁ', 'Sem Fim', 'Pinheirinho', 80, '', 'mansao@gmail.com', '35989765049', 12, 'Piscina, Sinuca', 'wanted', 1, 1, '0fbb2bbded8e843d5e90c2154214fb5d.png', 'Victor', 1),
+(7345, 'Horrorosos', 'Masculina', 'ACRE', 'ACRELÂNDIA', 'Pau Brasil', 'Marajó', 647, 'apto 201', 'confraria@hotmail.com', '11998987024', 12, '', 'wanted', 1, 1, '4975e67dcfb04c4d78615d0fb00220be.jpg', 'Andre', 1);
 
 -- --------------------------------------------------------
 
@@ -10209,9 +10222,11 @@ INSERT INTO `republica` (`id`, `name`, `type`, `state`, `city`, `street`, `neigh
 
 CREATE TABLE `usuario` (
   `user` varchar(20) NOT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT '1',
   `name` varchar(30) DEFAULT NULL,
   `email` varchar(35) NOT NULL,
   `password` text NOT NULL,
+  `rep_name` varchar(25) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `gender` varchar(12) DEFAULT NULL,
   `phone` varchar(15) DEFAULT NULL,
@@ -10222,9 +10237,11 @@ CREATE TABLE `usuario` (
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`user`, `name`, `email`, `password`, `birthday`, `gender`, `phone`, `img_name`) VALUES
-('Andre', 'Andre Arantes', 'andresinho41@hotmail.com', '6bb558f2a3f586d106fe800f8ad67b263daf8f41cc2facb04431e871143b87f3c78d3c7c85d81163af333c88a3e7112f0b1bc5e8743762efcac7dc8db38af750', '1997-09-21', 'Masculino', '31976589014', 'e16d9e8bd85d7e271407169eba7898d4'),
-('marralixo', 'Marra Lixo', 'marralixo@bol.com.br', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', '1995-05-16', 'Masculino', '(11) 4002 -8922', '172f1a41f8fab1c46b2ed66d8afa2d47.jpg');
+INSERT INTO `usuario` (`user`, `ativo`, `name`, `email`, `password`, `rep_name`, `birthday`, `gender`, `phone`, `img_name`) VALUES
+('Andre', 1, 'Andre Arantes', 'andresinho41@hotmail.com', '6bb558f2a3f586d106fe800f8ad67b263daf8f41cc2facb04431e871143b87f3c78d3c7c85d81163af333c88a3e7112f0b1bc5e8743762efcac7dc8db38af750', 'Horrorosos', '1997-09-21', 'Masculino', '31976589014', 'e16d9e8bd85d7e271407169eba7898d4'),
+('Marra', 1, 'Marra Lixo', 'marralixo@bol.com.br', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', 'Xavascaria', '1995-05-16', 'Masculino', '1140028922', '172f1a41f8fab1c46b2ed66d8afa2d47.jpg'),
+('Pedro', 1, NULL, 'pedrinhubsa@gmail.com', 'f6b07b6c1340e947b861def5f8b092d8ee710826dc56bd175bdc8f3a16b0b8acf853c64786a710dedf9d1524d61e32504e27d60de159af110bc3941490731578', NULL, NULL, NULL, NULL, NULL),
+('Victor', 1, 'Victor Pereira', 'tanabevictor@hotmail.com', '3043aa4a83b0934982956a90828140cb834869135b5f294938865de12e036de440a330e1e8529bec15ddd59f18d1161a97bfec110d2622680f2c714a737d7061', NULL, '1998-01-21', 'Masculino', '35997975143', '8b578ee8db9b415ccd004ad8da54977f.jpg');
 
 --
 -- Indexes for dumped tables
@@ -10235,7 +10252,8 @@ INSERT INTO `usuario` (`user`, `name`, `email`, `password`, `birthday`, `gender`
 --
 ALTER TABLE `avaliacao`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_rep` (`id_rep`);
+  ADD KEY `id_rep` (`id_rep`),
+  ADD KEY `author` (`author`);
 
 --
 -- Indexes for table `cidades`
@@ -10270,14 +10288,19 @@ ALTER TABLE `morador`
 -- Indexes for table `republica`
 --
 ALTER TABLE `republica`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `name` (`name`);
 
 --
 -- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`user`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `rep_name` (`rep_name`),
+  ADD KEY `name` (`name`),
+  ADD KEY `name_2` (`name`),
+  ADD KEY `name_3` (`name`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -10292,7 +10315,12 @@ ALTER TABLE `avaliacao`
 -- AUTO_INCREMENT for table `gastos`
 --
 ALTER TABLE `gastos`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+--
+-- AUTO_INCREMENT for table `morador`
+--
+ALTER TABLE `morador`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- Constraints for dumped tables
 --
@@ -10301,7 +10329,8 @@ ALTER TABLE `gastos`
 -- Limitadores para a tabela `avaliacao`
 --
 ALTER TABLE `avaliacao`
-  ADD CONSTRAINT `avaliacao_ibfk_1` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`);
+  ADD CONSTRAINT `avaliacao_ibfk_1` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`),
+  ADD CONSTRAINT `avaliacao_ibfk_2` FOREIGN KEY (`author`) REFERENCES `usuario` (`name`);
 
 --
 -- Limitadores para a tabela `gastos`
@@ -10313,8 +10342,14 @@ ALTER TABLE `gastos`
 -- Limitadores para a tabela `morador`
 --
 ALTER TABLE `morador`
-  ADD CONSTRAINT `morador_ibfk_1` FOREIGN KEY (`user_name`) REFERENCES `usuario` (`user`),
-  ADD CONSTRAINT `morador_ibfk_2` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`);
+  ADD CONSTRAINT `morador_ibfk_2` FOREIGN KEY (`id_rep`) REFERENCES `republica` (`id`),
+  ADD CONSTRAINT `morador_ibfk_3` FOREIGN KEY (`user_name`) REFERENCES `usuario` (`name`);
+
+--
+-- Limitadores para a tabela `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`rep_name`) REFERENCES `republica` (`name`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -2,7 +2,7 @@
 include_once __DIR__ . '/connection/connect.php';
 include_once __DIR__ . '/loged_test.php';
 
-$comando = "SELECT * FROM republica ORDER BY name ";
+$comando = "SELECT * FROM republica WHERE ativo=true ORDER BY name ";
 
 
 $resultado = $conn->query($comando);

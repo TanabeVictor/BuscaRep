@@ -19,6 +19,8 @@ if ( $conn->affected_rows == 0 ) {
 
 }
 
+$id_rep = $conn->query("SELECT id FROM republica WHERE responsavel=('$user')")->fetch_assoc()['id'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +59,7 @@ if ( $conn->affected_rows == 0 ) {
 					<div class="profile clearfix">
 						<div class="profile_pic">
 							<?php if ($_SESSION['user']['img_name'] == NULL):?>
-							<img src="images/user.png" alt="avatar" class="img-circle profile_img">
+							<img src="images/user.png" alt="avatar" height="50px" width="50px" class="img-circle profile_img">
 							<?php else:?>
 							<img src="upload/<?=$_SESSION['user']['img_name']?>" height="50px" width="50px" alt="avatar" class="img-circle profile_img">
 							<?php endif;?>
@@ -168,7 +170,7 @@ if ( $conn->affected_rows == 0 ) {
 												<?= $dado['city']. ' - '. $dado['state']?>
 											</li>
 											<li><em class="fa fa-map-marker user-profile-icon"></em> &nbsp
-												<?= $dado['neighborhood'].' , '.$dado['street']. ' , '.$dado['number']. ' , '.$dado['complement']?>
+												<?= $dado['neighborhood'].', '.$dado['street']. ', '.$dado['number']. ', '.$dado['complement']?>
 											</li>
 											<li>
 												<i class="fa fa-phone user-profile-icon"></i>&nbsp
@@ -282,7 +284,7 @@ if ( $conn->affected_rows == 0 ) {
 																		<td class="a-center ">
 																		</td>
 																		<td class=" ">
-																			<?=$value['name']?>
+																			<?= $user = $value['user_name'];?>
 																		</td>
 																		<td class=" ">
 																			<?= inverteData($value['entrada']) ?>
@@ -295,6 +297,7 @@ if ( $conn->affected_rows == 0 ) {
 																		<?php endif; ?>
 																		</td>
 																		<td>
+																			<a class="btn btn-danger" href="morador_delete.php"><i class="fa fa-remove m-right-xs"></i></a>
 																		</td>
 																	</tr>
 																<?php } ?>
@@ -388,7 +391,7 @@ if ( $conn->affected_rows == 0 ) {
 					<h4 class="modal-title">Novo Morador</h4>
 				</div>
 				<div class="modal-body">
-					<form action="morador_insert.php" method="POST" class="form-horizontal form-label-left">
+					<form action="morador_insert.php?id=<?php echo $id_rep?>" method="POST" class="form-horizontal form-label-left">
 						<div class="item form-group">
 
 							<div class="x_content">
@@ -397,10 +400,7 @@ if ( $conn->affected_rows == 0 ) {
 									<table class="table table-striped jambo_table bulk_action">
 										<thead>
 											<tr class="headings">
-												<th>
-													<input type="checkbox" id="check-all" class="flat">
-												</th>
-												<th class="column-title">Usuário</th>
+												<th class="column-title">&nbsp &nbsp Usuário</th>
 												<th class="column-title">Nome</th>
 												<th class="column-title"></th>
 												<th class="bulk-actions" colspan="7">
@@ -413,15 +413,13 @@ if ( $conn->affected_rows == 0 ) {
 											<?php foreach($usuario as $value){ ?>
 											<tr class="even pointer">
 												<td class="a-center ">
-													<input type="checkbox" class="flat" name="table_records">
+												<input type="checkbox" class="flat" name="morador" value="<?= $value['name']?>"> <?= $value['user']; ?>
 												</td>
-												<td class="">
-													<?= $value['user']; ?>
-												</td>
-												<td class="">
+												<td class="" name="name" value="name">
 													<?= $value['name']; ?>
 												</td>
-												<td href="/profile_view.php?id=<?=$value['user'];?>"><button type="button" class="btn bg-blue btn-xs">Ver Perfil</button>
+												<td>
+												<a href="http://localhost/production/BuscaRep/production/profile_view.php?user=<?=$value['user'];?>" class="btn bg-blue btn-xs">Ver Perfil</a>
 												</td>
 												</td>
 											</tr>
@@ -429,6 +427,7 @@ if ( $conn->affected_rows == 0 ) {
 										<?php } ?>
 									</table>
 								</div>
+								<p class="fa fa-exclamation-circle"> Não é permitido inserir morador sem nome</p>
 							</div>
 						</div>
 

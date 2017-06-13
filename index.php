@@ -48,7 +48,7 @@ if(isset($_SESSION['user'])){
               </div>
               <div>
                 <input class="btn btn-default submit" value="Entrar" type="submit">
-                <a class="reset_pass" href="#">Esqueceu a senha?</a>
+                <!--<a class="reset_pass" href="#">Esqueceu a senha?</a>-->
               </div>
 
               <div class="clearfix"></div>

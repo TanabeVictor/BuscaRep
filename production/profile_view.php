@@ -7,17 +7,8 @@ $user = $_GET['user'];
 $comando = "SELECT * FROM usuario WHERE user=('$user')";
 $resultado = $conn->query($comando);
 
-$res = "SELECT id_rep FROM morador WHERE user_name = $user_name ";
+$res = "SELECT id_rep FROM morador WHERE user_name = $user";
 $res = $conn->query($res);
-
-if ( $res ) {
-
-	$busca = "SELECT name FROM republica WHERE id = $res";
-	$rep_name = $conn->query($busca);
-
-} else {
-	$rep_name = "A procura de um lar...";
-}
 
 ?>
 
@@ -163,12 +154,16 @@ if ( $res ) {
 										<br/>
 									</div>
 									<div class="col-md-9 col-sm-9 col-xs-12">
-										<h2>
-												<i class="fa fa-home ">&nbsp<?= $rep_name?></i>
+										<h2>	
+												<?php if($dado['rep_name']):?>
+												<i class="fa fa-home ">&nbsp<?= $dado['rep_name']?></i>
+												<?php else:?>
+												<i class="fa fa-home"> A procura de um lar...</i>
+												<?php endif; ?>
 												<br></br>
-												<?php if(strcmp($dado['gender'], "Masculino") == 0):?>
+												<?php if($dado['gender'] === "Masculino" ):?>
 												<i class="fa fa-mars">&nbsp<?= $dado['gender']?></i>
-												<?php elseif($dado['gender'], "Feminino") == 0)?>
+												<?php elseif($dado['gender'] === "Feminino"):?>
 														<i class="fa fa-venus">&nbsp <?= $dado['gender']?></i>
 												<?php else:?>
 													<i class="fa fa-neuter">&nbsp Desconhecido</i>	

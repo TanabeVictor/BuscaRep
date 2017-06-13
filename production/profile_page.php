@@ -156,13 +156,13 @@ if ( $resultado ) {
 											</div>
 										</div>
 										<br>
-										<a class="btn bg-green" href="profile_edit.php"><i class="fa fa-edit"></i> Editar Perfil</a>
+										<a class="btn btn-success" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#modal_gasto"><i class="fa fa-edit m-righ-xs"></i> Editar Perfil </a>
 										<a class="btn btn-danger" href="user_delete.php"><i class="fa fa-remove m-right-xs"></i> Deletar Perfil</a>
 										<br/>
 									</div>
 									<div class="col-md-9 col-sm-9 col-xs-12">
 										<h2>
-												<i class="fa fa-home ">&nbsp<?= $rep_name?></i>
+												<i class="fa fa-home ">&nbsp<?= $_SESSION['user']['rep_name']?></i>
 												<br></br>
 												<?php if($_SESSION['user']['gender'] == "Masculino"):?>
 												<i class="fa fa-mars">&nbsp<?= $_SESSION['user']['gender']?></i>
@@ -198,6 +198,70 @@ if ( $resultado ) {
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->
+	
+	<!-- Modal Editar -->
+	<div id="modal_gasto" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Editando</h4>
+				</div>
+				<div class="modal-body">
+<form action="http://localhost/production/BuscaRep/production/profile_update.php" method="post" class="form-horizontal form-label-left" enctype="multipart/form-data">
+                       <div class="item form-group">
+                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="arquivo">Imagem </label> 
+                			<div class="col-md-6 col-sm-6 col-xs-12">
+                			<image id="profileImage" src="images/user.png"/>
+							<br></br>
+               				<input class="form-control col-md-7 col-xs-12" type="file" name="arquivo">
+						   </div>
+                       </div>
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="name">Nome </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="name" class="form-control col-md-7 col-xs-12" type="text" placeholder="Nome Completo" name="name">
+                        </div>
+					  </div>
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="birthday">Data de Nascimento </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="birthday" name="birthday" type="date" class="form-control">
+                        </div>
+                      </div>
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="phone">Telefone </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="phone" class="form-control col-md-7 col-xs-12" placeholder="com DDD e sem Simbolos" type="text" name="phone">
+                        </div>
+					  </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="gender">Sexo</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select id="gender" class="form-control col-md-7 col-xs-12"  name="gender">                 
+                            <option></option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="ln_solid"></div>
+
+                      <div class="form-group">
+                        <div class="col-md-9 col-md-offset-3">
+                          <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                      </div>
+                    </form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<?php	
 	
 		function inverteData($data){

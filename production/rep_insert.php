@@ -20,7 +20,6 @@ echo $qtd = $_POST['qtd'];
 echo $services = $_POST['services'];
 echo $agency = $_POST['agency'];
 echo $responsavel = $_SESSION['user']['user'];
-echo $dweller = 1;
 $msg = false;
 
 if(isset($_FILES['arquivo'])){
@@ -31,16 +30,10 @@ if(isset($_FILES['arquivo'])){
 	move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio.$novo_nome);
 }
 
-$comando = "INSERT INTO republica(id, name, type, state, city, street, neighborhood, number, complement, email, phone, qtd, services, agency, dweller, img_name, responsavel) VALUES ('$id', '$name', '$type', '$state', '$city', '$street', '$neighborhood', '$number', '$complement', '$email', '$phone', '$qtd', '$services', '$agency', '$dweller', '$novo_nome', '$responsavel')";
+$comando = "INSERT INTO republica(id, name, type, state, city, street, neighborhood, number, complement, email, phone, qtd, services, agency, img_name, responsavel) VALUES ('$id', '$name', '$type', '$state', '$city', '$street', '$neighborhood', '$number', '$complement', '$email', '$phone', '$qtd', '$services', '$agency', '$novo_nome', '$responsavel')";
 
 $resultado = $conn->query($comando);
 
-
-$user_name = $_SESSION['user']['name'];
-$date = date('Y-m-d');
-$comando2 = "INSERT INTO morador(user_name, id_rep, entrada) VALUES ('$user_name','$id','$date')";
-$result = $conn->query($comando);
-
 header("location:http://localhost/production/BuscaRep/production/loged_page_user.php");
-?>
+
     

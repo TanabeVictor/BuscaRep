@@ -12,8 +12,8 @@ $cometario= $_POST['comentario'];
 
 
 
-$comando = "INSERT INTO avaliacao (id, comentario, author, date, id_rep, img_name) VALUES ('$cometario', '$author', '$date', '$id_rep', '$img_name')";
+$comando = "INSERT INTO avaliacao (comentario, author, date, id_rep, img_name) VALUES ('$cometario', '$author', '$date', '$id_rep', '$img_name')";
 
 $resultado = $conn->query($comando);
 
-header("location:http://localhost/production/BuscaRep/production/rep_view_page.php");
+header("location:http://localhost/production/BuscaRep/production/rep_view_page.php?id=$id_rep");

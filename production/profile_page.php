@@ -162,7 +162,11 @@ if ( $resultado ) {
 									</div>
 									<div class="col-md-9 col-sm-9 col-xs-12">
 										<h2>
+												<?php if($_SESSION['user']['rep_name']):?>
 												<i class="fa fa-home ">&nbsp<?= $_SESSION['user']['rep_name']?></i>
+												<?php else:?>
+												<i class="fa fa-home"> A procura de um lar...</i>
+												<?php endif; ?>
 												<br></br>
 												<?php if($_SESSION['user']['gender'] == "Masculino"):?>
 												<i class="fa fa-mars">&nbsp<?= $_SESSION['user']['gender']?></i>
@@ -210,21 +214,15 @@ if ( $resultado ) {
 					<h4 class="modal-title">Editando</h4>
 				</div>
 				<div class="modal-body">
-<form action="http://localhost/production/BuscaRep/production/profile_update.php" method="post" class="form-horizontal form-label-left" enctype="multipart/form-data">
+						<form action="http://localhost/production/BuscaRep/production/profile_update.php" method="post" class="form-horizontal form-label-left" enctype="multipart/form-data">
                        <div class="item form-group">
                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="arquivo">Imagem </label> 
                 			<div class="col-md-6 col-sm-6 col-xs-12">
                 			<image id="profileImage" src="images/user.png"/>
 							<br></br>
-               				<input class="form-control col-md-7 col-xs-12" type="file" name="arquivo">
+               				<input id="arquivo" class="form-control col-md-7 col-xs-12" type="file" name="arquivo">
 						   </div>
                        </div>
-                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="name">Nome </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="name" class="form-control col-md-7 col-xs-12" type="text" placeholder="Nome Completo" name="name">
-                        </div>
-					  </div>
                        <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="birthday">Data de Nascimento </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">

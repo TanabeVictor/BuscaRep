@@ -81,7 +81,10 @@ if(isset($_SESSION['user'])){
             <form action="http://localhost/production/BuscaRep/production/user_insert.php" method="POST" name="f1">
               <h1>Nova Conta</h1>
               <div>
-                <input name="user_name" type="text" class="form-control" placeholder="Nome de Usuário" required="required" />
+                <input name="user_name" type="text" class="form-control" placeholder="Usuário" required="required" />
+              </div>
+              <div>
+                <input name="name" type="text" class="form-control" placeholder="Nome Completo" required="required" />
               </div>
               <div>
                 <input name="email" type="email" class="form-control" placeholder="Email" required="required" />

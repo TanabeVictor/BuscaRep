@@ -233,7 +233,11 @@ $id_rep = $conn->query("SELECT id FROM republica WHERE responsavel=('$user')")->
 													  <?php foreach($avaliacao as $value){ ?>
 
 													  <li>
-													   	<img src="upload/<?= $value['img_name']?>" class="avatar"	alt="Avatar">
+															<?php if (isset($value['img_name'])):?>
+															<img src="upload/<?=$value['img_name']?>" class="avatar" alt="Avatar" alt="">
+															<?php else:?>
+															<img src="images/user.png" class="avatar" alt="Avatar" alt="">
+															<?php endif;?>
 														<div class="message_date">
 
 														<h3 class="date text-info"><?php 
@@ -243,11 +247,12 @@ $id_rep = $conn->query("SELECT id FROM republica WHERE responsavel=('$user')")->
 														$mes = $partes[1];
 														$ano = $partes[0];													  
 														echo $dia?></h3>
-														  <p class="month"><?= jdmonthname($data,2)?></p>
+													    <?php $jd=gregoriantojd($mes,$dia,$ano);?>
+														<p class="month"><?= jdmonthname($jd,0);?></p>
 														</div>
 														<div class="message_wrapper">
 														  <h4 class="heading"><?= $value['author']?></h4>
-														  <blockquote class="message"><?= $value['description']?></blockquote>
+														  <blockquote class="message"><?= $value['comentario']?></blockquote>
 														  <br />
 														</div>
 													  </li>

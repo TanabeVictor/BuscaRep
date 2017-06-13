@@ -1,14 +1,22 @@
 ﻿<?php
 include_once __DIR__ . '/connection/connect.php';
 include_once __DIR__ . '/loged_test.php';
-include_once __DIR__ . '/busca_morador.php';
 include_once __DIR__ . '/busca_avaliacao.php';
 
 $id = $_GET['id'];
 
 $res = $conn->query("SELECT * FROM gastos WHERE id_rep=('$id')")->fetch_all(MYSQL_ASSOC);
-$gastos = $res;
 //echo '<pre>'.var_export($res,true).'</pre>';
+$gastos = $res;
+
+
+$res = $conn->query("SELECT * FROM morador WHERE id_rep=('$id')")->fetch_all(MYSQL_ASSOC);
+//echo '<pre>'.var_export($res,true).'</pre>';
+$morador = $res;
+
+$res = $conn->query("SELECT * FROM avaliacao WHERE id_rep=('$id')")->fetch_all(MYSQL_ASSOC);
+//echo '<pre>'.var_export($res,true).'</pre>';
+$avaliacao = $res;
 
 $comando = "SELECT * FROM republica WHERE id=('$id')";
 
@@ -210,7 +218,7 @@ $resultado = $conn->query($comando);
 													</p>
 											</li>
 										</ul>
-										<a class="btn bg-blue" href="rep_ed_page.html" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#modal_morador"><i class="fa fa-star"></i>Avaliar</a>
+										<a class="btn bg-blue" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#modal_avaliacao"><i class="fa fa-star"></i>Avaliar</a>
 									</div>
 									<div class="col-md-9 col-sm-9 col-xs-12">
 										<div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -224,17 +232,16 @@ $resultado = $conn->query($comando);
 											</ul>
 											<div id="myTabContent" class="tab-content">
 												<div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-													<p>Lista de Avaliações...</p>
 													<!-- start recent activity -->
 													<ul class="messages" id="comments">
 
 													  <?php foreach($avaliacao as $value){ ?>
 
 													  <li>
-															<?php if ($value['img_name'] == NULL):?>
-															<img src="images/user.png" alt="">
+															<?php if (isset($value['img_name'])):?>
+															<img src="upload/<?=$value['img_name']?>" class="avatar" alt="Avatar" alt="">
 															<?php else:?>
-															<img src="upload/<?=$value['img_name']?>" alt="">
+															<img src="images/user.png" class="avatar" alt="Avatar" alt="">
 															<?php endif;?>
 														<div class="message_date">
 
@@ -245,11 +252,12 @@ $resultado = $conn->query($comando);
 														$mes = $partes[1];
 														$ano = $partes[0];													  
 														echo $dia?></h3>
-														  <p class="month"><?= jdmonthname($data,2)?></p>
+													    <?php $jd=gregoriantojd($mes,$dia,$ano);?>
+														<p class="month"><?= jdmonthname($jd,0);?></p>
 														</div>
 														<div class="message_wrapper">
 														  <h4 class="heading"><?= $value['author']?></h4>
-														  <blockquote class="message"><?= $value['description']?></blockquote>
+														  <blockquote class="message"><?= $value['comentario']?></blockquote>
 														  <br />
 														</div>
 													  </li>
@@ -281,7 +289,7 @@ $resultado = $conn->query($comando);
 																		<td class="a-center ">
 																		</td>
 																		<td class=" ">
-																			<?=$value['name']; ?>
+																			<?= $user = $value['user_name']?>
 																		</td>
 																		<td class=" ">
 																			<?= inverteData($value['entrada']) ?>
@@ -371,7 +379,7 @@ $resultado = $conn->query($comando);
 
 
 	<!-- Modal Avaliação -->
-	<div id="modal_morador" class="modal fade" role="dialog">
+	<div id="modal_avaliacao" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
@@ -381,11 +389,10 @@ $resultado = $conn->query($comando);
 					<h4 class="modal-title">Avaliação</h4>
 				</div>
 				<div class="modal-body">
-					<form action="review_insert.php" method="POST" class="form-horizontal form-label-left">
-					 <form action="" method="POST">
-                      	  <textarea id="comentario" class="form-control" name="comentario" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" placeholder="Comente aqui..." data-parsley-validation-threshold="10"></textarea>
+					<form action="review_insert.php?id=<?= $id ?>" method="POST" name="f1" class="form-horizontal form-label-left">
+                      	  <textarea id="comentario" class="form-control" name="comentario" required="required" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" placeholder="Comente aqui..." data-parsley-validation-threshold="10"></textarea>
                       	<br></br>
-                    	<input type="submit" class="btn btn-round btn-info bg-orange" name="comentar" value="Comentar">
+                    	<i class="btn btn-round btn-info bg-orange" onClick="validarMorador()" name="comentar">Comentar</i>
                      </form>
 				</div>
 				<div class="modal-footer">
@@ -425,6 +432,37 @@ $resultado = $conn->query($comando);
 	 	}
 					  
 		?>
+		
+	
+		<?php foreach($morador as $value):
+			$valida_dweller = 1;	
+				
+				if($_SESSION['user']['name'] == $value['user_name']):
+					
+					$valida_dweller = 0;
+				
+				endif;
+			
+				echo $valida_dweller;
+
+		endforeach; ?>
+
+	<script>
+		function validarMorador(){
+			if($("#comentario").val()== null || $("#comentario").val() ==""){
+				alert('Escreva algo no seu comentário!');      
+    		}
+			else if (<?=$valida_dweller?> == 1){
+					alert("Você não pode avaliar! Você não é morador da República!")
+			
+			}
+			else{
+				document.f1.submit();
+			}
+			
+		}
+   </script>
+   
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->

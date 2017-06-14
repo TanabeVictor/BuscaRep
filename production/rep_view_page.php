@@ -449,10 +449,11 @@ $resultado = $conn->query($comando);
 
 	<script>
 		function validarMorador(){
-			if($("#comentario").val()== null || $("#comentario").val() ==""){
+			/*if($("#comentario").val()== null || $("#comentario").val() ==""){
 				alert('Escreva algo no seu comentário!');      
     		}
-			else if (<?=$valida_dweller?> == 1){
+			
+			else*/ if (<?=$valida_dweller?> == 1){
 					alert("Você não pode avaliar! Você não é morador da República!")
 			
 			}

@@ -68,6 +68,13 @@ $resultado = $conn->query($comando);
                      <li><a href="rep_cad_page_user.php"> Nova República+</a></li>
 						<li><a href="rep_page_user.php">Sua República</a></li>
                     </ul>
+                    <li><a><em class="fa fa-bar-chart-o"></em> Estatísticas <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="relatorio_gastos.php">Relatório de Gastos</a></li>
+                      <li><a href="relatorio_vagas.php">Relatório de Vagas</a></li>
+                   	  <li><a href="relatorio_log.php">Registro de Ações</a></li>
+                   	</ul>
+                  </li>
                   </li>                             
                 </ul>
               </div>

@@ -78,7 +78,7 @@ if(isset($_SESSION['user'])){
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form action="http://localhost/production/BuscaRep/production/user_insert.php" method="POST" name="f1">
+            <form action="http://localhost/production/BuscaRep/production/user_insert.php" method="POST" name="dados">
               <h1>Nova Conta</h1>
               <div>
                 <input name="user_name" id="user_name" type="text" class="form-control" placeholder="Usuário" required="required" />
@@ -96,7 +96,7 @@ if(isset($_SESSION['user'])){
                 <input name="confirm_password" id="confirm_password" type="password" class="form-control"  placeholder="Confirme a Senha" required="required"/>
               </div>
               <div>
-                <input id="button" class="btn btn-default submit" value="Criar"  onClick="validarSenha()">
+                <input id="button" class="btn btn-default submit" value="Criar"  onClick="enviardados()">
               </div>
 
               <div class="clearfix"></div>
@@ -119,6 +119,54 @@ if(isset($_SESSION['user'])){
         </div>
       </div>
     </div>
+    
+    <script language="JavaScript" >
+		function enviardados(){
+			
+			password = document.dados.password.value
+			confirm_password = document.dados.confirm_password.value
+			
+			if(document.dados.user_name.value==""){
+			alert( "Preencha campo Usuário corretamente!" );
+			document.dados.tx_nome.focus();
+
+			}
+
+
+			if(document.dados.name.value==""){
+			alert( "Preencha campo Nome corretamente!" );
+			document.dados.tx_nome.focus();
+
+			}
+			
+			if( document.dados.email.value=="")
+			{
+			alert( "Preencha campo e-Mail corretamente!" );
+			document.dados.tx_email.focus();
+			}
+			
+			if(document.dados.password.value==""){
+			alert( "Preencha campo Senha corretamente!" );
+			document.dados.tx_nome.focus();
+
+			}
+			
+			if(document.dados.confirm_password.value==""){
+				alert( "Preencha campo Confirma a Senha corretamente!" );
+				document.dados.tx_nome.focus();
+
+			}
+			
+			if (password != confirm_password){
+				alert("Senhas não conferem!")
+				document.dados.tx_nome.focus();
+			}
+
+			document.dados.submit();
+		}
+ 
+</script>
+    
     
     <script language="javascript" type="text/javascript">
 		

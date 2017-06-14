@@ -1,7 +1,7 @@
 ﻿<?php
 include_once('connection/connect.php');
 
-$comando = "SELECT * FROM republica";
+$comando = "SELECT * FROM republica WHERE ativo=true";
 $resultado = mysqli_query($conn, $comando);
 ?>
 
@@ -126,7 +126,7 @@ $resultado = mysqli_query($conn, $comando);
                       </a>
                     </li>
                     <li><a href="javascript:;">Ajuda</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
+                    <li><a href="loged_page_user.php"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
                   </ul>
                 </li>
 
@@ -224,14 +224,13 @@ $resultado = mysqli_query($conn, $comando);
                   </div>
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30">
-                      Confira o relatório geral de vagas disponíveis. Caso queira ordenar, clique em uma das colunas ou se desejar fazer uma pesquisa, utilize a barra de pesquisa ao lado.
                     </p>
                     <table id="datatable" class="table">
                       <thead>
                         <tr>
                           <th>Nome ↓</th>
                           <th>Endereço ↓</th>
-                          <th>Nº - Vagas Disponíveis↓</th>
+                          <th>Vagas Disponíveis↓</th>
                           <th>Status ↓</th>
                         </tr>
                       </thead>
@@ -240,9 +239,13 @@ $resultado = mysqli_query($conn, $comando);
                       <?php while($dado = mysqli_fetch_array($resultado)){ ?>
 						  <tr>
                           <td><?php echo $dado["name"];?></td>
-                          <td><?php echo $dado["street"];?> - <?php echo $dado["neighboor"];?></td>
-                          <td><?php echo $dado["qtd"];?></td>
-                          <td><?php echo $dado["able"];?></font></td>
+                          <td><?php echo $dado['state'].' - '.$dado['city'].' - '.$dado["street"]. ' - ' .$dado["neighborhood"];?></td>
+                          <td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<?php echo $valor = $dado["qtd"] - $dado['dweller'];?></td>
+                          <?php if($dado["dweller"] == $dado["qtd"]):?>
+                          	<td>Indisponível</font></td>
+                          <?php elseif($dado["dweller"] < $dado["qtd"]): ?>
+                          	<td>Disponível</font></td>
+                          <?php endif;?>
                         </tr>
                         <?php } ?>
                         </tbody>

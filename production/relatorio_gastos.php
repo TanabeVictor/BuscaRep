@@ -126,7 +126,7 @@ $resultado = mysqli_query($conn, $comando);
                       </a>
                     </li>
                     <li><a href="javascript:;">Ajuda</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
+                    <li><a href="loged_page_user.php"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
                   </ul>
                 </li>
 
@@ -224,13 +224,13 @@ $resultado = mysqli_query($conn, $comando);
                   </div>
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30">
-                      Confira o relatório geral de gastos e custos. Por favor informe o ID da república desejada:
+                      Confira o relatório geral de gastos. Por favor informe o Nome da República desejada:
                       <form action="relatorio_gastos_table.php" method="POST" id="form" data-parsley-validate class="form-horizontal form-label-left">
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_text">ID <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_text"> República<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="id" name="id" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="rep_name" name="rep_name" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                         <button type="submit" value="enviar" class="btn btn-success">Enviar</button>
                       </div>

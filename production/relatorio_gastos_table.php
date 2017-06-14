@@ -1,8 +1,10 @@
 ﻿<?php
 include_once('connection/connect.php');
-$id = $_POST['id'];
 
-$comando = "SELECT * FROM gastos WHERE id_rep=('$id')";
+$name = $_POST['rep_name'];
+
+$id_rep = $conn->query("SELECT id FROM republica WHERE name='$name'")->fetch_assoc()['id'];
+$comando = "SELECT * FROM gastos WHERE id_rep=('$id_rep')";
 $resultado = mysqli_query($conn, $comando);
 ?>
 
@@ -127,7 +129,7 @@ $resultado = mysqli_query($conn, $comando);
                       </a>
                     </li>
                     <li><a href="javascript:;">Ajuda</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
+                    <li><a href="loged_page_user.php"><i class="fa fa-sign-out pull-right"></i> Sair</a></li>
                   </ul>
                 </li>
 
@@ -225,7 +227,6 @@ $resultado = mysqli_query($conn, $comando);
                   </div>
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30">
-                      Confira o relatório geral de gastos de sua república. Caso queira ordenar, clique em uma das colunas ou se desejar fazer uma pesquisa, utilize a barra de pesquisa ao lado.
                     </p>
                     <table id="datatable" class="table">
                       <thead>

@@ -81,19 +81,19 @@ if(isset($_SESSION['user'])){
             <form action="http://localhost/production/BuscaRep/production/user_insert.php" method="POST" name="f1">
               <h1>Nova Conta</h1>
               <div>
-                <input name="user_name" id="user_name" type="text" class="form-control" placeholder="Usuário" required />
+                <input name="user_name" id="user_name" type="text" class="form-control" placeholder="Usuário" required="required" />
               </div>
               <div>
-                <input name="name" id="name" type="text" class="form-control" placeholder="Nome Completo" required />
+                <input name="name" id="name" type="text" class="form-control" placeholder="Nome Completo" required="required" />
               </div>
               <div>
-                <input name="email" id="email" type="email" class="form-control" placeholder="Email" required />
+                <input name="email" id="email" type="email" class="form-control" placeholder="Email" required="required" />
               </div>
               <div>
-                <input name="password" id="password" type="password" class="form-control" placeholder="Senha" required />
+                <input name="password" id="password" type="password" class="form-control" placeholder="Senha" required="required" />
               </div>
               <div>
-                <input name="confirm_password" id="confirm_password" type="password" class="form-control" required placeholder="Confirme a Senha" required/>
+                <input name="confirm_password" id="confirm_password" type="password" class="form-control"  placeholder="Confirme a Senha" required="required"/>
               </div>
               <div>
                 <input id="button" class="btn btn-default submit" value="Criar"  onClick="validarSenha()">

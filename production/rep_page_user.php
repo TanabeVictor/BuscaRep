@@ -9,7 +9,7 @@ include_once __DIR__ . '/busca_avaliacao.php';
 
 $user = $_SESSION[ 'user' ][ 'user' ];
 
-$comando = "SELECT * FROM republica WHERE responsavel=('$user')";
+$comando = "SELECT * FROM republica WHERE responsavel=('$user') and ativo=true";
 
 $resultado = $conn->query( $comando );
 
@@ -211,8 +211,8 @@ $id_rep = $conn->query("SELECT id FROM republica WHERE responsavel=('$user')")->
 										</ul>
 										<!-- end of skills -->
 										<br/>
-										<a class="btn btn-success" href="rep_ed_page.html"><i class="fa fa-edit m-right-xs"></i>Editar Perfil</a>
-										<a class="btn btn-danger" href="rep_delete.php"><i class="fa fa-remove m-right-xs"></i> Deletar Perfil</a>
+										<a class="btn btn-success" href="rep_ed_page.html"><i class="fa fa-edit m-right-xs"></i> Editar</a>
+										<a class="btn btn-danger" href="rep_delete.php"><i class="fa fa-remove m-right-xs"></i> Deletar</a>
 									</div>
 									<div class="col-md-9 col-sm-9 col-xs-12">
 										<div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -289,7 +289,7 @@ $id_rep = $conn->query("SELECT id FROM republica WHERE responsavel=('$user')")->
 																		<td class="a-center ">
 																		</td>
 																		<td class=" ">
-																			<?= $user = $value['user_name'];?>
+																			<?= $value['user_name'];?>
 																		</td>
 																		<td class=" ">
 																			<?= inverteData($value['entrada']) ?>
@@ -302,7 +302,11 @@ $id_rep = $conn->query("SELECT id FROM republica WHERE responsavel=('$user')")->
 																		<?php endif; ?>
 																		</td>
 																		<td>
-																			<a class="btn btn-danger" href="morador_delete.php"><i class="fa fa-remove m-right-xs"></i></a>
+																		<?php if(empty($value['estadia'])):?>
+																			<a class="btn btn-danger" href="morador_delete.php?user=<?=$value['user_name']?>"><i class="fa fa-remove m-right-xs"></i></a>
+																			<? else: ?>
+																				<a></a>
+																		<?php endif ?>
 																		</td>
 																	</tr>
 																<?php } ?>
@@ -510,7 +514,6 @@ $id_rep = $conn->query("SELECT id FROM republica WHERE responsavel=('$user')")->
 			</div>
 		</div>
 	</div>
-
 	<?php
 
 	function inverteData($data){

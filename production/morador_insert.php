@@ -17,15 +17,9 @@ $command = "UPDATE usuario SET rep_name=('$rep_name') WHERE name=('$user_name')"
 $result = $conn->query( $command );
 
 $rep = $conn->query("SELECT dweller, qtd FROM republica WHERE id=$id_rep")->fetch_all(MYSQL_ASSOC)[0];
-echo '<pre>'.var_export($rep,true).'</pre>';
-echo $dweller = $rep['dweller'] + 1;
+//echo '<pre>'.var_export($rep,true).'</pre>';
 
-if($dweller == $rep['qtd']){
-	$command3 = "UPDATE republica SET able=false WHERE id=$id_rep";
-	$result3 = $conn->query( $command3 );
-}
-
-$command2 = "UPDATE republica SET dweller=$dweller WHERE id=$id_rep";
+$command2 = "UPDATE republica SET dweller=dweller+1 WHERE id=$id_rep";
 $result2 = $conn->query( $command2 );
 
-//header("location:http://localhost/production/BuscaRep/production/rep_page_user.php");
+header("location:http://localhost/production/BuscaRep/production/rep_page_user.php");

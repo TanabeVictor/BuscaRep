@@ -5,12 +5,11 @@ include_once __DIR__ . '/busca_avaliacao.php';
 
 $id = $_GET['id'];
 
-$res = $conn->query("SELECT * FROM gastos WHERE id_rep=('$id')")->fetch_all(MYSQL_ASSOC);
+$res = $conn->query("SELECT * FROM gastos WHERE id_rep=('$id') ORDER BY date DESC")->fetch_all(MYSQL_ASSOC);
 //echo '<pre>'.var_export($res,true).'</pre>';
 $gastos = $res;
 
-
-$res = $conn->query("SELECT * FROM morador WHERE id_rep=('$id')")->fetch_all(MYSQL_ASSOC);
+$res = $conn->query("SELECT * FROM morador WHERE id_rep=('$id') ORDER BY entrada DESC")->fetch_all(MYSQL_ASSOC);
 //echo '<pre>'.var_export($res,true).'</pre>';
 $morador = $res;
 
@@ -218,7 +217,25 @@ $resultado = $conn->query($comando);
 													</p>
 											</li>
 										</ul>
-										<a class="btn bg-blue" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#modal_avaliacao"><i class="fa fa-star"></i>Avaliar</a>
+										
+										<?php foreach($morador as $value):
+											$valida = false;
+																		
+													$str1 = $_SESSION['user']['name'];
+													$str2 = $value['user_name'];
+
+													if($str1 === $str2){
+														$valida = true;
+														break;
+													}
+											  
+										 	  endforeach; ?>
+																						
+											<?php if($valida == 1): ?>
+											<a class="btn bg-blue" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#modal_avaliacao"><i class="fa fa-star"></i>Avaliar</a>
+											<?php else: ?>
+											<a class="fa fa-exclamation-circle"> Desculpe! Você não pode avaliar essa República se nao for um morador</a>
+											<?php endif; ?>
 									</div>
 									<div class="col-md-9 col-sm-9 col-xs-12">
 										<div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -390,7 +407,7 @@ $resultado = $conn->query($comando);
 				</div>
 				<div class="modal-body">
 					<form action="review_insert.php?id=<?= $id ?>" method="POST" name="f1" class="form-horizontal form-label-left">
-                      	  <textarea id="comentario" class="form-control" name="comentario" required="required" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" placeholder="Comente aqui..." data-parsley-validation-threshold="10"></textarea>
+                      	  <textarea id="comentario" class="form-control" name="comentario" required data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" placeholder="Comente aqui..." data-parsley-validation-threshold="10"></textarea>
                       	<br></br>
                     	<i class="btn btn-round btn-info bg-orange" onClick="validarMorador()" name="comentar">Comentar</i>
                      </form>
@@ -433,37 +450,23 @@ $resultado = $conn->query($comando);
 					  
 		?>
 		
-	
-		<?php foreach($morador as $value):
-			$valida_dweller = 1;	
-				
-				if($_SESSION['user']['name'] == $value['user_name']):
-					
-					$valida_dweller = 0;
-				
-				endif;
-			
-				echo $valida_dweller;
 
-		endforeach; ?>
 
 	<script>
 		function validarMorador(){
-			/*if($("#comentario").val()== null || $("#comentario").val() ==""){
-				alert('Escreva algo no seu comentário!');      
-    		}
 			
-			else*/ if (<?=$valida_dweller?> == 1){
-					alert("Você não pode avaliar! Você não é morador da República!")
+			if($("#comentario").val()== null || $("#comentario").val() ==""){
+				alert('Escreva algo no seu comentário!');     
 			
 			}
+			
 			else{
 				document.f1.submit();
 			}
 			
 		}
    </script>
-   
+  	
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->

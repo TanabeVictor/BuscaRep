@@ -37,13 +37,16 @@ $img = $_FILES['arquivo'];
 		echo $novo_nome;
 		$comando = $conn->query(" UPDATE usuario SET birthday='$birthday', gender='$gender', phone='$phone', img_name= '$novo_nome' WHERE user='$user'");
 
-		header("location:http://localhost/production/BuscaRep/production/loged_page_user.php");
+
+		header("location:http://localhost/production/BuscaRep/production/profile_page.php");
+		
 	
 		else:
 			
 			$comando = $conn->query(" UPDATE usuario SET birthday='$birthday', gender='$gender', phone='$phone' WHERE user='$user'");
 			echo "Entrou nessa condição!";
-			header("location:http://localhost/production/BuscaRep/production/loged_page_user.php");
+
+		header("location:http://localhost/production/BuscaRep/production/profile_page.php");
 
 	endif;
 

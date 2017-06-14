@@ -2,18 +2,9 @@
 include_once __DIR__ . '/connection/connect.php';
 include_once __DIR__ . '/loged_test.php';
 
-$user_name = $_SESSION[ 'user' ][ 'user' ];
-$resultado = "SELECT id_rep FROM morador WHERE user_name = $user_name ";
-$resultado = $conn->query( $resultado );
+$user = $_SESSION[ 'user' ][ 'user' ];
+$id = $conn->query("SELECT id FROM republica WHERE responsavel='$user'")->fetch_assoc()['id'];
 
-if ( $resultado ) {
-
-	$busca = "SELECT name FROM republica WHERE id = $resultado";
-	$rep_name = $conn->query($busca);
-
-} else {
-	$rep_name = "A procura de um lar...";
-}
 
 ?>
 
@@ -38,9 +29,6 @@ if ( $resultado ) {
 
 	<!-- Custom Theme Style -->
 	<link href="../build/css/custom.min.css" rel="stylesheet">
-	<style>
-
-	</style>
 </head>
 
 <body class="nav-md">
@@ -156,8 +144,13 @@ if ( $resultado ) {
 											</div>
 										</div>
 										<br>
-										<a class="btn btn-success" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#modal_gasto"><i class="fa fa-edit m-righ-xs"></i> Editar Perfil </a>
-										<a class="btn btn-danger" href="user_delete.php"><i class="fa fa-remove m-right-xs"></i> Deletar Perfil</a>
+										
+										<a class="btn btn-success" role="tabpanel" class="tab-pane fade" aria-labelledby="profile-tab" data-toggle="modal" data-target="#modal_gasto"><i class="fa fa-edit m-righ-xs"></i> Editar&nbsp &nbsp</a>
+										<?php if($id != NULL): ?>
+											<a class="fa fa-exclamation-circle"> Você não pode deletar um perfil responsavel por uma república</a>
+										<?php else: ?>
+											<a class="btn btn-danger" href="user_delete.php"><i class="fa fa-remove m-right-xs"></i> Deletar&nbsp &nbsp</a>
+										<?php endif; ?>
 										<br/>
 									</div>
 									<div class="col-md-9 col-sm-9 col-xs-12">

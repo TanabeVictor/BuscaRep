@@ -2,12 +2,23 @@
 include_once __DIR__ . '/connection/connect.php';
 include_once __DIR__ . '/loged_test.php';
 
-$user = $_SESSION['user']['user'];
-$comando = "SELECT * FROM republica WHERE responsavel=('$user')";
-$resultado = $conn->query($comando);
+$rep_test = $_SESSION['user']['rep_name'];
 
+if($rep_test != NULL):
+	
+	header("location:http://localhost/production/BuscaRep/production/rep_default_page3.php");
+
+endif;
+
+
+$user = $_SESSION['user']['user'];
+$comando = "SELECT * FROM republica WHERE responsavel=('$user') and ativo=true";
+$resultado = $conn->query($comando);
+		
 if ($conn->affected_rows != 0):
+		
 	header("location:http://localhost/production/BuscaRep/production/rep_default_page2.php");
+
 endif;	
 	
 	$sql = "SELECT cod_estados, nome FROM estados ORDER BY nome";

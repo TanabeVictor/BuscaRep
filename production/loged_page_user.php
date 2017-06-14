@@ -170,11 +170,11 @@ $resultado = $conn->query($comando);
                             <td class=" "><?php echo $dado["name"]; ?></td>
                             <td class=" "><?php echo $dado["neighborhood"] . ', ' .$dado["street"] . ', ' . $dado["number"]; ?></td>
                             <td class=" "><?php echo masc_tel($dado["phone"]);?></td>
-                            <?php if($dado["able"]):?>
-	
-                            <td class=" "><botton class="border-dark bg-green btn-xs">Disponível</td>
-                            <?php else:?>
-                            <td class=" "><botton class="border-dark bg-red btn-xs">Indisponível</td>							
+                            
+                            <?php if($dado["dweller"] != $dado["qtd"]):?>
+                            	<td class=" "><botton class="border-dark bg-green btn-xs">Disponível</td>
+                            <?php elseif($dado["dweller"] == $dado["qtd"]):?>
+                            	<td class=" "><botton class="border-dark bg-red btn-xs">Indisponível</td>							
                             <?php endif; ?>					  
                            	<td>
                             <a href="rep_view_page.php?id=<?php echo $dado["id"]?>" class="fa fa-search-plus" class="btn btn-xs">Visualizar</a>

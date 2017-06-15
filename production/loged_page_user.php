@@ -72,7 +72,6 @@ $resultado = $conn->query($comando);
                     <ul class="nav child_menu">
                       <li><a href="relatorio_gastos.php">Relatório de Gastos</a></li>
                       <li><a href="relatorio_vagas.php">Relatório de Vagas</a></li>
-                   	  <li><a href="relatorio_log.php">Registro de Ações</a></li>
                    	</ul>
                   </li>
                   </li>                             

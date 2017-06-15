@@ -436,7 +436,7 @@ $id_rep = $conn->query("SELECT id FROM republica WHERE responsavel=('$user')")->
 										<?php } ?>
 									</table>
 								</div>
-								<p class="fa fa-exclamation-circle"> Não é permitido inserir morador sem nome</p>
+								<p class="fa fa-exclamation-circle"> Só é permitido inserir um morador por vez</p>
 							</div>
 						</div>
 
